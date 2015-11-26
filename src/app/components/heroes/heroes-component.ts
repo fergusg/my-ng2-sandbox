@@ -13,28 +13,28 @@ import ArsePipe from './arse-pipe';
     pipes: [ArsePipe]
 })
 class HeroesComponent {
-    public heroes:Hero[];
+    public heroes: Hero[];
     public title = 'Tour of Heroes';
-    public selectedHero:Hero;
-    private http:Http;
+    public selectedHero: Hero;
+    private http: Http;
 
-    constructor(http:Http) {
+    constructor(http: Http) {
         this.http = http;
         this.loadHeroes();
     }
 
     loadHeroes() {
         this.http.get('./heroes.json')
-            .map((res:Response) => res.json())
-            .subscribe((res:Hero[]) => this.heroes = res);
+            .map((res: Response) => res.json())
+            .subscribe((res: Hero[]) => this.heroes = res);
     }
 
-    onSelect(hero:Hero) {
+    onSelect(hero: Hero) {
         this.selectedHero = this.selectedHero === hero ? null : hero;
     }
 
-    getSelectedClass(hero:Hero) {
-        return {'selected': hero === this.selectedHero};
+    getSelectedClass(hero: Hero) {
+        return { 'selected': hero === this.selectedHero };
     }
 }
 

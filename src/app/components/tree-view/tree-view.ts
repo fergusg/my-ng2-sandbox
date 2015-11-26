@@ -20,5 +20,5 @@ import Directory from './directory';
 })
 
 export default class TreeView {
-    @Input('directories') public directories:Array<Directory>;
+    @Input('directories') public directories: Array<Directory>;
 }

@@ -1,4 +1,4 @@
-import {Component,CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Response} from 'angular2/http'
 
 import BookService from './address-book-service';
@@ -34,19 +34,19 @@ const __CSS = `
     styles: [__CSS]
 })
 export default class AddressBook {
-    public result:Object;
-    public title:String;
+    public result: Object;
+    public title: String;
 
-    constructor(addressBookService:BookService, addressBookTitleService:TitleService) {
+    constructor(addressBookService: BookService, addressBookTitleService: TitleService) {
         addressBookService.getEntries().subscribe(
-            (res:Response) => this.result = res,
+            (res: Response) => this.result = res,
             () => null
         );
         this.setTitle(addressBookTitleService);
         console.log('callcount', addressBookTitleService.callCount);
     }
 
-    setTitle(addressBookTitleService:TitleService) {
+    setTitle(addressBookTitleService: TitleService) {
         this.title = addressBookTitleService.getTitle();
     }
 }

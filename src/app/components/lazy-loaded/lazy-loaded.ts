@@ -20,4 +20,4 @@ export class LazyLoaded {
 
 export const A = 'a';
 
-export default class D {};
+export default class D { };

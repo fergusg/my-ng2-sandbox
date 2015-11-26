@@ -10,7 +10,7 @@ import Directory from './directory';
     directives: [CORE_DIRECTIVES, TreeView]
 })
 export default class TreeViewDemoComponent {
-    @Input() public directories:Array<Directory>;
+    @Input() public directories: Array<Directory>;
 
     constructor() {
         const fall2014_a = new Directory(

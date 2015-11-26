@@ -3,7 +3,7 @@ import {Component, View, NgIf} from 'angular2/angular2';
 @Component({
     selector: 'greeting',
     inputs: ['name'],
-    styles:[`
+    styles: [`
         .greeting {
             color:red;
             font-size: larger;
@@ -18,8 +18,8 @@ import {Component, View, NgIf} from 'angular2/angular2';
 })
 
 export default class Greeting {
-    public greeting:string = '';
-    private name:string;
+    public greeting: string = '';
+    private name: string;
 
     createGreeting() {
         this.greeting = 'Greetings, ' + this.name;
