@@ -5,7 +5,7 @@ import HeroesComponent from './components/heroes/heroes-component';
 import Home from './components/home/home';
 import GreetingComponent from './components/greeting/greeting-component';
 import TreeViewDemo from "./components/tree-view/tree-view-demo";
-import ComponentHelper from "./component-helper";
+import LoadComponentAsync from "./component-helper";
 import AddressBook from "./components/address-book/address-book";
 
 console.log('Loading index.js...');
@@ -41,7 +41,7 @@ console.log('Loading index.js...');
     }),
     new AsyncRoute({
         path: '/lazy',
-        loader: () => ComponentHelper.LoadComponentAsync('LazyLoaded', './app/components/lazy-loaded/lazy-loaded'),
+        loader: LoadComponentAsync('LazyLoaded', './app/components/lazy-loaded/lazy-loaded'),
         name: 'Lazy'
     })
 ])

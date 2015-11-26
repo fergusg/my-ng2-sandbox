@@ -1,8 +1,8 @@
-declare var System:any; // SystemJS imported globally
+declare var System: any; // SystemJS imported globally
 
-export default class ComponentHelper {
-    static LoadComponentAsync(name:string, path:string) {
-        return System.import(path).then((c:any) => {
+export default function LoadComponentAsync(name: string, path: string) {
+    return function() {
+        return System.import(path).then((c: any) => {
             console.log(c);
             return c[name];
         });
