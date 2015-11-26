@@ -1,0 +1,18 @@
+<ul>
+    <li *ng-for="#dir of directories">
+        <span class="icon-button" (click)="dir.toggle()">
+            <span *ng-if="dir.expanded">-</span>
+            <span *ng-if="!dir.expanded">+</span>
+        </span>
+        <label>
+            <input type="checkbox" [checked]="dir.checked" (click)="dir.check()"/>
+        </label>
+        <strong>{{dir.name}}</strong>
+        <div *ng-if="dir.expanded">
+            <ul>
+                <li *ng-for="#file of dir.files">{{file}}</li>
+            </ul>
+            <tree-view [directories]="dir.directories"></tree-view>
+        </div>
+    </li>
+</ul>

@@ -1,0 +1,6 @@
+.idea/
+.settings/
+*.iml
+src/**/*.js
+src/**/*.js.map
+node_modules/

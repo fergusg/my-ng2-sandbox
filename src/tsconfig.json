@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "removeComments": false,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "experimentalAsyncFunctions": true
+  }
+}
