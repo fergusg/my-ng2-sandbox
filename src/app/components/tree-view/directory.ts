@@ -2,11 +2,19 @@ export default class Directory {
 
     public expanded = true;
     public checked = false;
+    public name: string;
+    public files: Array<string>;
+    public directories: Array<Directory>;
 
-    constructor(public name: string,
-        public files: Array<string>,
-        public directories: Array<Directory> = null
-    ) { }
+    constructor(
+        name: string,
+        files: Array<string>,
+        directories: Array<Directory> = null
+    ) {
+        this.name = name;
+        this.files = files;
+        this.directories = directories;
+    }
 
     public toggle() {
         this.expanded = !this.expanded;
