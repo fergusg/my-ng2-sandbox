@@ -6,9 +6,9 @@ import Home from './components/home/home';
 import {GreetingComponent} from './components/greeting/greeting-component';
 import TreeViewDemo from "./components/tree-view/tree-view-demo";
 import ComponentHelper from "./component-helper";
-import AddressBook from "./components/address-book/address-book"
+import AddressBook from "./components/address-book/address-book";
 
-console.log('Loading index.js');
+console.log('Loading index.js...');
 
 @Component ({
     selector: 'index',
@@ -44,7 +44,6 @@ console.log('Loading index.js');
         loader: () => ComponentHelper.LoadComponentAsync('LazyLoaded', './app/components/lazy-loaded/lazy-loaded'),
         name: 'Lazy'
     })
-
 ])
 @View({
     template: `
@@ -59,9 +58,7 @@ console.log('Loading index.js');
     directives: [ROUTER_DIRECTIVES]
 })
 class Index {
-
 }
-
 
 bootstrap(Index, [HTTP_PROVIDERS, ROUTER_PROVIDERS,
     provide(LocationStrategy, {useClass: HashLocationStrategy})]);
