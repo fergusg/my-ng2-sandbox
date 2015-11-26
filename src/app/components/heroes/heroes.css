@@ -11,8 +11,8 @@
 }
 .heroes li:hover {
     color: #369;
-    background-color: #EEE;
-    left: 30px;
+    background-color: #eee;
+    left: 0.2em;
 }
 .heroes .badge {
     font-size: small;
@@ -25,6 +25,6 @@
     top: -1px;
 }
 .selected {
-    background-color: #EEE;
+    background-color: #DDD;
     color: #369;
 }
