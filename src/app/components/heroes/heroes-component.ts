@@ -1,6 +1,7 @@
 import {Component, View, FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Http, Response, HTTP_PROVIDERS} from 'angular2/http';
 import Hero from './hero';
+import ArsePipe from './arse-pipe';
 
 @Component({
     selector: 'my-app'
@@ -8,7 +9,8 @@ import Hero from './hero';
 @View({
     templateUrl: 'app/components/heroes/heroes.html',
     styleUrls: ['app/components/heroes/heroes.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
+    pipes: [ArsePipe]
 })
 class HeroesComponent {
     public heroes:Hero[];
@@ -24,7 +26,7 @@ class HeroesComponent {
     loadHeroes() {
         this.http.get('./heroes.json')
             .map((res:Response) => res.json())
-            .subscribe((res:Hero[]) => this.heroes = HeroesComponent.assignHeroNames(res));
+            .subscribe((res:Hero[]) => this.heroes = res);
     }
 
     onSelect(hero:Hero) {
@@ -33,15 +35,6 @@ class HeroesComponent {
 
     getSelectedClass(hero:Hero) {
         return {'selected': hero === this.selectedHero};
-    }
-
-    static assignHeroNames(heroes:Hero[]) {
-        heroes.forEach(h => {
-            if (/o$/.test(h.name)) {
-                h.name = `${h.name} is an ARSE`;
-            }
-        });
-        return heroes;
     }
 }
 
