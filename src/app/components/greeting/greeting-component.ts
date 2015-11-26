@@ -8,6 +8,6 @@ import Greeting from './greeting';
     `,
     directives: [Greeting]
 })
-export class GreetingComponent {
+export default class GreetingComponent {
     public name = "Joe Smith";
 }

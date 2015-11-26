@@ -3,7 +3,7 @@ import {HTTP_PROVIDERS} from 'angular2/http';
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, Route, AsyncRoute, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import HeroesComponent from './components/heroes/heroes-component';
 import Home from './components/home/home';
-import {GreetingComponent} from './components/greeting/greeting-component';
+import GreetingComponent from './components/greeting/greeting-component';
 import TreeViewDemo from "./components/tree-view/tree-view-demo";
 import ComponentHelper from "./component-helper";
 import AddressBook from "./components/address-book/address-book";
