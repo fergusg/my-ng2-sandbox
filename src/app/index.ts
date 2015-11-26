@@ -1,12 +1,14 @@
 import {bootstrap, Component, View, provide} from 'angular2/angular2';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, Route, AsyncRoute, LocationStrategy, HashLocationStrategy} from 'angular2/router';
-import HeroesComponent from './components/heroes/heroes-component';
-import Home from './components/home/home';
-import GreetingComponent from './components/greeting/greeting-component';
-import TreeViewDemo from "./components/tree-view/tree-view-demo";
+
 import LoadComponentAsync from "./component-helper";
-import AddressBook from "./components/address-book/address-book";
+
+import HeroesComponent from './components/heroes/heroes-component';
+import HomeComponent from './components/home/home';
+import GreetingComponent from './components/greeting/greeting-component';
+import TreeViewDemoComponent from "./components/tree-view/tree-view-demo";
+import AddressBookComponent from "./components/address-book/address-book";
 
 console.log('Loading index.js...');
 
@@ -21,7 +23,7 @@ console.log('Loading index.js...');
     }),
     new Route({
         path: '/',
-        component: Home,
+        component: HomeComponent,
         name: 'Home'
     }),
     new Route({
@@ -31,12 +33,12 @@ console.log('Loading index.js...');
     }),
     new Route({
         path: '/treeview',
-        component: TreeViewDemo,
+        component: TreeViewDemoComponent,
         name: 'TreeView'
     }),
     new Route({
         path: '/addressbook',
-        component: AddressBook,
+        component: AddressBookComponent,
         name: 'AddressBook'
     }),
     new AsyncRoute({

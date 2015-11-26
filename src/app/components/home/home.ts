@@ -8,4 +8,4 @@ import {Component, View} from 'angular2/angular2';
     <h1>Home Page</h1>
     `
 })
-export default class Home {}
+export default class HomeComponent {}
