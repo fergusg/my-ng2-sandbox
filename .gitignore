@@ -5,3 +5,5 @@ src/**/*.js
 src/**/*.js.map
 node_modules/
 .vscode/
+npm-debug.log
+
