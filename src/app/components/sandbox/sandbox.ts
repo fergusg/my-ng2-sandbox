@@ -3,7 +3,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router'
 
 @Component({
     selector: '[veto]',
-    template: null
+    template: "VETO"
 })
 class Veto {
 }
@@ -20,8 +20,10 @@ class Veto {
     `,
     directives: [ROUTER_DIRECTIVES, Veto]
 })
-export default class SandBoxComponent {
+class SandBoxComponent {
     veto(event:Event) {
         event.preventDefault();
     }
- }
+}
+
+export default SandBoxComponent;
