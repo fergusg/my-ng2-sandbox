@@ -9,6 +9,7 @@ import HomeComponent from './components/home/home';
 import GreetingComponent from './components/greeting/greeting-component';
 import TreeViewDemoComponent from "./components/tree-view/tree-view-demo";
 import AddressBookComponent from "./components/address-book/address-book";
+import SandBoxComponent from "./components/sandbox/sandbox";
 
 console.log('Loading index.js...');
 
@@ -41,6 +42,11 @@ console.log('Loading index.js...');
         component: AddressBookComponent,
         name: 'AddressBook'
     }),
+    new Route({
+        path: '/sandbox',
+        component: SandBoxComponent,
+        name: 'SandBox'
+    }),
     new AsyncRoute({
         path: '/lazy',
         loader: LoadComponentAsync('LazyLoaded', './app/components/lazy-loaded/lazy-loaded'),
@@ -55,6 +61,7 @@ console.log('Loading index.js...');
         <a [router-link]="['/TreeView']">Tree</a>
         <a [router-link]="['/AddressBook']">AddressBook</a>
         <a [router-link]="['/Lazy']">Lazy</a>
+        <a [router-link]="['/SandBox']">SandBox</a>
         <router-outlet></router-outlet>
     `,
     directives: [ROUTER_DIRECTIVES]
