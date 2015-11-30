@@ -1,4 +1,4 @@
-import {bootstrap, Component, View, provide} from 'angular2/angular2';
+import {bootstrap, Component, View, provide, CORE_DIRECTIVES, NgFor} from 'angular2/angular2';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, Route, AsyncRoute, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 
@@ -10,6 +10,7 @@ import GreetingComponent from './components/greeting/greeting-component';
 import TreeViewDemoComponent from "./components/tree-view/tree-view-demo";
 import AddressBookComponent from "./components/address-book/address-book";
 import SandBoxComponent from "./components/sandbox/sandbox";
+import VetoComponent from "./components/veto/veto";
 
 console.log('Loading index.js...');
 
@@ -47,6 +48,11 @@ console.log('Loading index.js...');
         component: SandBoxComponent,
         name: 'SandBox'
     }),
+    new Route({
+        path: '/veto',
+        component: VetoComponent,
+        name: 'Veto'
+    }),
     new AsyncRoute({
         path: '/lazy',
         loader: LoadComponentAsync('LazyLoaded', './app/components/lazy-loaded/lazy-loaded'),
@@ -55,18 +61,18 @@ console.log('Loading index.js...');
 ])
 @View({
     template: `
-        <a [router-link]="['/Home']">Home</a>
-        <a [router-link]="['/Greeting']">Greeting</a>
-        <a [router-link]="['/Heroes']">Heroes</a>
-        <a [router-link]="['/TreeView']">Tree</a>
-        <a [router-link]="['/AddressBook']">AddressBook</a>
-        <a [router-link]="['/Lazy']">Lazy</a>
-        <a [router-link]="['/SandBox']">SandBox</a>
+        <span *ng-for="#route of routes" >
+            <a [router-link]="[route]">{{route}}</a>
+        </span>
         <router-outlet></router-outlet>
     `,
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES]
 })
 class Index {
+    public routes:string[] = [
+        'Home', 'Greeting', 'Heroes', 'TreeView',
+        'AddressBook', 'Lazy', 'Veto', 'SandBox'
+    ];
 }
 
 bootstrap(Index, [HTTP_PROVIDERS, ROUTER_PROVIDERS,
