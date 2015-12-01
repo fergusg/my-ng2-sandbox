@@ -15,9 +15,4 @@ import LazyMessage from './lazy-message';
     `,
     directives: [LazyMessage]
 })
-export class LazyLoaded {
-}
-
-export const A = 'a';
-
-export default class D { };
+export default class LazyLoaded {}
