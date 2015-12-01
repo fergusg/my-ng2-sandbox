@@ -1,6 +1,8 @@
-import {bootstrap, Component, View, provide, CORE_DIRECTIVES, NgFor} from 'angular2/angular2';
+import {bootstrap, Component, View, provide, CORE_DIRECTIVES, NgFor}
+    from 'angular2/angular2';
 import {HTTP_PROVIDERS} from 'angular2/http';
-import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, Route, AsyncRoute, LocationStrategy, HashLocationStrategy} from 'angular2/router';
+import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, Route,
+    AsyncRoute, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 
 import LoadComponentAsync from "./component-helper";
 
