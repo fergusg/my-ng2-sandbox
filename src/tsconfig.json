@@ -6,7 +6,6 @@
     "emitDecoratorMetadata": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "experimentalDecorators": true,
-    "experimentalAsyncFunctions": true
+    "experimentalDecorators": true
   }
 }
