@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "live-server": "^0.8.2",
-    "typescript": "^1.6.2"
+    "typescript": "^1.7.3",
+    "tslint": "^3.1.1"
   }
 }
