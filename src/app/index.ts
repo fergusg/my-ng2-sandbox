@@ -16,7 +16,7 @@ import SandBoxComponent from "./components/sandbox/sandbox";
 // Can't yet find a way to include this with the class
 const ROUTE_NAMES: any = [];
 const ROUTE_MAP: any = {};
-function makeRoute(component: any, path: string = null) {
+function makeRoute(component: any, path?: string) {
     const name:string = component.name.replace(/Component$/, "");
     path = path ? path : "/" + name.toLowerCase();
 
