@@ -15,4 +15,4 @@ import LazyMessage from './lazy-message';
     `,
     directives: [LazyMessage]
 })
-export default class LazyLoaded {}
+export default class LazyLoadedComponent {}
