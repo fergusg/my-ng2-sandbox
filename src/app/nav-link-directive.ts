@@ -16,14 +16,14 @@ declare var window: any;
 })
 class NavLink {
     private route: any[];
-    private path: string;
-    private element:Element;
+    private path: string; // via getPath()
+    private element: Element;
     private activeClass: string = "nav-link-active";
 
     constructor(
         private router: Router,
         private location: Location,
-        element: ElementRef
+        element: ElementRef // injected
     ) {
         this.element = element.nativeElement;
     }
@@ -33,10 +33,10 @@ class NavLink {
         // "home" path is "", others "/xxxxx"
         let ret = (curr === `/${this.path}`) || (curr === this.path);
 
+        const classList = this.element.classList;
         new Promise(resolve => {
             resolve();
             for (let c of this.activeClass.split(/\s+/)) {
-                const classList = this.element.classList;
                 if (ret) {
                     classList.add(c);
                 } else {
@@ -47,9 +47,6 @@ class NavLink {
         return ret;
     }
 
-    /**
-     *
-     */
     private getPath(hash: boolean = false): string {
         if (!this.path) {
             // Can't do this in the constructor as route isn't set 'til later
