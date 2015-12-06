@@ -1,8 +1,6 @@
 import {Directive, ElementRef} from "angular2/angular2";
 import {Router, Location} from "angular2/router";
 
-declare var window: any;
-
 @Directive({
     selector: "[nav-link]",
     host: {
