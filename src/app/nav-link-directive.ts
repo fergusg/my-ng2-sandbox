@@ -1,12 +1,13 @@
 import {Directive, ElementRef} from "angular2/angular2";
 import {Router, Location} from "angular2/router";
 
+declare var window: any;
+
 @Directive({
     selector: "[nav-link]",
     host: {
         "(click)": "onClick($event)",
-        "[attr.href]": "getPath(true)",
-        "[class.nav-link-active]": "isActive()"
+        "[attr.href]": "getPath(true)"
     },
     inputs: [
         "route:nav-link",
@@ -31,20 +32,31 @@ class NavLink {
         const curr = this.location.path();
         // "home" path is "", others "/xxxxx"
         let ret = (curr === `/${this.path}`) || (curr === this.path);
-        console.log(this.activeClass);
-        if (ret) {
-            this.element.classList.add(this.activeClass);
-        } else {
-            this.element.classList.remove(this.activeClass);
-        }
+
+        new Promise(resolve => {
+            resolve();
+            for (let c of this.activeClass.split(/\s+/)) {
+                const classList = this.element.classList;
+                if (ret) {
+                    classList.add(c);
+                } else {
+                    classList.remove(c);
+                }
+            }
+        });
         return ret;
     }
 
+    /**
+     *
+     */
     private getPath(hash: boolean = false): string {
         if (!this.path) {
             // Can't do this in the constructor as route isn't set 'til later
             this.path = this.router.generate(this.route).toUrlPath();
         }
+
+        this.isActive();
         if (hash) {
             return this.path ? `#/${this.path}` : "";
         } else {
@@ -52,7 +64,7 @@ class NavLink {
         }
     }
 
-    public onClick($event: Event): void {
+    private onClick($event: Event): void {
         $event.preventDefault(); // don't navigate to href.
         this.router.navigate(this.route);
     }

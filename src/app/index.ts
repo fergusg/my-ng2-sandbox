@@ -16,7 +16,7 @@ import SandBoxComponent from "./components/sandbox/sandbox";
 
 // Can't yet find a way to include this with the class
 // (makeRoute is called before the class is instantiated)
-interface IROUTE {name:string, text:string};
+interface IROUTE { name: string, text: string };
 const ROUTES: IROUTE[] = [];
 function makeRoute({
     component = <any>null,
@@ -29,8 +29,8 @@ function makeRoute({
         name = component.name.replace(/Component$/, "");
     }
     if (name) {
-        text = text==null ? name : text;
-        ROUTES.push({name, text});
+        text = text == null ? name : text;
+        ROUTES.push({ name, text });
     } else {
         throw "Can't determine a name for the route";
     }
@@ -50,7 +50,7 @@ function makeRoute({
 })
 @RouteConfig([
     makeRoute({ component: HomeComponent, path: '' }),
-    makeRoute({ component: HeroesBlahBlah}),
+    makeRoute({ component: HeroesBlahBlah }),
     makeRoute({ component: GreetingComponent }),
     makeRoute({ component: TreeViewComponent }),
     makeRoute({ component: AddressBookComponent }),
@@ -61,21 +61,42 @@ function makeRoute({
 ])
 @View({
     template: `
-        <span *ng-for="#route of routes" >
-            <a [nav-link]="[route.name]">{{route.text}}</a>
+        <span *ng-for="#route of routes; #idx=index" >
+            <a [nav-link-active]="getLinkStyle(idx)" [nav-link]="[route.name]">{{route.text}}</a>
         </span>
         <router-outlet></router-outlet>
     `,
     styles: [`
+        a {
+            text-decoration: none;
+        }
+
         .nav-link-active {
-            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .nav-style-1 {
+            color: green;
+        }
+        .nav-style-2 {
             color: red;
+            text-decoration: underline;
+        }
+        .nav-style-3 {
+            color: blue;
         }
     `],
     directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES, NavLink]
 })
 class Index {
     public routes = ROUTES;
+
+    private colours = ["nav-style-1 nav-link-active", "nav-style-2", "nav-style-3"];
+    private nColours = this.colours.length;
+
+    public getLinkStyle(i: any) {
+        return this.colours[i % this.nColours];
+    }
 }
 
 bootstrap(Index, [HTTP_PROVIDERS, ROUTER_PROVIDERS,
