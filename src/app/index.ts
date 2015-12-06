@@ -17,7 +17,7 @@ import SandBoxComponent from "./components/sandbox/sandbox";
 // Can't yet find a way to include this with the class
 // (makeRoute is called before the class is instantiated)
 interface IROUTE { name: string, text: string };
-const ROUTES: IROUTE[] = [];
+const ROUTES: Array<IROUTE> = [];
 function makeRoute({
     component = <any>null,
     path = <string>null,
@@ -75,14 +75,14 @@ function makeRoute({
             cursor: pointer;
         }
 
-        .nav-style-1 {
+        .nav-style-0 {
             color: green;
         }
-        .nav-style-2 {
+        .nav-style-1 {
             color: red;
             text-decoration: underline;
         }
-        .nav-style-3 {
+        .nav-style-2 {
             color: blue;
         }
     `],
@@ -91,11 +91,11 @@ function makeRoute({
 class Index {
     public routes = ROUTES;
 
-    private colours = ["nav-style-1 nav-link-active", "nav-style-2", "nav-style-3"];
-    private nColours = this.colours.length;
+    private static colours = ["nav-style-0", "nav-style-1", "nav-style-2"];
+    private static nColours = Index.colours.length;
 
-    public getLinkStyle(i: any) {
-        return this.colours[i % this.nColours];
+    public getLinkStyle(i: number) {
+        return Index.colours[i % Index.nColours];
     }
 }
 
