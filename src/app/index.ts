@@ -6,7 +6,7 @@ AsyncRoute, LocationStrategy, HashLocationStrategy} from "angular2/router";
 import LoadComponentAsync from "./component-helper";
 import NavLink from "./nav-link-directive";
 
-import HeroesComponent from "./components/heroes/heroes-component";
+import HeroesBlahBlah from "./components/heroes/heroes-component";
 import HomeComponent from "./components/home/home";
 import GreetingComponent from "./components/greeting/greeting-component";
 import TreeViewComponent from "./components/tree-view/tree-view-demo";
@@ -14,55 +14,68 @@ import AddressBookComponent from "./components/address-book/address-book";
 import VetoComponent from "./components/veto/veto";
 import SandBoxComponent from "./components/sandbox/sandbox";
 
-
 // Can't yet find a way to include this with the class
-const ROUTE_NAMES: any = [];
-function makeRoute(component: any, path?: string) {
-    const name: string = component.name.replace(/Component$/, "");
-    path = (typeof path !== 'undefined') ? path : "/" + name.toLowerCase();
+// (makeRoute is called before the class is instantiated)
+interface IROUTE {name:string, text:string};
+const ROUTES: IROUTE[] = [];
+function makeRoute({
+    component = <any>null,
+    path = <string>null,
+    loadFrom = <string>null,
+    name = <string>null,
+    text = <string>null,
+}) {
+    if (component != null && name == null) {
+        name = component.name.replace(/Component$/, "");
+    }
+    if (name) {
+        text = text==null ? name : text;
+        ROUTES.push({name, text});
+    } else {
+        throw "Can't determine a name for the route";
+    }
 
-    ROUTE_NAMES.push(name);
-    // ES6: key-name = value-name by default
-    // i.e., this is shorthand for {component:component, name:name, path:path}
-    return new Route({ component, name, path });
-}
+    path = path ? path : "/" + name.toLowerCase();
 
-function makeLazyRoute(loadFrom: string, name: string, path?: string) {
-    ROUTE_NAMES.push(name);
-    const loader = LoadComponentAsync(loadFrom);
-    path = (typeof path !== 'undefined') ? path : "/" + name.toLowerCase();
-    return new AsyncRoute({ loader, name, path });
+    if (loadFrom != null) {
+        let loader = LoadComponentAsync(loadFrom);
+        return new AsyncRoute({ loader, name, path });
+    } else {
+        return new Route({ component, name, path });
+    }
 }
 
 @Component({
     selector: "index"
 })
 @RouteConfig([
-    makeRoute(HomeComponent, '/'),
-    makeRoute(HeroesComponent),
-    makeRoute(GreetingComponent),
-    makeRoute(TreeViewComponent),
-    makeRoute(AddressBookComponent),
-    makeRoute(SandBoxComponent),
-    makeRoute(VetoComponent),
-    makeLazyRoute("./app/components/lazy-loaded/lazy-loaded", "Lazy")
+    makeRoute({ component: HomeComponent, path: '' }),
+    makeRoute({ component: HeroesBlahBlah}),
+    makeRoute({ component: GreetingComponent }),
+    makeRoute({ component: TreeViewComponent }),
+    makeRoute({ component: AddressBookComponent }),
+    makeRoute({ component: SandBoxComponent }),
+    makeRoute({ component: VetoComponent }),
+    makeRoute({ component: SandBoxComponent, name: 'ExtraSandbox' }),
+    makeRoute({ loadFrom: "./app/components/lazy-loaded/lazy-loaded", name: "Lazy" })
 ])
 @View({
     template: `
         <span *ng-for="#route of routes" >
-            <a [nav-link]="[route]">{{route}}</a>
+            <a [nav-link]="[route.name]">{{route.text}}</a>
         </span>
         <router-outlet></router-outlet>
     `,
     styles: [`
-        .active {
+        .nav-link-active {
             font-weight: bold;
+            color: red;
         }
     `],
     directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES, NavLink]
 })
 class Index {
-    public routes = ROUTE_NAMES;
+    public routes = ROUTES;
 }
 
 bootstrap(Index, [HTTP_PROVIDERS, ROUTER_PROVIDERS,
