@@ -26,28 +26,22 @@ class NavLink {
         this.element = element.nativeElement;
     }
 
-    private setActive(): void {
-        const curr = this.location.path();
-        // "home" path is "", others "/xxxxx"
-        let active = (curr === `/${this.path}`) || (curr === this.path);
-
-        const classList = this.element.classList;
-        for (let c of this.activeClass.split(/\s+/)) {
-            if (active) {
-                classList.add(c);
-            } else {
-                classList.remove(c);
-            }
-        }
-    }
-
     private getPath(): string {
+        const curr = this.location.path();
+        const classList = this.element.classList;
+
         if (!this.path) {
             // Can't do this in the constructor as route isn't set 'til later
             this.path = this.router.generate(this.route).toUrlPath();
         }
 
-        this.setActive();
+        // "home" path is "", others "/xxxxx"
+        let active = (curr === `/${this.path}`) || (curr === this.path);
+
+        for (let c of this.activeClass.split(/\s+/)) {
+            active ? classList.add(c) : classList.remove(c);
+        }
+
         return this.path ? `#/${this.path}` : "";
     }
 
