@@ -33,13 +33,13 @@ const __CSS = `
     providers: [BookService, TitleService],
     styles: [__CSS]
 })
-export default class AddressBook {
-    public result: Object;
-    public title: String;
+class AddressBook {
+    public result: any;
+    public title: string;
 
     constructor(addressBookService: BookService, addressBookTitleService: TitleService) {
         addressBookService.getEntries().subscribe(
-            (res: Response) => this.result = res,
+            (res) => this.result = res,
             () => null
         );
         this.setTitle(addressBookTitleService);
@@ -51,3 +51,4 @@ export default class AddressBook {
     }
 }
 
+export default AddressBook;
