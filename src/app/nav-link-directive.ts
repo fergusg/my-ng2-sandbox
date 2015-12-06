@@ -5,7 +5,7 @@ import {Router, Location} from "angular2/router";
     selector: "[nav-link]",
     host: {
         "(click)": "onClick($event)",
-        "[attr.href]": "getPath(true)"
+        "[attr.href]": "getPath()"
     },
     inputs: [
         "route:nav-link",
@@ -21,42 +21,34 @@ class NavLink {
     constructor(
         private router: Router,
         private location: Location,
-        element: ElementRef // injected
+        element: ElementRef
     ) {
         this.element = element.nativeElement;
     }
 
-    private isActive(): boolean {
+    private setActive(): void {
         const curr = this.location.path();
         // "home" path is "", others "/xxxxx"
-        let ret = (curr === `/${this.path}`) || (curr === this.path);
+        let active = (curr === `/${this.path}`) || (curr === this.path);
 
         const classList = this.element.classList;
-        new Promise(resolve => {
-            resolve();
-            for (let c of this.activeClass.split(/\s+/)) {
-                if (ret) {
-                    classList.add(c);
-                } else {
-                    classList.remove(c);
-                }
+        for (let c of this.activeClass.split(/\s+/)) {
+            if (active) {
+                classList.add(c);
+            } else {
+                classList.remove(c);
             }
-        });
-        return ret;
+        }
     }
 
-    private getPath(hash: boolean = false): string {
+    private getPath(): string {
         if (!this.path) {
             // Can't do this in the constructor as route isn't set 'til later
             this.path = this.router.generate(this.route).toUrlPath();
         }
 
-        this.isActive();
-        if (hash) {
-            return this.path ? `#/${this.path}` : "";
-        } else {
-            return this.path ? `/${this.path}` : "";
-        }
+        this.setActive();
+        return this.path ? `#/${this.path}` : "";
     }
 
     private onClick($event: Event): void {
