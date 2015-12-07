@@ -1,4 +1,4 @@
-class Hero {
+interface Hero {
     id: number;
     name: string;
 }
