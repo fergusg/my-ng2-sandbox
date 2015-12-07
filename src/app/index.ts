@@ -49,7 +49,7 @@ function makeRoute({
     selector: "index"
 })
 @RouteConfig([
-    makeRoute({ component: HomeComponent, path: '' }),
+    makeRoute({ component: HomeComponent, path: '/' }),
     makeRoute({ component: HeroesBlahBlah }),
     makeRoute({ component: GreetingComponent }),
     makeRoute({ component: TreeViewComponent }),
@@ -62,7 +62,11 @@ function makeRoute({
 @View({
     template: `
         <span *ng-for="#route of routes; #idx=index" >
-            <a [nav-link-active]="getLinkStyle(idx)" [nav-link]="[route.name]">{{route.text}}</a>
+            <a [nav-link-enabled]="isEnabled(route.name)"
+                [nav-link-active]="getLinkStyle(idx)"
+                [nav-link]="[route.name]"
+                [class.inactive]="!isEnabled(route.name)"
+            >{{route.text}}</a>
         </span>
         <router-outlet></router-outlet>
     `,
@@ -85,6 +89,11 @@ function makeRoute({
         .nav-style-2 {
             color: blue;
         }
+
+        .inactive {
+            color: lightgray;
+            cursor: not-allowed;
+        }
     `],
     directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES, NavLink]
 })
@@ -96,6 +105,10 @@ class Index {
 
     public getLinkStyle(i: number) {
         return Index.colours[i % Index.nColours];
+    }
+
+    public isEnabled(route:string) {
+        return !/Veto/.test(route);
     }
 }
 
