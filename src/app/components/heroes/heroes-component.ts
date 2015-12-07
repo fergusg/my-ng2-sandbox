@@ -16,10 +16,8 @@ class HeroesComponent {
     public heroes: Hero[];
     public title = 'Tour of Heroes';
     public selectedHero: Hero;
-    private http: Http;
 
-    constructor(http: Http) {
-        this.http = http;
+    constructor(private http: Http) {
         this.loadHeroes();
     }
 
@@ -33,8 +31,8 @@ class HeroesComponent {
         this.selectedHero = this.selectedHero === hero ? null : hero;
     }
 
-    getSelectedClass(hero: Hero) {
-        return { 'selected': hero === this.selectedHero };
+    isSelected(hero: Hero): boolean {
+        return hero === this.selectedHero
     }
 }
 
