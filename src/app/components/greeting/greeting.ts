@@ -16,12 +16,18 @@ import {Component, Input /*, NgIf*/ } from 'angular2/angular2';
     // directives: [NgIf]  // Doesn't seem needed
 })
 export default class Greeting {
-    // public/private doesn't matter here, as the template is
-    // evaluated at runtime (outside typecript)
     greeting: string;
-    @Input() private name: string;
+    @Input('name') private _name: string;
 
     greet() {
         this.greeting = `Hello, ${this.name}`;
+    }
+
+    set name(name:string) {
+        this._name = name;
+    }
+
+    get name() {
+        return this._name;
     }
 }
