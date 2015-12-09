@@ -1,27 +1,27 @@
-import {Component, View, NgIf} from 'angular2/angular2';
+import {Component, Input /*, NgIf*/ } from 'angular2/angular2';
 
 @Component({
     selector: 'greeting',
-    inputs: ['name'],
+    // ALT inputs: ['name'],
     styles: [`
         .greeting {
             color:red;
-            font-size: larger;
-            transition: all 1s ease;
+            font-size: 36px;
         }
     `],
     template: `
         <div *ng-if="greeting" class="greeting">{{greeting}}</div>
-        <button *ng-if="!greeting" (click)="createGreeting()">Create Greeting</button>
+        <button *ng-if="!greeting" (click)="greet()">Create Greeting</button>
     `,
-    directives: [NgIf]
+    // directives: [NgIf]  // Doesn't seem needed
 })
-
 export default class Greeting {
-    public greeting: string = "";
-    private name: string;
+    // public/private doesn't matter here, as the template is
+    // evaluated at runtime (outside typecript)
+    greeting: string;
+    @Input() private name: string;
 
-    createGreeting() {
-        this.greeting = `Greetings, ${this.name}`;
+    greet() {
+        this.greeting = `Hello, ${this.name}`;
     }
 }
