@@ -10,24 +10,25 @@ import {Component, Input /*, NgIf*/ } from 'angular2/angular2';
         }
     `],
     template: `
-        <div *ng-if="greeting" class="greeting">{{greeting}}</div>
-        <button *ng-if="!greeting" (click)="greet()">Create Greeting</button>
+        <div *ng-if="canGreet" class="greeting">{{name}}</div>
+        <button *ng-if="!canGreet" (click)="greet()">Create Greeting</button>
     `,
     // directives: [NgIf]  // Doesn't seem needed
 })
 export default class Greeting {
     greeting: string;
+    canGreet: boolean;
     @Input('name') private _name: string;
 
     greet() {
-        this.greeting = `Hello, ${this.name}`;
+        this.canGreet = true;
     }
 
-    set name(name:string) {
+    set name(name: string) {
         this._name = name;
     }
 
     get name() {
-        return this._name;
+        return `Hello ${this._name}`;
     }
 }
