@@ -18,10 +18,10 @@ import {Component, View, NgIf} from 'angular2/angular2';
 })
 
 export default class Greeting {
-    public greeting: string = '';
+    public greeting: string = "";
     private name: string;
 
     createGreeting() {
-        this.greeting = 'Greetings, ' + this.name;
+        this.greeting = `Greetings, ${this.name}`;
     }
 }
