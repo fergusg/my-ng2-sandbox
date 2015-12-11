@@ -4,6 +4,7 @@
 src/**/*.js
 src/**/*.js.map
 node_modules/
+jspm_packages/
 .vscode/
 npm-debug.log
 src/node_modules
