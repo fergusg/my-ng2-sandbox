@@ -39,8 +39,8 @@ class AddressBook {
 
     constructor(addressBookService: BookService, addressBookTitleService: TitleService) {
         addressBookService.getEntries().subscribe(
-            (res) => this.result = res,
-            () => null
+            (res:any) => this.result = res,
+            ():any => null
         );
         this.setTitle(addressBookTitleService);
         console.log('callcount', addressBookTitleService.callCount);
