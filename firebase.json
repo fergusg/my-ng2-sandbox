@@ -1,0 +1,9 @@
+{
+  "firebase": "my-ng2-sandbox",
+  "public": "src",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
