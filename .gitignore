@@ -5,6 +5,8 @@ src/**/*.js
 src/**/*.js.map
 node_modules/
 jspm_packages/
+release/
+build/
 .vscode/
 npm-debug.log
 src/node_modules
