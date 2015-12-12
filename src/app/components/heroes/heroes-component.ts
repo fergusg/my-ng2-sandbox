@@ -2,6 +2,7 @@ import {Component, View, FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angula
 import {Http, Response, HTTP_PROVIDERS} from 'angular2/http';
 import Hero from './hero';
 import ArsePipe from './arse-pipe';
+import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'my-app'

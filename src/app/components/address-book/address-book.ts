@@ -8,9 +8,9 @@ const __TEMPLATE = `
     <h1>Dependency Injection</h1>
     <h2>{{title}}</h2>
 
-    <div *ng-if="!result">loading...</div>
-    <table class="table" *ng-if="result">
-        <tr *ng-for="#person of result.people">
+    <div *ngIf="!result">loading...</div>
+    <table class="table" *ngIf="result">
+        <tr *ngFor="#person of result.people">
             <td class="name">{{person.name}}</td>
             <td class="address">{{person.address}}</td>
         </tr>

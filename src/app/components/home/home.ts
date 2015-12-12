@@ -4,7 +4,7 @@ import {Component, View, CORE_DIRECTIVES} from 'angular2/angular2';
     selector: 'home',
     template: `
     <h1>{{title}}</h1>
-    <span *ng-for="#d of data">{{d}} </span>
+    <span *ngFor="#d of data">{{d}} </span>
     `,
     directives: [CORE_DIRECTIVES]
 })

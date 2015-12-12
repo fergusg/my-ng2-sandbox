@@ -10,8 +10,8 @@ import {Component, Input /*, NgIf*/ } from 'angular2/angular2';
         }
     `],
     template: `
-        <div *ng-if="canGreet" class="greeting">{{name}}</div>
-        <button *ng-if="!canGreet" (click)="greet()">Create Greeting</button>
+        <div *ngIf="canGreet" class="greeting">{{name}}</div>
+        <button *ngIf="!canGreet" (click)="greet()">Create Greeting</button>
     `,
     // directives: [NgIf]  // Doesn't seem needed
 })

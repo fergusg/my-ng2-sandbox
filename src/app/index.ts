@@ -61,7 +61,7 @@ function makeRoute({
 ])
 @View({
     template: `
-        <span *ng-for="#route of routes; #idx=index" >
+        <span *ngFor="#route of routes; #idx=index" >
             <a [nav-link-enabled]="isEnabled(route.name)"
                 [nav-link-active]="getLinkStyle(idx)"
                 [nav-link]="[route.name]"

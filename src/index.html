@@ -7,7 +7,13 @@
     <script src="node_modules/angular2/bundles/router.dev.js"></script>
     <script>
         System.config({
-            packages: {'app': {defaultExtension: 'js'}}
+            packages: {
+                'app': {defaultExtension: 'js'},
+                'node_modules': {defaultExtension: 'js'}
+            },
+            paths: {
+                'rxjs/*' : 'node_modules/rxjs/*.js'
+            }
         });
         System.import('app/index');
     </script>
