@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc -p src -w",
-    "start": "live-server src"
+    "tsc": "tsc -p . -w",
+    "start": "live-server"
   },
   "keywords": [],
   "author": "Fergus Gallagher",
@@ -25,18 +25,22 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-typescript": "^2.10.0",
     "live-server": "^0.8.2",
+    "merge-stream": "^1.0.0",
     "typescript": "^1.7.3"
   },
   "jspm": {
     "dependencies": {
-      "angular2": "npm:angular2@2.0.0-alpha.48",
+      "angular2": "npm:angular2@^2.0.0-alpha.52",
+      "crypto": "github:jspm/nodelibs-crypto@^0.1.0",
       "es6-shim": "github:es-shims/es6-shim@^0.33.13",
       "reflect-metadata": "npm:reflect-metadata@^0.1.2",
       "rxjs": "npm:rxjs@^5.0.0-alpha.14",
       "systemjs": "npm:systemjs@^0.19.6",
-      "zone.js": "npm:zone.js@^0.5.9"
+      "zone.js": "npm:zone.js@^0.5.10"
     },
     "devDependencies": {
+      "traceur": "github:jmcriffey/bower-traceur@0.0.92",
+      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.92",
       "typescript": "npm:typescript@^1.6.2"
     }
   }
