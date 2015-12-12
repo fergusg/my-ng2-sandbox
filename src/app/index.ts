@@ -56,10 +56,9 @@ function makeRoute({
     makeRoute({ component: HeroesBlahBlah }),
     makeRoute({ component: GreetingComponent }),
     makeRoute({ component: TreeViewComponent }),
-    makeRoute({ component: AddressBookComponent }),
     makeRoute({ component: SandBoxComponent }),
+    makeRoute({ component: AddressBookComponent }),
     makeRoute({ component: VetoComponent }),
-    makeRoute({ component: SandBoxComponent, name: 'ExtraSandbox' }),
     makeRoute({ loadFrom: "./app/components/lazy-loaded/lazy-loaded", name: "Lazy" })
 ])
 @View({
@@ -70,6 +69,9 @@ function makeRoute({
                 [nav-link]="[route.name]"
                 [class.inactive]="!isEnabled(route.name)"
             >{{route.text}}</a>
+        </span>
+        <span >
+            <a nav-link-active="nav-style-1" [nav-link]="['SandBox']" >SandBox2</a>
         </span>
         <router-outlet></router-outlet>
     `,
