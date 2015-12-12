@@ -1,4 +1,6 @@
+<!doctype html>
 <html>
+
 <head>
     <title>My Angular2 Sandbox</title>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
@@ -7,18 +9,18 @@
     <script src="node_modules/angular2/bundles/router.dev.js"></script>
     <script>
         System.config({
-            packages: {
-                'app': {defaultExtension: 'js'},
-                'node_modules': {defaultExtension: 'js'}
-            },
+            defaultJSExtensions: true,
             paths: {
-                'rxjs/*' : 'node_modules/rxjs/*.js',
+                'app/*': 'app/*.js',
+                '*': 'node_modules/*.js'
             }
         });
         System.import('app/index');
     </script>
 </head>
+
 <body>
     <index>loading...</index>
 </body>
+
 </html>
