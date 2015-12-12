@@ -1,0 +1,23 @@
+application: my-ng2-sandbox
+runtime: python27
+version: 1
+api_version: 1
+threadsafe: yes
+
+handlers:
+
+- url: /
+  static_files: static/index.html
+  upload: static/index.html
+  secure: always
+
+- url: /(.*)
+  static_files: static/\1
+  upload: static/(.*)
+  secure: always
+
+- url: /(.*.js.map)
+  static_files: static/\1
+  mime_type: application/json
+  upload: static/(.*)
+  secure: always

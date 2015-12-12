@@ -20,7 +20,6 @@ var paths = {
         'node_modules/systemjs/**',
         'node_modules/angular2/bundles/**',
         'node_modules/rxjs/**',
-        'jspm_packages/**',
         '!**/tests/**',
         '!**/test/**',
         '!**/docs/**',
