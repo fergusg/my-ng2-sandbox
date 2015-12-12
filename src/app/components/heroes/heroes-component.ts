@@ -5,7 +5,7 @@ import ArsePipe from './arse-pipe';
 import 'rxjs/add/operator/map';
 
 @Component({
-    selector: 'my-app'
+    selector: 'heroes'
 })
 @View({
     templateUrl: 'app/components/heroes/heroes.html',
