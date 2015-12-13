@@ -38,7 +38,7 @@ class AddressBook {
     public title: string;
 
     constructor(addressBookService: BookService, addressBookTitleService: TitleService) {
-        addressBookService.getEntries().subscribe(
+        addressBookService.get().subscribe(
             (res:any) => this.result = res,
             ():any => null
         );
