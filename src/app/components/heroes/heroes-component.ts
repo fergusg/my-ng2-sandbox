@@ -24,7 +24,7 @@ class HeroesComponent {
 
     constructor(private http: Http, private heroService: HeroesService) {
         HeroesComponent.LOADCOUNT++;
-        heroService.getHeroes().subscribe(
+        heroService.get().subscribe(
             (res:any) => this.heroes = res,
             ():any => null
         );
