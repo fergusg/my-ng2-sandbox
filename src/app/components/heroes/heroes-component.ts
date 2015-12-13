@@ -1,10 +1,13 @@
 import {Component, View, FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Http, Response, HTTP_PROVIDERS} from 'angular2/http';
 import Hero from './hero';
+import HeroesService from './heroes-service';
 import ArsePipe from './arse-pipe';
 
+
 @Component({
-    selector: 'heroes'
+    selector: 'heroes',
+    providers: [HeroesService]
 })
 @View({
     templateUrl: 'app/components/heroes/heroes.html',
@@ -19,23 +22,13 @@ class HeroesComponent {
     public title: string;
     public selectedHero: Hero;
 
-    constructor(private http: Http) {
-        this.loadHeroes();
-        this.title = `Tour of Heroes ${HeroesComponent.LOADCOUNT}`;
-    }
-
-    loadHeroes() {
+    constructor(private http: Http, private heroService: HeroesService) {
         HeroesComponent.LOADCOUNT++;
-        if (HeroesComponent.HEROES) {
-            this.heroes = HeroesComponent.HEROES;
-            return;
-        }
-        this.http.get('./heroes.json')
-            .map((res: Response) => res.json())
-            .subscribe((res: Hero[]) => {
-                this.heroes = res;
-                HeroesComponent.HEROES = res;
-            });
+        heroService.getHeroes().subscribe(
+            (res:any) => this.heroes = res,
+            ():any => null
+        );
+        this.title = `Tour of Heroes ${HeroesComponent.LOADCOUNT}`;
     }
 
     onSelect(hero: Hero) {
