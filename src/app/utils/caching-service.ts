@@ -12,12 +12,12 @@ abstract class CachingService {
 
     constructor(protected http: Http) {}
 
-    private cached() {
+    private cached(): Observable<any> {
         let r = CachingService.CACHE.get(this.src);
         return r ? Observable.of(r) : null;
     }
 
-    private load() {
+    private load(): Observable<any> {
         return this.http.get(this.src).map(
             (res: Response) => {
                 let r = res.json();
@@ -27,7 +27,7 @@ abstract class CachingService {
         );
     }
 
-    public get() {
+    public get(): Observable<any> {
         return this.cached() || this.load();
     }
 }
