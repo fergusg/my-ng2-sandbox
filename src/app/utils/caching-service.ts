@@ -4,13 +4,13 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 abstract class CachingService {
-    private static CACHED: Map<string, any> = new Map<string, any>();
+    private static CACHE: Map<string, any> = new Map<string, any>();
     protected src: string;
 
     constructor(protected http: Http) {}
 
     private cached() {
-        let r = CachingService.CACHED.get(this.src);
+        let r = CachingService.CACHE.get(this.src);
         return r ? Observable.of(r) : null;
     }
 
@@ -18,7 +18,7 @@ abstract class CachingService {
         return this.http.get(this.src).map(
             (res: Response) => {
                 let r = res.json();
-                CachingService.CACHED.set(this.src, r);
+                CachingService.CACHE.set(this.src, r);
                 return r;
             }
         );
