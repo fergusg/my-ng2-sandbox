@@ -1,5 +1,8 @@
 import {Http, Response} from 'angular2/http'
 import {Injectable} from 'angular2/angular2'
+// In general, import these at the top level
+//    import 'rxjs/add/operator/map';
+//    import 'rxjs/add/observable/fromArray'; // gives us .to()
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
