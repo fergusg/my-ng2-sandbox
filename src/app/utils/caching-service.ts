@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 abstract class CachingService {
-    private static CACHE: Map<string, any> = new Map<string, any>();
+    private static CACHE = new Map<string, any>();
     protected src: string;
 
     constructor(protected http: Http) {}
