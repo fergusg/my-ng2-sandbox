@@ -1,6 +1,9 @@
 // import "reflect-metadata";
 // import "zone.js";
 
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/fromArray'; // gives us .of()
+
 import {bootstrap, Component, View, provide, CORE_DIRECTIVES, NgFor, Directive} from "angular2/angular2";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, Router, Route, Location, Instruction,
@@ -18,33 +21,38 @@ import VetoComponent from "./components/veto/veto";
 import SandBoxComponent from "./components/sandbox/sandbox";
 
 // Can't yet find a way to include this with the class
-// (makeRoute is called before the class is instantiated)
+// (makeRoute is called before the ES5 "class" is instantiated)
 interface IROUTE { name: string, text: string };
 const ROUTES: Array<IROUTE> = [];
-function makeRoute({
-    component = <any>null,
-    path = <string>null,
-    loadFrom = <string>null,
-    name = <string>null,
-    text = <string>null,
-}) {
-    if (component != null && name == null) {
-        name = component.name.replace(/Component$/, "");
+
+interface RouteDef {
+    component?: any;
+    path?: string,
+    loadFrom?: string;
+    name?: string;
+    text?: string;
+}
+
+function makeRoute(def: RouteDef) {
+    if (def.component != null && def.name == null) {
+        def.name = def.component.name.replace(/Component$/, "");
     }
-    if (name) {
-        text = text == null ? name : text;
-        ROUTES.push({ name, text });
+    if (def.name) {
+        def.text = def.text || def.name;
+        let route = { name : def.name, text: def.text };
+        ROUTES.push(route);
+        console.log('makeRoute', route);
     } else {
         throw "Can't determine a name for the route";
     }
 
-    path = path ? path : "/" + name.toLowerCase();
+    def.path = def.path ? def.path : "/" + def.name.toLowerCase();
 
-    if (loadFrom != null) {
-        let loader = LoadComponentAsync(loadFrom);
-        return new AsyncRoute({ loader, name, path });
+    if (def.loadFrom) {
+        let loader = LoadComponentAsync(def.loadFrom);
+        return new AsyncRoute({ loader, name: def.name, path: def.path });
     } else {
-        return new Route({ component, name, path });
+        return new Route({ component: def.component, name: def.name, path: def.path });
     }
 }
 
@@ -53,7 +61,7 @@ function makeRoute({
 })
 @RouteConfig([
     makeRoute({ component: HomeComponent, path: '/' }),
-    makeRoute({ component: HeroesBlahBlah }),
+    makeRoute({ component: HeroesBlahBlah, name: "Heroes" }),
     makeRoute({ component: GreetingComponent }),
     makeRoute({ component: TreeViewComponent }),
     makeRoute({ component: SandBoxComponent }),
@@ -70,35 +78,21 @@ function makeRoute({
                 [class.inactive]="!isEnabled(route.name)"
             >{{route.text}}</a>
         </span>
-        <span >
+        <span>
             <a nav-link-active="nav-style-1" [nav-link]="['SandBox']" >SandBox2</a>
         </span>
         <router-outlet></router-outlet>
     `,
     styles: [`
-        a {
-            text-decoration: none;
-        }
+        a { text-decoration: none; }
 
-        .nav-link-active {
-            cursor: pointer;
-        }
+        .nav-link-active { cursor: pointer; }
+        .inactive { color: lightgray; cursor: not-allowed; }
 
-        .nav-style-0 {
-            color: green;
-        }
-        .nav-style-1 {
-            color: red;
-            text-decoration: underline;
-        }
-        .nav-style-2 {
-            color: blue;
-        }
+        .nav-style-0 { color: green; }
+        .nav-style-1 { color: red; text-decoration: underline; }
+        .nav-style-2 { color: blue; }
 
-        .inactive {
-            color: lightgray;
-            cursor: not-allowed;
-        }
     `],
     directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES, NavLink]
 })
