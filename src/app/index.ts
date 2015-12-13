@@ -41,7 +41,6 @@ function makeRoute(def: RouteDef) {
         def.text = def.text || def.name;
         let route = { name : def.name, text: def.text };
         ROUTES.push(route);
-        console.log('makeRoute', route);
     } else {
         throw "Can't determine a name for the route";
     }
