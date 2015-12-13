@@ -2,7 +2,6 @@ import {Component, View, FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angula
 import {Http, Response, HTTP_PROVIDERS} from 'angular2/http';
 import Hero from './hero';
 import ArsePipe from './arse-pipe';
-import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'heroes'
@@ -14,18 +13,29 @@ import 'rxjs/add/operator/map';
     pipes: [ArsePipe]
 })
 class HeroesComponent {
+    static HEROES: Hero[];
+    static LOADCOUNT = 0;
     public heroes: Hero[];
-    public title = 'Tour of Heroes';
+    public title: string;
     public selectedHero: Hero;
 
     constructor(private http: Http) {
         this.loadHeroes();
+        this.title = `Tour of Heroes ${HeroesComponent.LOADCOUNT}`;
     }
 
     loadHeroes() {
+        HeroesComponent.LOADCOUNT++;
+        if (HeroesComponent.HEROES) {
+            this.heroes = HeroesComponent.HEROES;
+            return;
+        }
         this.http.get('./heroes.json')
             .map((res: Response) => res.json())
-            .subscribe((res: Hero[]) => this.heroes = res);
+            .subscribe((res: Hero[]) => {
+                this.heroes = res;
+                HeroesComponent.HEROES = res;
+            });
     }
 
     onSelect(hero: Hero) {
