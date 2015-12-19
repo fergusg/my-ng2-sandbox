@@ -4,13 +4,14 @@ import 'rxjs/add/observable/fromArray'; // gives us .of()
 import {Component, View, provide,  Directive} from "angular2/core";
 import {bootstrap} from "angular2/platform/browser";
 import {HTTP_PROVIDERS} from "angular2/http";
-import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, Router, Route, Location, Instruction,
-AsyncRoute, LocationStrategy, HashLocationStrategy} from "angular2/router";
+import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
+import {RouteConfig, Route, AsyncRoute} from "angular2/router";
+import {LocationStrategy, HashLocationStrategy} from "angular2/router";
 
 import LoadComponentAsync from "./component-helper";
 import NavLink from "./nav-link-directive";
 
-import HeroesBlahBlah from "./components/heroes/heroes-component";
+import Heroes from "./components/heroes/heroes-component";
 import HomeComponent from "./components/home/home";
 import GreetingComponent from "./components/greeting/greeting-component";
 import TreeViewComponent from "./components/tree-view/tree-view-demo";
@@ -64,7 +65,7 @@ function makeRoute(def: RouteDef) {
 })
 @RouteConfig([
     makeRoute({ component: HomeComponent, path: '/' }),
-    makeRoute({ component: HeroesBlahBlah, name: "Heroes" }),
+    makeRoute({ component: Heroes, name: "Heroes" }),
     makeRoute({ component: GreetingComponent }),
     makeRoute({ component: TreeViewComponent }),
     makeRoute({ component: SandBoxComponent }),
