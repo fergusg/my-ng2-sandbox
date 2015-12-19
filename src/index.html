@@ -13,14 +13,11 @@
     <script>
         System.config({
             packages: {
-                app: {
-                    xformat: 'register',
-                    defaultExtension: "js"
-                }
+                app: {}
             }
         });
         System.import('app/index')
-            .then(null, console.error.bind(console));
+           .then(null, console.error.bind(console));
     </script>
 </head>
 
