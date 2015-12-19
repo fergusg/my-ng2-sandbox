@@ -11,6 +11,8 @@
     <script src="node_modules/angular2/bundles/http.dev.js"></script>
     <script src="node_modules/angular2/bundles/router.dev.js"></script>
     <script>
+        // Without this, SystemJS will look for "app/index" (no ".js")
+        // Dunno why (setting defaultJSExtensions="js" borks everything)
         System.config({
             packages: {
                 app: {}
