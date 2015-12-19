@@ -18,8 +18,6 @@ import AddressBookComponent from "./components/address-book/address-book";
 import VetoComponent from "./components/veto/veto";
 import SandBoxComponent from "./components/sandbox/sandbox";
 
-// Can't yet find a way to include this with the class
-// (makeRoute is called before the ES5 "class" is instantiated)
 interface IROUTE { name: string, text: string };
 const ROUTES: Array<IROUTE> = [];
 
@@ -31,6 +29,8 @@ interface RouteDef {
     text?: string;
 }
 
+// Can't yet find a way to include this with the class
+// (makeRoute is called before the ES5 "class" is instantiated)
 function makeRoute(def: RouteDef) {
     if (def.component != null && def.name == null) {
         def.name = def.component.name.replace(/Component$/, "");
