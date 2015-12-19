@@ -1,12 +1,11 @@
-import {Component, View, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component, View} from 'angular2/core';
 
 @Component({
     selector: 'home',
     template: `
     <h1>{{title}}</h1>
     <span *ngFor="#d of data">{{d}} </span>
-    `,
-    directives: [CORE_DIRECTIVES]
+    `
 })
 export default class HomeComponent {
     public title = "Home Page";

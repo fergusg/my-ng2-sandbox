@@ -3,19 +3,23 @@
 
 <head>
     <title>My Angular2 Sandbox</title>
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
     <script src="node_modules/angular2/bundles/http.dev.js"></script>
     <script src="node_modules/angular2/bundles/router.dev.js"></script>
     <script>
         System.config({
-            defaultJSExtensions: true,
-            paths: {
-                'app/*': 'app/*.js',
-                '*': 'node_modules/*.js'
+            packages: {
+                app: {
+                    xformat: 'register',
+                    defaultExtension: "js"
+                }
             }
         });
-        System.import('app/index');
+        System.import('app/index')
+            .then(null, console.error.bind(console));
     </script>
 </head>
 

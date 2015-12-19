@@ -1,4 +1,4 @@
-import {Component, View, FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component, View} from 'angular2/core';
 import {Http, Response, HTTP_PROVIDERS} from 'angular2/http';
 import Hero from './hero';
 import HeroesService from './heroes-service';
@@ -12,7 +12,6 @@ import ArsePipe from './arse-pipe';
 @View({
     templateUrl: 'app/components/heroes/heroes.html',
     styleUrls: ['app/components/heroes/heroes.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
     pipes: [ArsePipe]
 })
 class HeroesComponent {

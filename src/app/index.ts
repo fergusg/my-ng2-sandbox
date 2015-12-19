@@ -1,10 +1,8 @@
-// import "reflect-metadata";
-// import "zone.js";
-
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromArray'; // gives us .of()
 
-import {bootstrap, Component, View, provide, CORE_DIRECTIVES, NgFor, Directive} from "angular2/angular2";
+import {Component, View, provide,  Directive} from "angular2/core";
+import {bootstrap} from "angular2/platform/browser";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, Router, Route, Location, Instruction,
 AsyncRoute, LocationStrategy, HashLocationStrategy} from "angular2/router";
@@ -37,21 +35,27 @@ function makeRoute(def: RouteDef) {
     if (def.component != null && def.name == null) {
         def.name = def.component.name.replace(/Component$/, "");
     }
-    if (def.name) {
-        def.text = def.text || def.name;
-        let route = { name : def.name, text: def.text };
-        ROUTES.push(route);
-    } else {
+    if (!def.name) {
         throw "Can't determine a name for the route";
     }
 
-    def.path = def.path ? def.path : "/" + def.name.toLowerCase();
+    def.text = def.text || def.name;
+    def.path = def.path || "/" + def.name.toLowerCase();
+
+    ROUTES.push({ name : def.name, text: def.text });
 
     if (def.loadFrom) {
-        let loader = LoadComponentAsync(def.loadFrom);
-        return new AsyncRoute({ loader, name: def.name, path: def.path });
+        return new AsyncRoute({
+            loader: LoadComponentAsync(def.loadFrom),
+            name: def.name,
+            path: def.path
+        });
     } else {
-        return new Route({ component: def.component, name: def.name, path: def.path });
+        return new Route({
+            component: def.component,
+            name: def.name,
+            path: def.path
+        });
     }
 }
 
@@ -93,7 +97,7 @@ function makeRoute(def: RouteDef) {
         .nav-style-2 { color: blue; }
 
     `],
-    directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES, NavLink]
+    directives: [ROUTER_DIRECTIVES, NavLink]
 })
 class Index {
     public routes = ROUTES;

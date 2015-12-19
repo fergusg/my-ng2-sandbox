@@ -1,11 +1,11 @@
-import {Component, CORE_DIRECTIVES, Input} from 'angular2/angular2';
+import {Component, Input} from 'angular2/core';
 import Directory from './directory';
 
 @Component({
     selector: 'tree-view',
     inputs: ['directories: directories'],
     templateUrl: './app/components/tree-view/tree-view.html',
-    directives: [TreeView, CORE_DIRECTIVES],
+    directives: [TreeView],
     styles: [`
         ul {
             list-style-type: none;

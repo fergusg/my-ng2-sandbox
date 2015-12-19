@@ -1,4 +1,4 @@
-import {Component, View, Directive} from 'angular2/angular2';
+import {Component, View, Directive} from 'angular2/core';
 import {Router, Instruction} from 'angular2/router';
 
 @Directive({

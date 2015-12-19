@@ -1,4 +1,4 @@
-import {Directive, ElementRef} from "angular2/angular2";
+import {Directive, ElementRef} from "angular2/core";
 import {Router, Location} from "angular2/router";
 
 @Directive({

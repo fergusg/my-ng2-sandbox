@@ -1,4 +1,4 @@
-import {Component, NgFor, NgIf, Input, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component, Input} from 'angular2/core';
 import TreeView from './tree-view';
 import Directory from './directory';
 
@@ -7,7 +7,7 @@ import Directory from './directory';
         <h1>Recursive TreeView</h1>
         <tree-view [directories]="directories"></tree-view>
     `,
-    directives: [CORE_DIRECTIVES, TreeView]
+    directives: [TreeView]
 })
 export default class TreeViewComponent {
     @Input() public directories: Array<Directory>;

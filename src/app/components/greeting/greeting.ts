@@ -1,4 +1,4 @@
-import {Component, Input /*, NgIf*/ } from 'angular2/angular2';
+import {Component, Input} from 'angular2/core';
 
 @Component({
     selector: 'greeting',
@@ -12,8 +12,7 @@ import {Component, Input /*, NgIf*/ } from 'angular2/angular2';
     template: `
         <div *ngIf="canGreet" class="greeting">{{name}}</div>
         <button *ngIf="!canGreet" (click)="greet()">Create Greeting</button>
-    `,
-    // directives: [NgIf]  // Doesn't seem needed
+    `
 })
 export default class Greeting {
     greeting: string;

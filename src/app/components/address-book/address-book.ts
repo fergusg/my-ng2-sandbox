@@ -1,4 +1,4 @@
-import {Component, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component} from 'angular2/core';
 import {Response} from 'angular2/http'
 
 import BookService from './address-book-service';
@@ -28,7 +28,6 @@ const __CSS = `
 
 @Component({
     selector: 'address-book',
-    directives: [CORE_DIRECTIVES],
     template: __TEMPLATE,
     providers: [BookService, TitleService],
     styles: [__CSS]
