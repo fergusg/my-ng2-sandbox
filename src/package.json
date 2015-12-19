@@ -6,7 +6,7 @@
   "scripts": {
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "serve": "live-server",
+    "serve": "live-server -q",
     "start": "concurrent 'npm run tsc:w' 'npm run serve' "
   },
   "keywords": [],
