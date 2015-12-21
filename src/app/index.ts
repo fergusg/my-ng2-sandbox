@@ -18,6 +18,7 @@ import TreeViewComponent from "./components/tree-view/tree-view-demo";
 import AddressBookComponent from "./components/address-book/address-book";
 import VetoComponent from "./components/veto/veto";
 import SandBoxComponent from "./components/sandbox/sandbox";
+import EventsComponent from "./components/events/events";
 
 interface IROUTE { name: string, text: string };
 const ROUTES: Array<IROUTE> = [];
@@ -67,6 +68,7 @@ function makeRoute(def: RouteDef) {
     makeRoute({ component: HomeComponent, path: '/' }),
     makeRoute({ component: Heroes, name: "Heroes" }),
     makeRoute({ component: GreetingComponent }),
+    makeRoute({ component: EventsComponent }),
     makeRoute({ component: TreeViewComponent }),
     makeRoute({ component: SandBoxComponent }),
     makeRoute({ component: AddressBookComponent }),
