@@ -11,9 +11,9 @@ import {Component, Output, Input, EventEmitter} from "angular2/core";
 })
 class ChangeForm {
 	@Input() private title:string;
-	@Output() updateTitle:EventEmitter<string> = new EventEmitter<string>();
+	@Output() private updateTitle:EventEmitter<string> = new EventEmitter<string>();
 
-	changeTitle(t: string) {
+	private changeTitle(t: string) {
 		this.updateTitle.emit(t);
 	}
 }
@@ -33,7 +33,7 @@ class ChangeForm {
 class EventsComponent {
 	private title ="Hello World";
 
-	changeTitle(t:string) {
+	private changeTitle(t:string) {
 		this.title = t;
 	}
 }
