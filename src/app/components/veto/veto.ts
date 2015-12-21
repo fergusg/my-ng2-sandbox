@@ -54,7 +54,7 @@ class Veto {
     template: `
     <h1>Veto clicks</h1>
 
-    <a [veto-router-link]="['/Heroes']" [veto-if]="true">Heroes (vetoed)</a>
+    <a [veto-router-link]="['/Heroes']" [veto-if]="true">Can't click me</a>
     <a [veto-router-link]="['/Heroes']" [veto-if]="false">Heroes</a>
     `,
     directives: [Veto]

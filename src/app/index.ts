@@ -71,6 +71,7 @@ function makeRoute(def: RouteDef) {
     makeRoute({ component: SandBoxComponent }),
     makeRoute({ component: AddressBookComponent }),
     makeRoute({ component: VetoComponent }),
+    makeRoute({ component: GreetingComponent, name: "Unclickable" }),
     makeRoute({ loadFrom: "./app/components/lazy-loaded/lazy-loaded", name: "Lazy" })
 ])
 @View({
@@ -83,7 +84,17 @@ function makeRoute(def: RouteDef) {
             >{{route.text}}</a>
         </span>
         <span>
-            <a nav-link-active="nav-style-1" [nav-link]="['SandBox']" >SandBox2</a>
+            <a
+                nav-link-active="nav-style-1"
+                [nav-link]="['SandBox']"
+            >SandBox2</a>
+        </span>
+        <span>
+            <a
+                [nav-link-enabled]="false"
+                nav-link-active="nav-style-2"
+                [nav-link]="['Greeting']"
+            >Unclickable</a>
         </span>
         <router-outlet></router-outlet>
     `,
@@ -93,9 +104,9 @@ function makeRoute(def: RouteDef) {
         .nav-link-active { cursor: pointer; }
         .inactive { color: lightgray; cursor: not-allowed; }
 
-        .nav-style-0 { color: green; }
+        .nav-style-0 { color: green; text-decoration: underline;}
         .nav-style-1 { color: red; text-decoration: underline; }
-        .nav-style-2 { color: blue; }
+        .nav-style-2 { color: blue; text-decoration: underline; }
 
     `],
     directives: [ROUTER_DIRECTIVES, NavLink]
@@ -106,12 +117,17 @@ class Index {
     private static colours = ["nav-style-0", "nav-style-1", "nav-style-2"];
     private static nColours = Index.colours.length;
 
+    private vetoRegex = /Unclickable/;
+
+    constructor() {
+    }
+
     public getLinkStyle(i: number) {
         return Index.colours[i % Index.nColours];
     }
 
     public isEnabled(route:string) {
-        return !/Veto/.test(route);
+        return !this.vetoRegex.test(route);
     }
 }
 
