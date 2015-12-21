@@ -1,15 +1,15 @@
 {
-  "compilerOptions": {
-    "target": "ES5",
-    "module": "commonjs",
-    "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "removeComments": false,
-    "noImplicitAny": true,
-    "experimentalDecorators": true
-  },
-  "exclude": [
-    "node_modules",
-    "jspm_packages"
-  ]
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "commonjs",
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "removeComments": false,
+        "noImplicitAny": true,
+        "experimentalDecorators": true
+    },
+    "exclude": [
+        "node_modules",
+        "jspm_packages"
+    ]
 }

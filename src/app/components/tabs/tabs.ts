@@ -32,7 +32,7 @@ class TabsComponent {
     private details: Detail[] = [];
     private id: number = 0;
 
-    private addDetail() {
+    private addDetail(): void {
         this.id++;
         this.details.push({
             title: `Detail ${this.id}`,
@@ -40,7 +40,7 @@ class TabsComponent {
         });
     }
 
-    private removeDetail(detail: Detail) {
+    private removeDetail(detail: Detail): void {
         this.details = this.details.filter((d) => d !== detail);
     }
 }
