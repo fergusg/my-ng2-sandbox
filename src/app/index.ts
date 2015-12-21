@@ -19,6 +19,7 @@ import AddressBookComponent from "./components/address-book/address-book";
 import VetoComponent from "./components/veto/veto";
 import SandBoxComponent from "./components/sandbox/sandbox";
 import EventsComponent from "./components/events/events";
+import TabsComponent from "./components/tabs/tabs";
 
 interface IROUTE { name: string, text: string };
 const ROUTES: Array<IROUTE> = [];
@@ -74,6 +75,7 @@ function makeRoute(def: RouteDef) {
     makeRoute({ component: AddressBookComponent }),
     makeRoute({ component: VetoComponent }),
     makeRoute({ component: GreetingComponent, name: "Unclickable" }),
+    makeRoute({ component: TabsComponent}),
     makeRoute({ loadFrom: "./app/components/lazy-loaded/lazy-loaded", name: "Lazy" })
 ])
 @View({
