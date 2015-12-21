@@ -3,7 +3,10 @@ import {Component, Output, Input, EventEmitter} from "angular2/core";
 @Component({
 	selector: "change-form",
 	template: `
-	New Title <input #formTitle (keyup)="changeTitle(formTitle.value)" [value]="title">
+	New Title
+	<input #formTitle [value]="title"
+		(keyup)="changeTitle(formTitle.value)">
+	{{title}}
 	`
 })
 class ChangeForm {
@@ -11,7 +14,6 @@ class ChangeForm {
 	@Output() updateTitle:EventEmitter<string> = new EventEmitter<string>();
 
 	changeTitle(t: string) {
-		this.title = t;
 		this.updateTitle.emit(t);
 	}
 }
