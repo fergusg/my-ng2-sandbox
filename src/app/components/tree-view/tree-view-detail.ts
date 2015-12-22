@@ -3,7 +3,6 @@ import Directory from './directory';
 
 @Component({
     selector: 'tree-view',
-    inputs: ['directories: directories'],
     templateUrl: './app/components/tree-view/tree-view.html',
     directives: [TreeView],
     styles: [`
@@ -18,7 +17,6 @@ import Directory from './directory';
         }
     `]
 })
-
 export default class TreeView {
-    @Input('directories') public directories: Array<Directory>;
+    @Input() private directories: Array<Directory>;
 }
