@@ -38,14 +38,14 @@ class AddressBook {
 
     constructor(addressBookService: BookService, addressBookTitleService: TitleService) {
         addressBookService.get().subscribe(
-            (res:any) => this.result = res,
-            ():any => null
+            (res: any): any => this.result = res,
+            (): any => null
         );
         this.setTitle(addressBookTitleService);
         console.log('callcount', addressBookTitleService.callCount);
     }
 
-    setTitle(addressBookTitleService: TitleService) {
+    setTitle(addressBookTitleService: TitleService): void {
         this.title = addressBookTitleService.getTitle();
     }
 }
