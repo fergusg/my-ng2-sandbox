@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromArray'; // gives us .of()
 
-import {Component, View, provide,  Directive} from "angular2/core";
+import {Component, View, provide, Directive} from "angular2/core";
 import {bootstrap} from "angular2/platform/browser";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
@@ -45,7 +45,7 @@ function makeRoute(def: RouteDef) {
     def.text = def.text || def.name;
     def.path = def.path || "/" + def.name.toLowerCase();
 
-    ROUTES.push({ name : def.name, text: def.text });
+    ROUTES.push({ name: def.name, text: def.text });
 
     if (def.loadFrom) {
         return new AsyncRoute({
@@ -71,47 +71,33 @@ function makeRoute(def: RouteDef) {
     makeRoute({ component: GreetingComponent }),
     makeRoute({ component: EventsComponent }),
     makeRoute({ component: TreeViewComponent }),
-    makeRoute({ component: SandBoxComponent }),
     makeRoute({ component: AddressBookComponent }),
     makeRoute({ component: VetoComponent }),
     makeRoute({ component: GreetingComponent, name: "Unclickable" }),
-    makeRoute({ component: TabsComponent}),
-    makeRoute({ loadFrom: "./app/components/lazy-loaded/lazy-loaded", name: "Lazy" })
+    makeRoute({ component: TabsComponent }),
+    makeRoute({ loadFrom: "./app/components/lazy-loaded/lazy-loaded", name: "Lazy" }),
+    makeRoute({ component: SandBoxComponent })
 ])
 @View({
     template: `
-        <span *ngFor="#route of routes; #idx=index" >
+        <span *ngFor="#route of routes; #idx=index">
             <a [nav-link-enabled]="isEnabled(route.name)"
                 [nav-link-active]="getLinkStyle(idx)"
                 [nav-link]="[route.name]"
                 [class.inactive]="!isEnabled(route.name)"
-            >{{route.text}}</a>
-        </span>
-        <span>
-            <a
-                nav-link-active="nav-style-1"
-                [nav-link]="['SandBox']"
-            >SandBox2</a>
-        </span>
-        <span>
-            <a
-                [nav-link-enabled]="false"
-                nav-link-active="nav-style-2"
-                [nav-link]="['Greeting']"
-            >Unclickable</a>
-        </span>
+            >{{route.text}}</a></span>
+        <a nav-link-active="nav-style-1" [nav-link]="['SandBox']">SandBox2</a>
+        <a nav-link-active="nav-style-1" [nav-link]="['SandBox']"
+            [nav-link-enabled]="false">Sandbox(Unclickable)</a>
         <router-outlet></router-outlet>
     `,
     styles: [`
         a { text-decoration: none; }
-
         .nav-link-active { cursor: pointer; }
         .inactive { color: lightgray; cursor: not-allowed; }
-
         .nav-style-0 { color: green; text-decoration: underline;}
         .nav-style-1 { color: red; text-decoration: underline; }
         .nav-style-2 { color: blue; text-decoration: underline; }
-
     `],
     directives: [ROUTER_DIRECTIVES, NavLink]
 })
@@ -130,7 +116,7 @@ class Index {
         return Index.colours[i % Index.nColours];
     }
 
-    public isEnabled(route:string) {
+    public isEnabled(route: string) {
         return !this.vetoRegex.test(route);
     }
 }
