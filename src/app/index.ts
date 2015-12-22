@@ -11,10 +11,10 @@ import {LocationStrategy, HashLocationStrategy} from "angular2/router";
 import LoadComponentAsync from "./component-helper";
 import NavLink from "./nav-link-directive";
 
-import Heroes from "./components/heroes/heroes-component";
+import HeroesComponent from "./components/heroes/heroes-component";
 import HomeComponent from "./components/home/home";
 import GreetingComponent from "./components/greeting/greeting-component";
-import TreeViewComponent from "./components/tree-view/tree-view-demo";
+import TreeViewComponent from "./components/tree-view/tree-view";
 import AddressBookComponent from "./components/address-book/address-book";
 import VetoComponent from "./components/veto/veto";
 import SandBoxComponent from "./components/sandbox/sandbox";
@@ -67,7 +67,7 @@ function makeRoute(def: RouteDef) {
 })
 @RouteConfig([
     makeRoute({ component: HomeComponent, path: '/' }),
-    makeRoute({ component: Heroes, name: "Heroes" }),
+    makeRoute({ component: HeroesComponent, name: "Heroes" }),
     makeRoute({ component: GreetingComponent }),
     makeRoute({ component: EventsComponent }),
     makeRoute({ component: TreeViewComponent }),
