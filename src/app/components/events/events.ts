@@ -7,7 +7,7 @@ import {Component, Output, Input, EventEmitter} from "angular2/core";
     <input #formTitle [value]="title"
         (keyup)="changeTitle(formTitle.value)">
     {{title}}
-    `
+    `,
 })
 class ChangeForm {
     @Input() protected title: string;
