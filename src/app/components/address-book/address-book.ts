@@ -35,17 +35,17 @@ class AddressBook {
     public result: any;
     public title: string;
 
-    constructor(addressBookService: BookService, addressBookTitleService: TitleService) {
-        addressBookService.get().subscribe(
+    constructor(bookService: BookService, titleService: TitleService) {
+        bookService.get().subscribe(
             (res: any): any => this.result = res,
             (): any => null
         );
-        this.setTitle(addressBookTitleService);
-        console.log("callcount", addressBookTitleService.callCount);
+        this.setTitle(titleService);
+        console.log("callcount", titleService.callCount);
     }
 
-    public setTitle(addressBookTitleService: TitleService): void {
-        this.title = addressBookTitleService.getTitle();
+    public setTitle(titleService: TitleService): void {
+        this.title = titleService.getTitle();
     }
 }
 
