@@ -1,7 +1,6 @@
 import {Component} from "angular2/core";
 
 import BookService from "./address-book-service";
-import TitleService from "./address-book-title-service";
 
 const __TEMPLATE: string = `
     <h1>Dependency Injection</h1>
@@ -26,26 +25,20 @@ const __CSS: string = `
 `;
 
 @Component({
-    providers: [BookService, TitleService],
+    providers: [BookService],
     selector: "address-book",
     styles: [__CSS],
     template: __TEMPLATE,
 })
 class AddressBook {
-    public result: any;
-    public title: string;
+    protected title: string= "My Address Book";
+    private result: any;
 
-    constructor(bookService: BookService, titleService: TitleService) {
+    constructor(bookService: BookService) {
         bookService.get().subscribe(
             (res: any): any => this.result = res,
             (): any => null
         );
-        this.setTitle(titleService);
-        console.log("callcount", titleService.callCount);
-    }
-
-    public setTitle(titleService: TitleService): void {
-        this.title = titleService.getTitle();
     }
 }
 
