@@ -1,18 +1,25 @@
 import {Directive, Input, ViewContainerRef, TemplateRef}
-from 'angular2/core';
+from "angular2/core";
 
 @Directive({
-    selector: '[ui-pane]'
+    selector: "[ui-pane]"
 })
 class UiPane {
-    @Input() title: string;
+    @Input() public title: string;
+    public viewContainer: ViewContainerRef;
+    public templateRef: TemplateRef;
+
     private _active: boolean = false;
 
-    constructor(public viewContainer: ViewContainerRef,
-        public templateRef: TemplateRef) { }
+    constructor(viewContainer: ViewContainerRef, templateRef: TemplateRef) {
+        this.viewContainer = viewContainer;
+        this.templateRef = templateRef;
+    }
 
     @Input() set active(active: boolean) {
-        if (active == this._active) return;
+        if (active === this._active) {
+            return;
+        }
         this._active = active;
         if (active) {
             this.viewContainer.createEmbeddedView(this.templateRef);

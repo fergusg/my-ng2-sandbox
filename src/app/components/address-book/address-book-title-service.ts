@@ -1,7 +1,7 @@
 export default class AddressBookTitleService {
-    public callCount = 0;
+    public callCount: number = 0;
 
-    public getTitle() {
+    public getTitle(): string {
         this.callCount++;
         return "My Address Book";
     }

@@ -1,7 +1,6 @@
 export default class Directory {
-
-    public expanded = true;
-    public checked = false;
+    public expanded: boolean = true;
+    public checked: boolean = false;
     public name: string;
     public files: Array<string>;
     public directories: Array<Directory>;
@@ -16,18 +15,18 @@ export default class Directory {
         this.directories = directories;
     }
 
-    public toggle() {
+    public toggle(): void {
         this.expanded = !this.expanded;
     }
 
-    public check() {
+    public check(): void {
         this.checked = !this.checked;
         this.checkRecursive(this.checked);
     }
 
-    private checkRecursive(state: boolean) {
+    private checkRecursive(state: boolean): void {
         if (this.directories) {
-            this.directories.forEach(d => {
+            this.directories.forEach((d: Directory) => {
                 d.checked = state;
                 d.checkRecursive(state);
             });

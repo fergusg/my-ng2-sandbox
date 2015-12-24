@@ -1,8 +1,7 @@
-import {Component, View, Directive} from 'angular2/core';
-import {Router, Instruction} from 'angular2/router';
+import {Component, View} from "angular2/core";
 
 @Component({
-    selector: 'sandbox'
+    selector: "sandbox"
 })
 @View({
     template: `

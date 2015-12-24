@@ -10,15 +10,16 @@ import {Component, Output, Input, EventEmitter} from "angular2/core";
     `
 })
 class ChangeForm {
-    @Input() private title: string;
+    @Input() protected title: string;
     @Output() private updateTitle: EventEmitter<string> = new EventEmitter<string>();
 
-    private changeTitle(t: string) {
+    protected changeTitle(t: string): void {
         this.updateTitle.emit(t);
     }
 }
 
 @Component({
+    directives: [ChangeForm],
     selector: "events",
     template: `
         <h1>Events</h1>
@@ -28,12 +29,11 @@ class ChangeForm {
             [title]="title"
             (updateTitle)="changeTitle($event)"></change-form>
     `,
-    directives: [ChangeForm]
 })
 class EventsComponent {
-    private title = "Hello World";
+    private title: string = "Hello World";
 
-    private changeTitle(t: string) {
+    protected changeTitle(t: string): void {
         this.title = t;
     }
 }

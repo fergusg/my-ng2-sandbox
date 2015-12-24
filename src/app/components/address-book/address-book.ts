@@ -1,10 +1,9 @@
-import {Component} from 'angular2/core';
-import {Response} from 'angular2/http'
+import {Component} from "angular2/core";
 
-import BookService from './address-book-service';
-import TitleService from './address-book-title-service';
+import BookService from "./address-book-service";
+import TitleService from "./address-book-title-service";
 
-const __TEMPLATE = `
+const __TEMPLATE: string = `
     <h1>Dependency Injection</h1>
     <h2>{{title}}</h2>
 
@@ -17,7 +16,7 @@ const __TEMPLATE = `
     </table>
 `;
 
-const __CSS = `
+const __CSS: string = `
     td.name {
         color:green;
     }
@@ -27,10 +26,10 @@ const __CSS = `
 `;
 
 @Component({
-    selector: 'address-book',
-    template: __TEMPLATE,
     providers: [BookService, TitleService],
-    styles: [__CSS]
+    selector: "address-book",
+    styles: [__CSS],
+    template: __TEMPLATE,
 })
 class AddressBook {
     public result: any;
@@ -42,10 +41,10 @@ class AddressBook {
             (): any => null
         );
         this.setTitle(addressBookTitleService);
-        console.log('callcount', addressBookTitleService.callCount);
+        console.log("callcount", addressBookTitleService.callCount);
     }
 
-    setTitle(addressBookTitleService: TitleService): void {
+    public setTitle(addressBookTitleService: TitleService): void {
         this.title = addressBookTitleService.getTitle();
     }
 }

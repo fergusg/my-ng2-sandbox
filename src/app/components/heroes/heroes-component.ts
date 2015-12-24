@@ -1,41 +1,43 @@
-import {Component, View} from 'angular2/core';
-import {Http, Response, HTTP_PROVIDERS} from 'angular2/http';
-import Hero from './hero';
-import HeroesService from './heroes-service';
-import ArsePipe from './arse-pipe';
-
+import {Component, View} from "angular2/core";
+import {Http} from "angular2/http";
+import IHero from "./hero";
+import HeroesService from "./heroes-service";
+import ArsePipe from "./arse-pipe";
 
 @Component({
-    selector: 'heroes',
-    providers: [HeroesService]
+    providers: [HeroesService],
+    selector: "heroes"
 })
 @View({
-    templateUrl: 'app/components/heroes/heroes.html',
-    styleUrls: ['app/components/heroes/heroes.css'],
-    pipes: [ArsePipe]
+    pipes: [ArsePipe],
+    styleUrls: ["app/components/heroes/heroes.css"],
+    templateUrl: "app/components/heroes/heroes.html"
 })
 class HeroesComponent {
-    static HEROES: Hero[];
-    static LOADCOUNT = 0;
-    public heroes: Hero[];
+    private static LOADCOUNT: number = 0;
+    public heroes: IHero[];
     public title: string;
-    public selectedHero: Hero;
+    public selectedHero: IHero;
+    private http: Http;
+    private heroService: HeroesService;
 
-    constructor(private http: Http, private heroService: HeroesService) {
+    constructor(http: Http, heroService: HeroesService) {
+        this.http = http;
+        this.heroService = heroService;
         HeroesComponent.LOADCOUNT++;
         heroService.get().subscribe(
-            (res:any) => this.heroes = res,
-            ():any => null
+            (res: any) => this.heroes = res,
+            (): any => null
         );
         this.title = `Tour of Heroes ${HeroesComponent.LOADCOUNT}`;
     }
 
-    onSelect(hero: Hero) {
+    public onSelect(hero: IHero) {
         this.selectedHero = this.selectedHero === hero ? null : hero;
     }
 
-    isSelected(hero: Hero): boolean {
-        return hero === this.selectedHero
+    public isSelected(hero: IHero): boolean {
+        return hero === this.selectedHero;
     }
 }
 

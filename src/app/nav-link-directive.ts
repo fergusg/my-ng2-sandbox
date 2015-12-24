@@ -2,7 +2,6 @@ import {Directive, ElementRef} from "angular2/core";
 import {Router, Location} from "angular2/router";
 
 @Directive({
-    selector: "[nav-link]",
     host: {
         "(click)": "onClick($event)",
         "[attr.href]": "makeHref()"
@@ -11,27 +10,36 @@ import {Router, Location} from "angular2/router";
         "route:nav-link",
         "activeClass:nav-link-active",
         "enabled:nav-link-enabled"
-    ]
+    ],
+    selector: "[nav-link]",
 })
 class NavLink {
     private path: string; // set in makeHref()
     private classList: DOMTokenList; // via ElementRef DI
+    private router: Router;
+    private location: Location;
 
     // These are all set via @Directive->inputs above
     private route: any[]; // routes are ["name", {p1:v1, .... }]
     private activeClass: string = "nav-link-active"; // optional. Can be "class1 class2 ..."
-    private enabled = true; // link enabled by default. Optional.
+    private enabled: boolean = true; // link enabled by default. Optional.
 
     constructor(
-        private router: Router,
-        private location: Location,
+        router: Router,
+        location: Location,
         element: ElementRef
     ) {
         this.classList = element.nativeElement.classList;
+        this.router = router;
+        this.location = location;
+        /*tslint:disable */
+        // phantom ref to fool tslint
+        this.onClick || this.makeHref;
+        /*tslint:enable */
     }
 
     private makeHref(): string {
-        const curr = this.location.path();
+        const curr: string = this.location.path();
 
         // only need to calc. once. Can't do this in the constructor
         // as 'this.route' isn't set until after initialization.
@@ -40,9 +48,9 @@ class NavLink {
         }
 
         // "home" path is "", others "/xxxxx"
-        const active = (curr === `/${this.path}`) || (curr === this.path);
+        const active: boolean = (curr === `/${this.path}`) || (curr === this.path);
 
-        const classes = this.activeClass.split(/\s+/);
+        const classes: string[] = this.activeClass.split(/\s+/);
         // ES6 spread operator  (...x) -> (x[0], x[1], ...)
         active ? this.classList.add(...classes) : this.classList.remove(...classes);
 

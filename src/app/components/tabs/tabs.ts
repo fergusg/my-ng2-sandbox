@@ -1,47 +1,47 @@
-import {Component} from 'angular2/core';
-import UiTabs from './ui-tabs';
-import UiPane from './ui-pane';
+import {Component} from "angular2/core";
+import UiTabs from "./ui-tabs";
+import UiPane from "./ui-pane";
 
-interface Detail {
-    title: string,
-    text: string
+interface IDetail {
+    title: string;
+    text: string;
 }
 
 @Component({
-    selector: 'tabs',
+    directives: [UiTabs, UiPane],
+    selector: "tabs",
     template: `
         <h4>Tabs Demo</h4>
         <ui-tabs>
-            <template ui-pane title='Overview' active="true">
+            <template ui-pane title="Overview" active="true">
                 You have {{details.length}} details.
             </template>
             <template *ngFor="#detail of details" ui-pane [title]="detail.title">
                 {{detail.text}} <br><br>
                 <button class="btn" (click)="removeDetail(detail)">Remove</button>
             </template>
-            <template ui-pane title='Summary'>
+            <template ui-pane title="Summary">
                 Next last ID is {{id}}.
             </template>
         </ui-tabs>
         <hr>
         <button class="btn" (click)="addDetail()">Add Detail</button>
       `,
-    directives: [UiTabs, UiPane]
 })
 class TabsComponent {
-    private details: Detail[] = [];
+    private details: IDetail[] = [];
     private id: number = 0;
 
-    private addDetail(): void {
+    public addDetail(): void {
         this.id++;
         this.details.push({
+            text: `Some detail text for ${this.id}...`,
             title: `Detail ${this.id}`,
-            text: `Some detail text for ${this.id}...`
         });
     }
 
-    private removeDetail(detail: Detail): void {
-        this.details = this.details.filter((d) => d !== detail);
+    public removeDetail(detail: IDetail): void {
+        this.details = this.details.filter((d: IDetail) => d !== detail);
     }
 }
 

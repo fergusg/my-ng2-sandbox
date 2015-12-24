@@ -1,10 +1,10 @@
-import {Pipe, PipeTransform} from 'angular2/core';
+import {Pipe, PipeTransform} from "angular2/core";
 
 @Pipe({
-	name: 'isAnArse'
+    name: "isAnArse"
 })
 export default class ArsePipe implements PipeTransform {
-	transform(value: string) {
-		return /o$/.test(value) ? `${value} is an ARSE` : value;
-	}
+    public transform(value: string): string {
+        return /o$/.test(value) ? `${value} is an ARSE` : value;
+    }
 }

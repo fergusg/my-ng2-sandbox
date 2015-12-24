@@ -1,6 +1,6 @@
-interface Hero {
+interface IHero {
     id: number;
     name: string;
 }
 
-export default Hero;
+export default IHero;

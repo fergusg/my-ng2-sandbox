@@ -1,9 +1,9 @@
-import {Component, QueryList, ContentChildren} from 'angular2/core';
+import {Component, QueryList, ContentChildren} from "angular2/core";
 
 import UiPane from "./ui-pane";
 
 @Component({
-    selector: 'ui-tabs',
+    selector: "ui-tabs",
     template: `
     <ul class="nav nav-tabs">
       <li *ngFor="var pane of panes"
@@ -16,9 +16,9 @@ import UiPane from "./ui-pane";
     `
 })
 class UiTabs {
-    @ContentChildren(UiPane) panes: QueryList<UiPane>;
+    @ContentChildren(UiPane) private panes: QueryList<UiPane>;
 
-    select(pane: UiPane): void {
+    public select(pane: UiPane): void {
         this.panes.toArray().forEach((p: UiPane) => p.active = (p === pane));
     }
 }

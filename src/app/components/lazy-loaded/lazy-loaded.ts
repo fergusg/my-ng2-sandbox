@@ -1,8 +1,9 @@
-import {Component} from 'angular2/core';
-import LazyMessage from './lazy-message';
+import {Component} from "angular2/core";
+import LazyMessage from "./lazy-message";
 
 @Component({
-    selector: 'lazy-loaded',
+    directives: [LazyMessage],
+    selector: "lazy-loaded",
     template: `
         <div class="container">
             <p>
@@ -12,7 +13,6 @@ import LazyMessage from './lazy-message';
 
             <lazy-message></lazy-message>
         </div>
-    `,
-    directives: [LazyMessage]
+    `
 })
 export default class LazyLoadedComponent {}

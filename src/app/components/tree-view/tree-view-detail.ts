@@ -1,10 +1,9 @@
-import {Component, Input} from 'angular2/core';
-import Directory from './directory';
+import {Component, Input} from "angular2/core";
+import Directory from "./directory";
 
 @Component({
-    selector: 'tree-view',
-    templateUrl: './app/components/tree-view/tree-view.html',
     directives: [TreeView],
+    selector: "tree-view",
     styles: [`
         ul {
             list-style-type: none;
@@ -15,8 +14,10 @@ import Directory from './directory';
             color: red;
             font-weight: bold;
         }
-    `]
+    `,
+    ],
+    templateUrl: "./app/components/tree-view/tree-view.html",
 })
 export default class TreeView {
-    @Input() private directories: Array<Directory>;
+    @Input() protected directories: Array<Directory>;
 }
