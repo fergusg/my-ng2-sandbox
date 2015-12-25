@@ -5,16 +5,14 @@ import MessageBus from "./messagebus";
     selector: "[message-bus-receiver]"
 })
 export default class MessageBusReceiver {
-    constructor(private messageBus: MessageBus, private elem: ElementRef) {
-        this.messageBus
-        .emitter
-        .debounceTime(100)
-        .subscribe(
-            (t: any) => {
-                elem.nativeElement.innerText = t;
-            },
-            (err: any) => console.error("error", err),
-            () => console.log("complete")
-        );
+    constructor(messageBus: MessageBus, elem: ElementRef) {
+        messageBus
+            .emitter
+            .debounceTime(100)
+            .subscribe(
+                (t: any) => elem.nativeElement.innerText = t,
+                (err: any) => console.error("error", err),
+                () => console.log("complete")
+            );
     }
 }
