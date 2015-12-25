@@ -1,4 +1,5 @@
 import "rxjs/add/operator/map";
+import "rxjs/add/operator/debounceTime";
 import "rxjs/add/observable/fromArray"; // gives us .of()
 
 import {Component, View, provide} from "angular2/core";

@@ -1,40 +1,39 @@
-import {Component, Output, Input, EventEmitter} from "angular2/core";
+import {Component} from "angular2/core";
+import MessageBus from "./messagebus";
+import MessageBusReceiver from "./messagebusreceiver";
+import ChangeForm from "./changeform";
 
 @Component({
-    selector: "change-form",
-    template: `
-    New Title
-    <input #formTitle [value]="title"
-        (keyup)="changeTitle(formTitle.value)">
-    {{title}}
-    `,
-})
-class ChangeForm {
-    @Input() protected title: string;
-    @Output() private updateTitle: EventEmitter<string> = new EventEmitter<string>();
-
-    protected changeTitle(t: string): void {
-        this.updateTitle.emit(t);
-    }
-}
-
-@Component({
-    directives: [ChangeForm],
+    directives: [ChangeForm, MessageBusReceiver],
+    providers: [MessageBus],
     selector: "events",
     template: `
         <h1>Events</h1>
         Updating one component from another.
+        <hr>
+        <h1>1. Use custom component/event (doesn't bubble)</h1>
         <h2>{{title}}&nbsp;</h2>
         <change-form
             [title]="title"
             (updateTitle)="changeTitle($event)"></change-form>
+        <hr>
+        <h1>2. With message bus</h1>
+        <h2 message-bus-receiver></h2>
+        New Title <input #formTitle2 (keyup)="emitTitle(formTitle2.value)">
     `,
 })
 class EventsComponent {
     private title: string = "Hello World";
 
+    constructor(private messageBus: MessageBus) {
+    }
+
     protected changeTitle(t: string): void {
         this.title = t;
+    }
+
+    protected emitTitle(s: string): void {
+        this.messageBus.emit(s);
     }
 }
 
