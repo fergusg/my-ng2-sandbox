@@ -2,14 +2,15 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/observable/fromArray"; // gives us .of()
 
-import {Component, View, provide, Type} from "angular2/core";
+import {Component, View, provide} from "angular2/core";
 import {bootstrap} from "angular2/platform/browser";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
-import {RouteConfig, Route, AsyncRoute} from "angular2/router";
+import {RouteConfig, Route} from "angular2/router";
 import {LocationStrategy, HashLocationStrategy} from "angular2/router";
 
-import LoadComponentAsync, {componentProxyFactory} from "./component-helper";
+import {componentProxyFactory} from "./component-proxy";
+import {makeRoute, IROUTE, ROUTES} from "./route-helper";
 import NavLink from "./nav-link-directive";
 
 import HeroesComponent from "./components/heroes/heroes-component";
@@ -21,48 +22,6 @@ import VetoComponent from "./components/veto/veto";
 import SandBoxComponent from "./components/sandbox/sandbox";
 import EventsComponent from "./components/events/events";
 import TabsComponent from "./components/tabs/tabs";
-
-interface IROUTE { name: string; text: string; };
-const ROUTES: Array<IROUTE> = [];
-
-interface IRouteDef {
-    component?: any;
-    path?: string;
-    loadFrom?: string;
-    name?: string;
-    text?: string;
-}
-
-// Can't yet find a way to include this with the class
-// (makeRoute is called before the ES5 "class" is instantiated)
-function makeRoute(def: IRouteDef): any {
-    if (def.component != null && def.name == null) {
-        def.name = def.component.name.replace(/Component$/, "");
-    }
-    if (!def.name) {
-        throw "Can't determine a name for the route";
-    }
-
-    def.text = def.text || def.name;
-    def.path = def.path || "/" + def.name.toLowerCase();
-
-    ROUTES.push({ name: def.name, text: def.text });
-
-    if (def.loadFrom) {
-        return new AsyncRoute({
-            loader: LoadComponentAsync(def.loadFrom),
-            name: def.name,
-            path: def.path,
-        });
-    } else {
-        // Don't actually need the 'new Route()' wrapper
-        return new Route({
-            component: def.component,
-            name: def.name,
-            path: def.path,
-        });
-    }
-}
 
 @Component({
     selector: "index"
@@ -81,8 +40,7 @@ function makeRoute(def: IRouteDef): any {
     new Route({
         path: "/about",
         component: componentProxyFactory({
-            path: "./app/components/lazy-loaded/lazy-loaded",
-            provide: (m: any): Type => m.default,
+            path: "./app/components/lazy-loaded/lazy-loaded"
         }),
         name: "About",
     }),
