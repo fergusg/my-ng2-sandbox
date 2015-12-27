@@ -2,7 +2,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/observable/fromArray"; // gives us .of()
 
-import {Component, View, provide} from "angular2/core";
+import {Component, View, provide, Type} from "angular2/core";
 import {bootstrap} from "angular2/platform/browser";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
@@ -82,9 +82,9 @@ function makeRoute(def: IRouteDef): any {
         path: "/about",
         component: componentProxyFactory({
             path: "./app/components/lazy-loaded/lazy-loaded",
-            provide: (m: any): any => m.default
+            provide: (m: any): Type => m.default,
         }),
-        name: "About"
+        name: "About",
     }),
     makeRoute({ component: SandBoxComponent }),
 ])

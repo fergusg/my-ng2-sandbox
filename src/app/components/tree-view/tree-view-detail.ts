@@ -1,9 +1,7 @@
 import {Component, Input} from "angular2/core";
 import Directory from "./directory";
 
-/* tslint:disable */
-let template: any = require(`./tree-view.html!text`);
-/* tslint:enable */
+let template = require(`./tree-view-detail.html!text`);
 
 @Component({
     directives: [TreeView],
