@@ -15,7 +15,7 @@ interface IComponentProvider {
     name?: string;
 }
 
-export function componentProxyFactory(provider: IComponentProvider): Type {
+export default function componentProxyFactory(provider: IComponentProvider): Type {
     "use strict";
     @Component({
         selector: "component-proxy",

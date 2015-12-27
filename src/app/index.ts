@@ -9,7 +9,7 @@ import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
 import {RouteConfig, Route} from "angular2/router";
 import {LocationStrategy, HashLocationStrategy} from "angular2/router";
 
-import {componentProxyFactory} from "./component-proxy";
+import componentProxyFactory from "./component-proxy";
 import {makeRoute, IROUTE, ROUTES} from "./route-helper";
 import NavLink from "./nav-link-directive";
 
