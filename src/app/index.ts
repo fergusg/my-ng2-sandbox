@@ -35,7 +35,13 @@ import TabsComponent from "./components/tabs/tabs";
     makeRoute({ component: VetoComponent }),
     makeRoute({ component: GreetingComponent, name: "Unclickable" }),
     makeRoute({ component: TabsComponent }),
-    makeRoute({ loadFrom: "./app/components/lazy-loaded/lazy-loaded", name: "Lazy" }),
+    makeRoute({
+        loadFrom: {
+            src: "./app/components/lazy-loaded/lazy-loaded",
+            name: "default"
+        },
+        name: "Lazy"
+    }),
     makeLazyRoute({ name: "About", src: "./app/components/lazy-loaded/lazy-loaded" }),
     makeRoute({ component: SandBoxComponent }),
 ])

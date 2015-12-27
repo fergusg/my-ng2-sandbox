@@ -5,32 +5,22 @@ import {Route, AsyncRoute} from "angular2/router";
 
 import {lazyRoute as makeLazyRoute} from "./lazy-route";
 
+export {makeRoute, makeLazyRoute};
+
 export interface IROUTE { name: string; text: string; };
 export const ROUTES: Array<IROUTE> = [];
+
+interface ILoadFrom {
+    src: string;
+    name?: string;
+}
 
 interface IRouteDef {
     component?: any;
     path?: string;
-    loadFrom?: string;
+    loadFrom?: ILoadFrom;
     name?: string;
     text?: string;
-}
-
-function LoadComponentAsync(path: string, name: string = "default"): Type {
-    "use strict";
-    // System.import returns an object with keys = exported object (class, etc)
-    // "default" returns the default object
-    return () => System.import(path).then((c: any) => c[name]);
-    /*
-        return () => {
-            let promise = System.import(path).then(
-                (c: any) => {
-                    return c[name]
-                }
-            );
-            return promise;
-        };
-    */
 }
 
 // Can't yet find a way to include this with the class
@@ -51,7 +41,7 @@ function makeRoute(def: IRouteDef): any {
 
     if (def.loadFrom) {
         return new AsyncRoute({
-            loader: LoadComponentAsync(def.loadFrom),
+            loader: loadAsync(def.loadFrom.src, def.loadFrom.name),
             name: def.name,
             path: def.path,
         });
@@ -65,4 +55,20 @@ function makeRoute(def: IRouteDef): any {
     }
 }
 
-export {makeRoute, LoadComponentAsync, makeLazyRoute};
+function loadAsync(path: string, name: string = "default"): Type {
+    "use strict";
+    // System.import returns an object with keys = exported object (class, etc)
+    // "default" returns the default object
+    return () => System.import(path).then((c: any) => c[name]);
+    /*
+        return () => {
+            let promise = System.import(path).then(
+                (c: any) => {
+                    return c[name]
+                }
+            );
+            return promise;
+        };
+    */
+}
+
