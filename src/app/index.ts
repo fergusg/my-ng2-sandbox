@@ -9,7 +9,7 @@ import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
 import {RouteConfig, Route, AsyncRoute} from "angular2/router";
 import {LocationStrategy, HashLocationStrategy} from "angular2/router";
 
-import LoadComponentAsync from "./component-helper";
+import LoadComponentAsync, {componentProxyFactory} from "./component-helper";
 import NavLink from "./nav-link-directive";
 
 import HeroesComponent from "./components/heroes/heroes-component";
@@ -52,13 +52,14 @@ function makeRoute(def: IRouteDef): any {
         return new AsyncRoute({
             loader: LoadComponentAsync(def.loadFrom),
             name: def.name,
-            path: def.path
+            path: def.path,
         });
     } else {
+        // Don't actually need the 'new Route()' wrapper
         return new Route({
             component: def.component,
             name: def.name,
-            path: def.path
+            path: def.path,
         });
     }
 }
@@ -77,7 +78,15 @@ function makeRoute(def: IRouteDef): any {
     makeRoute({ component: GreetingComponent, name: "Unclickable" }),
     makeRoute({ component: TabsComponent }),
     makeRoute({ loadFrom: "./app/components/lazy-loaded/lazy-loaded", name: "Lazy" }),
-    makeRoute({ component: SandBoxComponent })
+    new Route({
+        path: "/about",
+        component: componentProxyFactory({
+            path: "./app/components/lazy-loaded/lazy-loaded",
+            provide: (m: any): any => m.default
+        }),
+        name: "About"
+    }),
+    makeRoute({ component: SandBoxComponent }),
 ])
 @View({
     directives: [ROUTER_DIRECTIVES, NavLink],
@@ -96,14 +105,15 @@ function makeRoute(def: IRouteDef): any {
                 [nav-link]="[route.name]"
                 [class.inactive]="!isEnabled(route.name)"
             >{{route.text}}</a></span>
+        <a nav-link-active="nav-style-1" [nav-link]="['About']">About</a>
         <a nav-link-active="nav-style-1" [nav-link]="['SandBox']">SandBox2</a>
         <a nav-link-active="nav-style-1" [nav-link]="['SandBox']"
             [nav-link-enabled]="false">Sandbox(Unclickable)</a>
         <router-outlet></router-outlet>
-    `
+    `,
 })
 class Index {
-    private static colours: string[]= ["nav-style-0", "nav-style-1", "nav-style-2"];
+    private static colours: string[] = ["nav-style-0", "nav-style-1", "nav-style-2"];
     private static nColours: number = Index.colours.length;
 
     public routes: IROUTE[] = ROUTES;
@@ -119,6 +129,8 @@ class Index {
     }
 }
 
-bootstrap(Index, [HTTP_PROVIDERS, ROUTER_PROVIDERS,
-    provide(LocationStrategy, { useClass: HashLocationStrategy })
+bootstrap(Index, [
+    ...HTTP_PROVIDERS,
+    ...ROUTER_PROVIDERS,
+    provide(LocationStrategy, { useClass: HashLocationStrategy }),
 ]);
