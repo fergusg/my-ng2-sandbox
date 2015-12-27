@@ -2,8 +2,12 @@ import {Http, Response} from "angular2/http";
 import {Injectable} from "angular2/core";
 import {Observable} from "rxjs/Observable";
 
+interface ICache {
+    get(): Observable<any>;
+}
+
 @Injectable()
-abstract class CachingService {
+abstract class CachingService implements ICache {
     protected static CACHE: Map<string, any> = new Map<string, any>();
     protected src: string;
     protected http: Http;
@@ -17,14 +21,14 @@ abstract class CachingService {
     }
 
     private cached(): Observable<any> {
-        let r: Observable<any> = CachingService.CACHE.get(this.src);
+        let r = CachingService.CACHE.get(this.src);
         return r ? Observable.of(r) : null;
     }
 
     private load(): Observable<any> {
         return this.http.get(this.src).map(
             (res: Response) => {
-                let r: Observable<any> = res.json();
+                let r = res.json();
                 CachingService.CACHE.set(this.src, r);
                 return r;
             }
@@ -32,4 +36,4 @@ abstract class CachingService {
     }
 }
 
-export default CachingService;
+export {CachingService, ICache};
