@@ -5,6 +5,7 @@ from "angular2/platform/worker_render";
 import {platform, Provider} from "angular2/core";
 
 platform([WORKER_RENDER_PLATFORM])
-.application([
-	WORKER_RENDER_APP,
-	new Provider(WORKER_SCRIPT, {useValue: "loader.js"})]);
+    .application([
+        WORKER_RENDER_APP,
+        new Provider(WORKER_SCRIPT, { useValue: "loader.js" }),
+     ]);
