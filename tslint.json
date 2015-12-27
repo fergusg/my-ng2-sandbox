@@ -101,7 +101,7 @@
             "parameter",
             "property-declaration",
             "xxxx-variable-declaration",
-            "member-variable-declaration"
+            "xxxx-member-variable-declaration"
         ],
         "typedef-whitespace": [
             true,
@@ -114,7 +114,7 @@
             }
         ],
         "use-strict": [
-            false,
+            true,
             "check-module",
             "check-function"
         ],
