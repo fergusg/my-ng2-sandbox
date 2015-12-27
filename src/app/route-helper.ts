@@ -1,8 +1,9 @@
-import {Type} from "angular2/core";
+declare var System: any; // SystemJS imported globally
 
+import {Type} from "angular2/core";
 import {Route, AsyncRoute} from "angular2/router";
 
-declare var System: any; // SystemJS imported globally
+import {lazyRoute as makeLazyRoute} from "./lazy-route";
 
 export interface IROUTE { name: string; text: string; };
 export const ROUTES: Array<IROUTE> = [];
@@ -15,8 +16,7 @@ interface IRouteDef {
     text?: string;
 }
 
-
-export function LoadComponentAsync(path: string, name: string = "default"): Type {
+function LoadComponentAsync(path: string, name: string = "default"): Type {
     "use strict";
     // System.import returns an object with keys = exported object (class, etc)
     // "default" returns the default object
@@ -33,11 +33,9 @@ export function LoadComponentAsync(path: string, name: string = "default"): Type
     */
 }
 
-
-
 // Can't yet find a way to include this with the class
 // (makeRoute is called before the ES5 "class" is instantiated)
-export function makeRoute(def: IRouteDef): any {
+function makeRoute(def: IRouteDef): any {
     "use strict";
     if (def.component != null && def.name == null) {
         def.name = def.component.name.replace(/Component$/, "");
@@ -66,3 +64,5 @@ export function makeRoute(def: IRouteDef): any {
         });
     }
 }
+
+export {makeRoute, LoadComponentAsync, makeLazyRoute};

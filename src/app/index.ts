@@ -9,8 +9,7 @@ import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
 import {RouteConfig} from "angular2/router";
 import {LocationStrategy, HashLocationStrategy} from "angular2/router";
 
-import {proxyRoute} from "./component-proxy";
-import {makeRoute, IROUTE, ROUTES} from "./route-helper";
+import {makeRoute, makeLazyRoute, IROUTE, ROUTES} from "./route-helper";
 import NavLink from "./nav-link-directive";
 
 import HeroesComponent from "./components/heroes/heroes-component";
@@ -37,7 +36,7 @@ import TabsComponent from "./components/tabs/tabs";
     makeRoute({ component: GreetingComponent, name: "Unclickable" }),
     makeRoute({ component: TabsComponent }),
     makeRoute({ loadFrom: "./app/components/lazy-loaded/lazy-loaded", name: "Lazy" }),
-    proxyRoute({ name: "About", src: "./app/components/lazy-loaded/lazy-loaded" }),
+    makeLazyRoute({ name: "About", src: "./app/components/lazy-loaded/lazy-loaded" }),
     makeRoute({ component: SandBoxComponent }),
 ])
 @View({

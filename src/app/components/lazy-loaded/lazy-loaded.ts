@@ -5,7 +5,7 @@ import LazyMessage from "./lazy-message";
     directives: [LazyMessage],
     selector: "lazy-loaded",
     template: `
-        <div class="container">
+        <div>
             <p>
                 Congratulations, this component was lazy loaded, so none of its
                 dependencies were loaded until just now.
@@ -13,6 +13,6 @@ import LazyMessage from "./lazy-message";
 
             <lazy-message></lazy-message>
         </div>
-    `
+    `,
 })
 export default class LazyLoadedComponent {}

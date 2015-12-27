@@ -5,14 +5,10 @@ import {Component, ElementRef, DynamicComponentLoader, Type} from "angular2/core
 
 /**
  * name: (optional) module export to use. Default is "default"
- * provide: (optional) a custom function provide a Component from the given Module
  */
 interface IComponentProvider {
     path: string;
-    provide?: {
-        (module: any): Type,
-    };
-    name?: string;
+    name: string;
 }
 
 function componentProxyFactory(provider: IComponentProvider): Type {
@@ -23,11 +19,8 @@ function componentProxyFactory(provider: IComponentProvider): Type {
     })
     class VirtualComponent {
         constructor(loader: DynamicComponentLoader, elem: ElementRef) {
-            if (provider.name && provider.provide) {
-                throw "Only need one of 'provide' and 'name'";
-            }
             const name = provider.name || "default";
-            const provide = provider.provide || this.defaultProvide.bind(this, name);
+            const provide = this.defaultProvide.bind(this, name);
             System.import(provider.path)
                 .then((m: any): void => {
                     loader.loadIntoLocation(provide(m), elem, "content");
