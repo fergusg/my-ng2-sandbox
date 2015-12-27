@@ -1,6 +1,6 @@
 export default class Directory {
-    public expanded: boolean = true;
-    public checked: boolean = false;
+    public expanded = true;
+    public checked = false;
     public name: string;
     public files: Array<string>;
     public directories: Array<Directory>;
