@@ -9,8 +9,8 @@ import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
 import {RouteConfig} from "angular2/router";
 import {LocationStrategy, HashLocationStrategy} from "angular2/router";
 
-import {makeRoute, makeLazyRoute, IROUTE, ROUTES} from "./route-helper";
-import NavLink from "./nav-link-directive";
+import {makeRoute, makeLazyRoute, IROUTE, ROUTES} from "./utils/route-helper";
+import NavLink from "./utils/nav-link-directive";
 
 import HeroesComponent from "./components/heroes/heroes-component";
 import HomeComponent from "./components/home/home";
