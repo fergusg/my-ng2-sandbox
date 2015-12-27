@@ -3,13 +3,7 @@
 declare var System: any; // SystemJS imported globally
 import {Component, ElementRef, DynamicComponentLoader, Type} from "angular2/core";
 
-/**
- * name: (optional) module export to use. Default is "default"
- */
-interface IComponentProvider {
-    path: string;
-    name: string;
-}
+import {IComponentProvider} from "./component-provider";
 
 function componentProxyFactory(provider: IComponentProvider): Type {
     "use strict";

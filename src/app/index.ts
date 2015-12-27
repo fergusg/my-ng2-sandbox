@@ -36,13 +36,17 @@ import TabsComponent from "./components/tabs/tabs";
     makeRoute({ component: GreetingComponent, name: "Unclickable" }),
     makeRoute({ component: TabsComponent }),
     makeRoute({
-        loadFrom: {
-            src: "./app/components/lazy-loaded/lazy-loaded",
-            name: "default"
+        name: "Lazy",
+        provider: {
+            path: "./app/components/lazy-loaded/lazy-loaded"
         },
-        name: "Lazy"
     }),
-    makeLazyRoute({ name: "About", src: "./app/components/lazy-loaded/lazy-loaded" }),
+    makeLazyRoute({
+        name: "About",
+        src: {
+            path: "./app/components/lazy-loaded/lazy-loaded"
+        },
+    }),
     makeRoute({ component: SandBoxComponent }),
 ])
 @View({

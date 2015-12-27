@@ -4,21 +4,16 @@ import {Type} from "angular2/core";
 import {Route, AsyncRoute} from "angular2/router";
 
 import {lazyRoute as makeLazyRoute} from "./lazy-route";
-
-export {makeRoute, makeLazyRoute};
+import {IComponentProvider} from "./component-provider";
 
 export interface IROUTE { name: string; text: string; };
 export const ROUTES: Array<IROUTE> = [];
-
-interface ILoadFrom {
-    src: string;
-    name?: string;
-}
+export {makeRoute, makeLazyRoute};
 
 interface IRouteDef {
     component?: any;
     path?: string;
-    loadFrom?: ILoadFrom;
+    provider?: IComponentProvider;
     name?: string;
     text?: string;
 }
@@ -39,9 +34,9 @@ function makeRoute(def: IRouteDef): any {
 
     ROUTES.push({ name: def.name, text: def.text });
 
-    if (def.loadFrom) {
+    if (def.provider) {
         return new AsyncRoute({
-            loader: loadAsync(def.loadFrom.src, def.loadFrom.name),
+            loader: loadAsync(def.provider),
             name: def.name,
             path: def.path,
         });
@@ -55,11 +50,11 @@ function makeRoute(def: IRouteDef): any {
     }
 }
 
-function loadAsync(path: string, name: string = "default"): Type {
+function loadAsync(provider: IComponentProvider): Type {
     "use strict";
     // System.import returns an object with keys = exported object (class, etc)
     // "default" returns the default object
-    return () => System.import(path).then((c: any) => c[name]);
+    return () => System.import(provider.path).then((c: any) => c[provider.name || "default"]);
     /*
         return () => {
             let promise = System.import(path).then(
