@@ -6,10 +6,10 @@ import {Component, View, provide} from "angular2/core";
 import {bootstrap} from "angular2/platform/browser";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
-import {RouteConfig, Route} from "angular2/router";
+import {RouteConfig} from "angular2/router";
 import {LocationStrategy, HashLocationStrategy} from "angular2/router";
 
-import componentProxyFactory from "./component-proxy";
+import {proxyRoute} from "./component-proxy";
 import {makeRoute, IROUTE, ROUTES} from "./route-helper";
 import NavLink from "./nav-link-directive";
 
@@ -37,13 +37,7 @@ import TabsComponent from "./components/tabs/tabs";
     makeRoute({ component: GreetingComponent, name: "Unclickable" }),
     makeRoute({ component: TabsComponent }),
     makeRoute({ loadFrom: "./app/components/lazy-loaded/lazy-loaded", name: "Lazy" }),
-    new Route({
-        path: "/about",
-        component: componentProxyFactory({
-            path: "./app/components/lazy-loaded/lazy-loaded"
-        }),
-        name: "About",
-    }),
+    proxyRoute({ name: "About", src: "./app/components/lazy-loaded/lazy-loaded" }),
     makeRoute({ component: SandBoxComponent }),
 ])
 @View({
