@@ -18,6 +18,14 @@
         System.config({
             packages: {
                 app: {}
+            },
+            map: {
+                text: "node_modules/system-text/text.js"
+            },
+            meta: {
+                'app/**/*.html': {
+                    loader: 'text'
+                }
             }
         });
         System.import('app/index')

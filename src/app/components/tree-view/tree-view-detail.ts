@@ -1,6 +1,9 @@
 import {Component, Input} from "angular2/core";
 import Directory from "./directory";
 
+//declare var System: any;
+let template: any = require(`./tree-view.html!text`);
+
 @Component({
     directives: [TreeView],
     selector: "tree-view",
@@ -16,7 +19,7 @@ import Directory from "./directory";
         }
     `,
     ],
-    templateUrl: "./app/components/tree-view/tree-view.html",
+    template: template,
 })
 export default class TreeView {
     @Input() protected directories: Array<Directory>;
