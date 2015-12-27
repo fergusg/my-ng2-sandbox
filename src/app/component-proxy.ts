@@ -27,14 +27,14 @@ export function componentProxyFactory(provider: IComponentProvider): Type {
                 throw "Only need one of 'provide' and 'name'";
             }
             const name = provider.name || "default";
-            const provide = provider.provide || this.provide.bind(this, name);
+            const provide = provider.provide || this.defaultProvide.bind(this, name);
             System.import(provider.path)
                 .then((m: any): void => {
                     loader.loadIntoLocation(provide(m), elem, "content");
                 });
         }
 
-        private provide(name: string, m: any): Type {
+        private defaultProvide(name: string, m: any): Type {
             return m[name];
         }
     }
