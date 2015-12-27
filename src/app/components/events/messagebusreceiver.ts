@@ -4,7 +4,7 @@ import AppConfig from "../../config";
 
 @Directive({
     selector: "[message-bus-receiver]",
-    providers: [AppConfig]
+    providers: [AppConfig],
 })
 export default class MessageBusReceiver {
     constructor(messageBus: MessageBus, elem: ElementRef, config: AppConfig) {
