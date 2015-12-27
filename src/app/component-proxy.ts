@@ -15,7 +15,7 @@ interface IComponentProvider {
     name?: string;
 }
 
-export default function componentProxyFactory(provider: IComponentProvider): Type {
+function componentProxyFactory(provider: IComponentProvider): Type {
     "use strict";
     @Component({
         selector: "component-proxy",
@@ -40,3 +40,6 @@ export default function componentProxyFactory(provider: IComponentProvider): Typ
     }
     return VirtualComponent;
 }
+
+export default componentProxyFactory;
+export {componentProxyFactory};
