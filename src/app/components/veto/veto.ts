@@ -6,15 +6,15 @@ import {Router} from "angular2/router";
     selector: "[veto-router-link]",
     host: {
         "(click)": "onClick($event)",
-        "[attr.href]": "getLink()"
+        "[attr.href]": "getLink()",
     },
     // aaa:bbb means "make this.aaa = attr.bbb"
     // Note 1: if both use the same name, then can use just "aaa"
     // Note 2: can use either "veto-if" or camelCase "vetoIf"
     inputs: [
         "veto:veto-if",
-        "route:veto-router-link"
-    ]
+        "route:veto-router-link",
+    ],
 })
 class Veto {
     private route: any[];
