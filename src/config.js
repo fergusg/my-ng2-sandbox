@@ -3582,8 +3582,9 @@ System.config({
 
   map: {
     "angular2": "npm:angular2@2.0.0-alpha.52",
+    "bootstrap": "github:twbs/bootstrap@3.3.6",
     "crypto": "github:jspm/nodelibs-crypto@0.1.0",
-    "es6-shim": "github:es-shims/es6-shim@0.33.13",
+    "es6-shim": "github:es-shims/es6-shim@0.34.0",
     "reflect-metadata": "npm:reflect-metadata@0.1.2",
     "rxjs": "npm:rxjs@5.0.0-alpha.14",
     "systemjs": "npm:systemjs@0.19.6",
@@ -3623,6 +3624,9 @@ System.config({
     },
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
+    },
+    "github:twbs/bootstrap@3.3.6": {
+      "jquery": "github:components/jquery@2.1.4"
     },
     "npm:angular2@2.0.0-alpha.52": {
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
