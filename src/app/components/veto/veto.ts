@@ -1,5 +1,5 @@
 import {Component, View, Directive} from "angular2/core";
-import {Router, Instruction} from "angular2/router";
+import {Router} from "angular2/router";
 
 @Directive({
     // This is a CSS selector.  It"s confusing that the template syntax ALSO uses []
@@ -57,11 +57,12 @@ class Veto {
     directives: [Veto],
     template: `
     <h1>Veto clicks</h1>
-    <a [veto-router-link]="["/Heroes"]" [veto-if]="true">Can"t click me</a>
-    <a [veto-router-link]="["/Heroes"]" [veto-if]="false">Heroes</a>
+    <a [veto-router-link]="heroesLink" [veto-if]="true">Can't click me</a>
+    <a [veto-router-link]="heroesLink" [veto-if]="false">Heroes</a>
     `,
 })
 class VetoComponent {
+    protected heroesLink: string[] = ["/Heroes"];
 }
 
 export default VetoComponent;
