@@ -1,7 +1,6 @@
 declare var System: any; // SystemJS imported globally
 import {Route} from "angular2/router";
-import {componentProxyFactory} from "./component-proxy-factory";
-import {IComponentProvider} from "./component-provider";
+import {componentProxyFactory, IComponentProvider} from "./component-proxy-factory";
 
 interface ILazyRoute {
     src: IComponentProvider; // Path to module
