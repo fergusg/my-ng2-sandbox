@@ -10,12 +10,10 @@ interface ILazyRoute {
 
 function lazyRoute(def: ILazyRoute): Route {
     "use strict";
+
     return new Route({
         path: def.path || `/${def.name.toLowerCase()}`,
-        component: componentProxyFactory({
-            path: def.src.path,
-            name: def.src.name,
-        }),
+        component: componentProxyFactory(def.src, "cheezy"),
         name: def.name,
     });
 }

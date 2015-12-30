@@ -11,11 +11,12 @@ interface IComponentProvider {
     name?: string;
 }
 
-
-function componentProxyFactory(provider: IComponentProvider): Type {
+function componentProxyFactory(
+        provider: IComponentProvider,
+        selector: string = "component-proxy"): Type {
     "use strict";
     @Component({
-        selector: "component-proxy",
+        selector,
         template: `<div #content></div>`,
     })
     class VirtualComponent {

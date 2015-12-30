@@ -4,7 +4,7 @@ import {Type} from "angular2/core";
 import {Route, AsyncRoute} from "angular2/router";
 
 import {lazyRoute as makeLazyRoute} from "./lazy-route";
-import {IComponentProvider} from "./component-provider";
+import {IComponentProvider} from "./component-proxy-factory";
 
 export interface IROUTE { name: string; text: string; };
 export const ROUTES: Array<IROUTE> = [];
