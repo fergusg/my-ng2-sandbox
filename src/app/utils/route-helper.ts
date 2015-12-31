@@ -22,31 +22,32 @@ interface IRouteDef {
 
 function makeRoute(def: IRouteDef, routes?: IRoute[]): RouteDefinition {
     "use strict";
-    if (def.component != null && def.name == null) {
-        def.name = def.component.name.replace(/Component$/, "");
+    let path = def.path;
+    let name = def.name;
+    if (def.component != null && name == null) {
+        name = def.component.name.replace(/Component$/, "");
     }
-    if (!def.name) {
+    if (!name) {
         throw "Can't determine a name for the route";
     }
 
-    def.text = def.text || def.name;
-    def.path = def.path || "/" + def.name.toLowerCase();
+    path = path || "/" + name.toLowerCase();
     if (routes) {
-        routes.push({ name: def.name, text: def.text });
+        routes.push({ name, text: def.text || name });
     }
 
     if (def.provider) {
         return new AsyncRoute({
             loader: _loadAsync(def.provider),
-            name: def.name,
-            path: def.path,
+            name: name,
+            path: path,
         });
     } else {
         // Don't actually need the 'new Route()' wrapper
         return new Route({
             component: def.component,
-            name: def.name,
-            path: def.path,
+            name,
+            path,
         });
     }
 }
