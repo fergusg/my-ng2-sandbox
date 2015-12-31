@@ -63,7 +63,7 @@ class Index {
         const lroute = (def: IRouteDef): RouteDefinition => makeLazyRoute(def, this.routes);
 
         router.config([
-            route({ component: HomeComponent, path: "/" }),
+            route({ component: HomeComponent, path: "/", text: "HOME" }),
             route({ component: HeroesComponent, name: "Heroes" }),
             route({ component: GreetingComponent }),
             route({ component: EventsComponent }),
