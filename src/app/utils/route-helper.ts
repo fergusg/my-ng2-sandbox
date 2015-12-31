@@ -1,6 +1,5 @@
 declare var System: any; // SystemJS imported globally
 
-import {Type} from "angular2/core";
 import {Route, AsyncRoute, RouteDefinition} from "angular2/router";
 
 import {IComponentProvider, componentProxyFactory} from "./component-proxy-factory";
@@ -22,7 +21,7 @@ interface IRouteDef {
 
 function makeRoute(def: IRouteDef, routes?: IRoute[]): RouteDefinition {
     "use strict";
-    var name = def.name;
+    let name = def.name;
     if (def.component != null && name == null) {
         name = def.component.name.replace(/Component$/, "");
     }
@@ -30,9 +29,10 @@ function makeRoute(def: IRouteDef, routes?: IRoute[]): RouteDefinition {
         throw "Can't determine a name for the route";
     }
 
-    let path = def.path || "/" + name.toLowerCase();
+    const path = def.path || "/" + name.toLowerCase();
     if (routes) {
-        routes.push({ name, text: def.text || name });
+        const text = def.text || name;
+        routes.push({ name, text });
     }
 
     if (def.provider) {
