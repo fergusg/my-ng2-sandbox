@@ -1,7 +1,7 @@
 declare var System: any; // SystemJS imported globally
 
 import {Type} from "angular2/core";
-import {Route, AsyncRoute} from "angular2/router";
+import {Route, AsyncRoute, RouteDefinition} from "angular2/router";
 
 import {IComponentProvider, componentProxyFactory} from "./component-proxy-factory";
 
@@ -20,7 +20,7 @@ interface IRouteDef {
     text?: string;
 }
 
-function makeRoute(def: IRouteDef, routes?: IRoute[]): any {
+function makeRoute(def: IRouteDef, routes?: IRoute[]): RouteDefinition {
     "use strict";
     if (def.component != null && def.name == null) {
         def.name = def.component.name.replace(/Component$/, "");
@@ -37,7 +37,7 @@ function makeRoute(def: IRouteDef, routes?: IRoute[]): any {
 
     if (def.provider) {
         return new AsyncRoute({
-            loader: loadAsync(def.provider),
+            loader: _loadAsync(def.provider),
             name: def.name,
             path: def.path,
         });
@@ -49,23 +49,6 @@ function makeRoute(def: IRouteDef, routes?: IRoute[]): any {
             path: def.path,
         });
     }
-}
-
-function loadAsync(provider: IComponentProvider): Type {
-    "use strict";
-    // System.import returns an object with keys = exported object (class, etc)
-    // "default" returns the default object
-    return () => System.import(provider.path).then((c: any) => c[provider.name || "default"]);
-    /*
-        return () => {
-            let promise = System.import(path).then(
-                (c: any) => {
-                    return c[name]
-                }
-            );
-            return promise;
-        };
-    */
 }
 
 function makeLazyRoute(def: IRouteDef, routes?: IRoute[]): Route {
@@ -82,3 +65,19 @@ function makeLazyRoute(def: IRouteDef, routes?: IRoute[]): Route {
     });
 }
 
+function _loadAsync(provider: IComponentProvider): Type {
+    "use strict";
+    // System.import returns an object with keys = exported object (class, etc)
+    // "default" returns the default object
+    return () => System.import(provider.path).then((c: any) => c[provider.name || "default"]);
+    /*
+        return () => {
+            let promise = System.import(path).then(
+                (c: any) => {
+                    return c[name]
+                }
+            );
+            return promise;
+        };
+    */
+}
