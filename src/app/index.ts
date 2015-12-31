@@ -6,10 +6,9 @@ import {Component, View, provide} from "angular2/core";
 import {bootstrap} from "angular2/platform/browser";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
-import {RouteConfig} from "angular2/router";
-import {LocationStrategy, HashLocationStrategy} from "angular2/router";
+import {Router, RouteDefinition, LocationStrategy, HashLocationStrategy} from "angular2/router";
 
-import {makeRoute, makeLazyRoute, IROUTE, ROUTES} from "./utils/route-helper";
+import {makeRoute, makeLazyRoute, IRoute, IRouteDef} from "./utils/route-helper";
 import NavLink from "./utils/nav-link-directive";
 
 import HeroesComponent from "./components/heroes/heroes-component";
@@ -25,30 +24,6 @@ import TabsComponent from "./components/tabs/tabs";
 @Component({
     selector: "index"
 })
-@RouteConfig([
-    makeRoute({ component: HomeComponent, path: "/" }),
-    makeRoute({ component: HeroesComponent, name: "Heroes" }),
-    makeRoute({ component: GreetingComponent }),
-    makeRoute({ component: EventsComponent }),
-    makeRoute({ component: TreeViewComponent }),
-    makeRoute({ component: AddressBookComponent }),
-    makeRoute({ component: VetoComponent }),
-    makeRoute({ component: GreetingComponent, name: "Unclickable" }),
-    makeRoute({ component: TabsComponent }),
-    makeRoute({
-        name: "Lazy",
-        provider: {
-            path: "./app/components/lazy-loaded/lazy-loaded"
-        },
-    }),
-    makeLazyRoute({
-        name: "About",
-        src: {
-            path: "./app/components/lazy-loaded/lazy-loaded"
-        },
-    }),
-    makeRoute({ component: SandBoxComponent }),
-])
 @View({
     directives: [ROUTER_DIRECTIVES, NavLink],
     styles: [`
@@ -66,7 +41,6 @@ import TabsComponent from "./components/tabs/tabs";
                 [nav-link]="[route.name]"
                 [class.inactive]="!isEnabled(route.name)"
             >{{route.text}}</a></span>
-        <a nav-link-active="nav-style-1" [nav-link]="['About']">About</a>
         <a nav-link-active="nav-style-1" [nav-link]="['SandBox']">SandBox2</a>
         <a nav-link-active="nav-style-1" [nav-link]="['SandBox']"
             [nav-link-enabled]="false">Sandbox(Unclickable)</a>
@@ -74,15 +48,53 @@ import TabsComponent from "./components/tabs/tabs";
     `,
 })
 class Index {
-    private static colours: string[] = ["nav-style-0", "nav-style-1", "nav-style-2"];
-    private static nColours: number = Index.colours.length;
+    private static linkStyles: string[] = ["nav-style-0", "nav-style-1", "nav-style-2"];
+    private static nLinkStyles: number = Index.linkStyles.length;
 
-    public routes: IROUTE[] = ROUTES;
+    public routes: IRoute[];
 
     private vetoRegex: any = /Unclickable/;
 
+    // We don't use @RouteConfig so we can avoid a global ROUTES variable
+    constructor(router: Router) {
+        this.routes = [];
+
+        const route = (def: IRouteDef): RouteDefinition => makeRoute(def, this.routes);
+        const lroute = (def: IRouteDef): RouteDefinition => makeLazyRoute(def, this.routes);
+
+        router.config([
+            route({ component: HomeComponent, path: "/" }),
+            route({ component: HeroesComponent, name: "Heroes" }),
+            route({ component: GreetingComponent }),
+            route({ component: EventsComponent }),
+            route({ component: TreeViewComponent }),
+            route({ component: AddressBookComponent }),
+            route({ component: VetoComponent }),
+            route({ component: GreetingComponent, name: "Unclickable" }),
+            route({ component: TabsComponent }),
+            route({ component: SandBoxComponent }),
+            route(
+                {
+                    name: "Lazy",
+                    provider: {
+                        path: "./app/components/lazy-loaded/lazy-loaded"
+                    },
+                }
+            ),
+            lroute(
+                {
+                    name: "About",
+                    text: "Abooot",
+                    provider: {
+                        path: "./app/components/lazy-loaded/lazy-loaded"
+                    },
+                }
+            ),
+        ]);
+    }
+
     public getLinkStyle(i: number): string {
-        return Index.colours[i % Index.nColours];
+        return Index.linkStyles[i % Index.nLinkStyles];
     }
 
     public isEnabled(route: string): boolean {

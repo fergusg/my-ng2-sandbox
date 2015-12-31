@@ -3,12 +3,14 @@ declare var System: any; // SystemJS imported globally
 import {Type} from "angular2/core";
 import {Route, AsyncRoute} from "angular2/router";
 
-import {lazyRoute as makeLazyRoute} from "./lazy-route";
-import {IComponentProvider} from "./component-proxy-factory";
+import {IComponentProvider, componentProxyFactory} from "./component-proxy-factory";
 
-export interface IROUTE { name: string; text: string; };
-export const ROUTES: Array<IROUTE> = [];
-export {makeRoute, makeLazyRoute};
+export {makeRoute, makeLazyRoute, IRoute, IRouteDef};
+
+interface IRoute {
+    name: string;
+    text: string;
+};
 
 interface IRouteDef {
     component?: any;
@@ -18,9 +20,7 @@ interface IRouteDef {
     text?: string;
 }
 
-// Can't yet find a way to include this with the class
-// (makeRoute is called before the ES5 "class" is instantiated)
-function makeRoute(def: IRouteDef): any {
+function makeRoute(def: IRouteDef, routes?: IRoute[]): any {
     "use strict";
     if (def.component != null && def.name == null) {
         def.name = def.component.name.replace(/Component$/, "");
@@ -31,8 +31,9 @@ function makeRoute(def: IRouteDef): any {
 
     def.text = def.text || def.name;
     def.path = def.path || "/" + def.name.toLowerCase();
-
-    ROUTES.push({ name: def.name, text: def.text });
+    if (routes) {
+        routes.push({ name: def.name, text: def.text });
+    }
 
     if (def.provider) {
         return new AsyncRoute({
@@ -65,5 +66,19 @@ function loadAsync(provider: IComponentProvider): Type {
             return promise;
         };
     */
+}
+
+function makeLazyRoute(def: IRouteDef, routes?: IRoute[]): Route {
+    "use strict";
+
+    if (routes) {
+        routes.push({ name: def.name, text: def.text || def.name });
+    }
+
+    return new Route({
+        path: def.path || `/${def.name.toLowerCase()}`,
+        component: componentProxyFactory(def.provider, "cheezy"),
+        name: def.name,
+    });
 }
 
