@@ -22,8 +22,7 @@ interface IRouteDef {
 
 function makeRoute(def: IRouteDef, routes?: IRoute[]): RouteDefinition {
     "use strict";
-    let path = def.path;
-    let name = def.name;
+    var name = def.name;
     if (def.component != null && name == null) {
         name = def.component.name.replace(/Component$/, "");
     }
@@ -31,54 +30,32 @@ function makeRoute(def: IRouteDef, routes?: IRoute[]): RouteDefinition {
         throw "Can't determine a name for the route";
     }
 
-    path = path || "/" + name.toLowerCase();
+    let path = def.path || "/" + name.toLowerCase();
     if (routes) {
         routes.push({ name, text: def.text || name });
     }
 
     if (def.provider) {
-        return new AsyncRoute({
-            loader: _loadAsync(def.provider),
-            name: name,
-            path: path,
-        });
+        const loader = () => System.import(path).then((c: any) => c[name || "default"]);
+        return new AsyncRoute({ loader, name, path });
     } else {
+        const component = def.component;
         // Don't actually need the 'new Route()' wrapper
-        return new Route({
-            component: def.component,
-            name,
-            path,
-        });
+        return new Route({ path, component, name });
     }
 }
 
 function makeLazyRoute(def: IRouteDef, routes?: IRoute[]): Route {
     "use strict";
 
+    const name = def.name;
+    const text = def.text || name;
+    const path = def.path || `/${name.toLowerCase()}`;
+    const component = componentProxyFactory(def.provider, "cheezy");
+
     if (routes) {
-        routes.push({ name: def.name, text: def.text || def.name });
+        routes.push({ name, text });
     }
 
-    return new Route({
-        path: def.path || `/${def.name.toLowerCase()}`,
-        component: componentProxyFactory(def.provider, "cheezy"),
-        name: def.name,
-    });
-}
-
-function _loadAsync(provider: IComponentProvider): Type {
-    "use strict";
-    // System.import returns an object with keys = exported object (class, etc)
-    // "default" returns the default object
-    return () => System.import(provider.path).then((c: any) => c[provider.name || "default"]);
-    /*
-        return () => {
-            let promise = System.import(path).then(
-                (c: any) => {
-                    return c[name]
-                }
-            );
-            return promise;
-        };
-    */
+    return new Route({ path, component, name });
 }
