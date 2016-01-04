@@ -36,7 +36,8 @@ function makeRoute(def: IRouteDef, routes?: IRoute[]): RouteDefinition {
     }
 
     if (def.provider) {
-        const loader = () => System.import(path).then((c: any) => c[name || "default"]);
+        const p = def.provider;
+        const loader = () => System.import(p.path).then((c: any) => c[p.name || "default"]);
         return new AsyncRoute({ loader, name, path });
     } else {
         const component = def.component;
