@@ -1,4 +1,5 @@
 var path = require("path");
+var __dirname;
 module.exports = {
   entry: {
     app: ["./app/index.ts"]
@@ -17,5 +18,4 @@ module.exports = {
   resolve: {
       extensions: ["", ".ts", ".js"]
   }
-
 };
