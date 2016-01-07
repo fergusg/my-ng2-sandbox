@@ -1,6 +1,6 @@
 import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ElementRef} from "angular2/core";
-import {Http, Response} from "angular2/http";
-import {Observable} from "rxjs/Observable";
+import {Http} from "angular2/http";
+import jsonLoader from "../../utils/json-loader";
 
 declare var _: any;
 declare var Immutable: any;
@@ -15,15 +15,13 @@ declare var d3: any;
     `
 })
 class ImmutableComponent implements OnDestroy {
-    private simpleData: any;
+    protected src = "/app/components/immutable/data.json";
+    protected shift: number = 0;
     private interval: any;
-    private src = "/app/components/immutable/data.json";
     private data: any[];
     private chart: any;
-    private shift: number = 0;
 
     constructor(private http: Http, private ref: ChangeDetectorRef, private elem: ElementRef) {
-        this.simpleData = Immutable.Map({ x: 0 });
         this.chart = nv.models.lineChart()
             .margin({ left: "100" })
             .showLegend(false);
@@ -32,23 +30,23 @@ class ImmutableComponent implements OnDestroy {
     }
 
     public loader(): void {
-        this.load().subscribe(
-            this.onLoad.bind(this),
+        jsonLoader(this.http, this.src).subscribe(
+            onLoad.bind(this),
             (): any => null
         );
-    }
 
-    public onLoad(res: any): any {
-        this.data = [];
-        const len = res.timestamps.length;
-        this.shift = (this.shift + 1) % len;
-        for (let i = 0; i < len; i++) {
-            this.data.push({
-                x: res.timestamps[i] * 1000, // secs -> millis
-                y: res.data[(i + this.shift) % len]
-            });
+        function onLoad(res: any): any {
+            this.data = [];
+            const len = res.timestamps.length;
+            this.shift = (this.shift + 1) % len;
+            for (let i = 0; i < len; i++) {
+                this.data.push({
+                    x: res.timestamps[i] * 1000, // secs -> millis
+                    y: res.data[(i + this.shift) % len]
+                });
+            }
+            this.makeChart();
         }
-        this.makeChart();
     }
 
     public ngOnDestroy(): void {
@@ -61,12 +59,6 @@ class ImmutableComponent implements OnDestroy {
         d3.select(e)
             .datum([{ values: this.data }])
             .call(this.chart);
-    }
-
-    private load(): Observable<any> {
-        return this.http.get(this.src).map(
-            (res: Response) => res.json()
-        );
     }
 
     private _setupAxes(chart: any): void {
