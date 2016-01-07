@@ -20,6 +20,7 @@ import VetoComponent from "./components/veto/veto";
 import SandBoxComponent from "./components/sandbox/sandbox";
 import EventsComponent from "./components/events/events";
 import TabsComponent from "./components/tabs/tabs";
+import ImmutableComponent from "./components/immutable/immutable";
 
 @Component({
     selector: "index"
@@ -64,6 +65,7 @@ class Index {
 
         router.config([
             route({ component: HomeComponent, path: "/", text: "HOME" }),
+            route({ component: ImmutableComponent }),
             route({ component: HeroesComponent, name: "Heroes" }),
             route({ component: GreetingComponent }),
             route({ component: EventsComponent }),
