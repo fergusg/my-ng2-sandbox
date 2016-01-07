@@ -42,7 +42,6 @@ class ImmutableComponent implements OnDestroy {
         this.data = [];
         const len = res.timestamps.length;
         this.shift = (this.shift + 1) % len;
-        console.log(this.shift);
         for (let i = 0; i < len; i++) {
             this.data.push({
                 x: res.timestamps[i] * 1000, // secs -> millis
