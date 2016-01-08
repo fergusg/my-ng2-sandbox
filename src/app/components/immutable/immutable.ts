@@ -15,7 +15,7 @@ declare var d3: any;
     `
 })
 class ImmutableComponent implements OnDestroy {
-    protected src = "/app/components/immutable/data.json";
+    protected src = "chart-data.json";
     protected shift: number = 0;
     private interval: any;
     private data: any[];
