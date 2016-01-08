@@ -19,9 +19,7 @@ interface IChartData {
     styles: [`
         svg {
             height:400px;
-            padding: 20px;
-            width: 100%;
-            border: 1px solid red
+            width: 80%;
         }`,
     ],
     providers: [JsonLoader],
@@ -30,7 +28,6 @@ class ImmutableComponent implements OnDestroy {
     private shift: number = 0;
     private src = "chart-data.json";
     private interval: any;
-    private data: IChartData[];
     private chart: any;
 
     constructor(
@@ -47,19 +44,23 @@ class ImmutableComponent implements OnDestroy {
             .margin({ left: "100" })
             .showLegend(false);
 
-        let xFmt = d3.time.format("%H:%M");
-        let yFmt = d3.format(".i");
+        const fmt = {
+            x: d3.time.format("%H:%M"),
+            y: d3.format(".i")
+        };
 
-        let xLabel = "Time";
-        let yLabel = "Value/1000";
+        const label = {
+            x: "Time",
+            y: "Value/1000"
+        };
 
         this.chart.xAxis
-            .axisLabel(xLabel)
-            .tickFormat((d: any) => xFmt(new Date(d)));
+            .axisLabel(label.x)
+            .tickFormat((d: any) => fmt.x(new Date(d)));
 
         this.chart.yAxis
-            .axisLabel(yLabel)
-            .tickFormat((v: number) => yFmt(Math.floor(v / 1000)));
+            .axisLabel(label.y)
+            .tickFormat((v: number) => fmt.y(Math.floor(v / 1000)));
     };
 
     private loader = (): void => {
@@ -67,22 +68,21 @@ class ImmutableComponent implements OnDestroy {
 
         this.json.load(this.src).subscribe(
             (res: any): any => {
-                this.data = [];
+                const data: IChartData[] = [];
                 const len = res.timestamps.length;
                 for (let i = 0; i < len; i++) {
-                    this.data.push({
+                    data.push({
                         x: res.timestamps[i] * 1000, // secs -> millis
                         y: res.data[(i + this.shift) % len],
                     });
                 }
                 d3.select(this.elem.nativeElement)
                     .select("svg")
-                    .datum([{ values: this.data }])
+                    .datum([{ values: data }])
                     .call(this.chart);
             }
         );
     };
-
 
     public ngOnDestroy(): void {
         console.log("Destroyed");
