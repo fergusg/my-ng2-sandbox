@@ -24,7 +24,7 @@ interface IChartData {
             border: 1px solid red
         }`,
     ],
-    providers: [JsonLoader]
+    providers: [JsonLoader],
 })
 class ImmutableComponent implements OnDestroy {
     private shift: number = 0;
