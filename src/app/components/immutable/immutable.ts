@@ -19,8 +19,8 @@ interface IChartData {
     styles: [`
         svg {
             height:400px;
-            margin: 20px;
-            width: 80%;
+            padding: 20px;
+            width: 100%;
             border: 1px solid red
         }`,
     ],
@@ -47,19 +47,19 @@ class ImmutableComponent implements OnDestroy {
             .margin({ left: "100" })
             .showLegend(false);
 
-        let fmtX = d3.time.format("%H:%M");
-        let fmtY = d3.format(".i");
+        let xFmt = d3.time.format("%H:%M");
+        let yFmt = d3.format(".i");
 
-        let xlabel = "Time";
-        let ylabel = "Value/1000";
+        let xLabel = "Time";
+        let yLabel = "Value/1000";
 
         this.chart.xAxis
-            .axisLabel(xlabel)
-            .tickFormat((d: any) => fmtX(new Date(d)));
+            .axisLabel(xLabel)
+            .tickFormat((d: any) => xFmt(new Date(d)));
 
         this.chart.yAxis
-            .axisLabel(ylabel)
-            .tickFormat((v: number) => fmtY(Math.floor(v / 1000)));
+            .axisLabel(yLabel)
+            .tickFormat((v: number) => yFmt(Math.floor(v / 1000)));
     };
 
     private loader = (): void => {
