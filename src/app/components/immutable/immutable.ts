@@ -7,6 +7,11 @@ declare var Immutable: any;
 declare var nv: any;
 declare var d3: any;
 
+interface IChartData {
+    x: number;
+    y: number;
+}
+
 @Component({
     selector: "immutable",
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,53 +20,48 @@ declare var d3: any;
     `,
 })
 class ImmutableComponent implements OnDestroy {
-    protected src = "chart-data.json";
-    protected shift: number = 0;
+    private shift: number = 0;
+    private src = "chart-data.json";
     private interval: any;
-    private data: any[];
+    private data: IChartData[];
     private chart: any;
 
     constructor(private http: Http, private ref: ChangeDetectorRef, private elem: ElementRef) {
         this.chart = nv.models.lineChart()
             .margin({ left: "100" })
             .showLegend(false);
-        this.interval = setInterval(this.loader.bind(this), 1000);
+        this.interval = setInterval(this.loader, 1000);
         this._setupAxes(this.chart);
     }
 
-    public loader(): void {
-        jsonLoader(this.http, this.src).subscribe(
-            onLoad.bind(this),
-            (): any => null
-        );
-
-        function onLoad(res: any): any {
-            this.data = [];
-            const len = res.timestamps.length;
-            this.shift = (this.shift + 1) % len;
-            for (let i = 0; i < len; i++) {
-                this.data.push({
-                    x: res.timestamps[i] * 1000, // secs -> millis
-                    y: res.data[(i + this.shift) % len],
-                });
-            }
-            this.makeChart();
-        }
-    }
-
-    public ngOnDestroy(): void {
-        console.log("Destroyed");
-        clearInterval(this.interval);
-    }
-
-    public makeChart(): void {
-        const e = document.querySelector("svg");
-        d3.select(e)
+    private makeChart = (): void => {
+        d3.select(this.elem.nativeElement)
+            .select("svg")
             .datum([{ values: this.data }])
             .call(this.chart);
-    }
+    };
 
-    private _setupAxes(chart: any): void {
+    private loader = (): void => {
+        this.shift++;
+        jsonLoader(this.http, this.src).subscribe(
+            this.onLoad,
+            (): any => null
+        );
+    };
+
+    private onLoad = (res: any): any => {
+        this.data = [];
+        const len = res.timestamps.length;
+        for (let i = 0; i < len; i++) {
+            this.data.push({
+                x: res.timestamps[i] * 1000, // secs -> millis
+                y: res.data[(i + this.shift) % len],
+            });
+        }
+        this.makeChart();
+    };
+
+    private _setupAxes = (chart: any): void => {
         let fmtX = d3.time.format("%H:%M");
         let fmtY = d3.format(".i");
 
@@ -75,7 +75,13 @@ class ImmutableComponent implements OnDestroy {
         chart.yAxis
             .axisLabel(ylabel)
             .tickFormat((v: number) => fmtY(Math.floor(v / 1000)));
+    };
+
+    public ngOnDestroy(): void {
+        console.log("Destroyed");
+        clearInterval(this.interval);
     }
+
 }
 
 export default ImmutableComponent;
