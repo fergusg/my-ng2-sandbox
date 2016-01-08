@@ -12,7 +12,7 @@ declare var d3: any;
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <svg style="height:400px; width:95%; border: 1px solid black"></svg>
-    `
+    `,
 })
 class ImmutableComponent implements OnDestroy {
     protected src = "chart-data.json";
@@ -42,7 +42,7 @@ class ImmutableComponent implements OnDestroy {
             for (let i = 0; i < len; i++) {
                 this.data.push({
                     x: res.timestamps[i] * 1000, // secs -> millis
-                    y: res.data[(i + this.shift) % len]
+                    y: res.data[(i + this.shift) % len],
                 });
             }
             this.makeChart();
