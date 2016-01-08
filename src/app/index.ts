@@ -10,6 +10,7 @@ import {Router, RouteDefinition, LocationStrategy, HashLocationStrategy} from "a
 
 import {makeRoute, makeLazyRoute, IRoute, IRouteDef} from "./utils/route-helper";
 import NavLink from "./utils/nav-link-directive";
+import JsonLoader from "./utils/json-loader";
 
 import HeroesComponent from "./components/heroes/heroes-component";
 import HomeComponent from "./components/home/home";
@@ -107,5 +108,5 @@ class Index {
 bootstrap(Index, [
     ...HTTP_PROVIDERS,
     ...ROUTER_PROVIDERS,
-    provide(LocationStrategy, { useClass: HashLocationStrategy }),
+    provide(LocationStrategy, { useClass: HashLocationStrategy })
 ]);

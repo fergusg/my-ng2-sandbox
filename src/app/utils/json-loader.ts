@@ -1,11 +1,18 @@
 import {Observable} from "rxjs/Observable";
+import {Injectable} from "angular2/core";
 import {Http, Response} from "angular2/http";
 
-function jsonLoader(http: Http, src: string): Observable<any> {
-    "use strict";
-    return http.get(src).map(
-        (res: Response) => res.json()
-    );
+@Injectable()
+class JsonLoader {
+    constructor(private http: Http) {
+        console.log("JsonLoader");
+    }
+
+    public load(src: string): Observable<any> {
+        return this.http.get(src).map(
+            (res: Response) => res.json()
+        );
+    }
 }
 
-export default jsonLoader;
+export default JsonLoader;
