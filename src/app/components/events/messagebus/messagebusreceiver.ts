@@ -1,6 +1,6 @@
 import {Directive, ElementRef} from "angular2/core";
 import MessageBus from "./messagebus";
-import AppConfig from "../../config";
+import AppConfig from "../../../config";
 
 @Directive({
     selector: "[message-bus-receiver]",
