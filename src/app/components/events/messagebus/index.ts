@@ -1,7 +1,8 @@
 import {Component, Directive, ElementRef} from "angular2/core";
 
-import MessageBus, {IEvent} from "./messagebus";
+import MessageBus from "./messagebus";
 import MessageBusReceiver from "./messagebusreceiver";
+import {IEvent} from "./events";
 
 @Directive({
     selector: "[message-bus-receiver]"
