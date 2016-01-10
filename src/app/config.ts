@@ -2,7 +2,7 @@ import {Injectable} from "angular2/core";
 
 @Injectable()
 export default class Config {
-    get debounceTime(): number {
+    static get debounceTime(): number {
         return 100;
     }
 }

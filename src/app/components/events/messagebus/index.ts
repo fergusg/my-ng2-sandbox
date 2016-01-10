@@ -1,11 +1,25 @@
-import {Component} from "angular2/core";
+import {Component, Directive, ElementRef} from "angular2/core";
 
-
-import MessageBus from "./messagebus";
+import MessageBus, {IEvent} from "./messagebus";
 import MessageBusReceiver from "./messagebusreceiver";
 
+@Directive({
+    selector: "[message-bus-receiver]"
+})
+class TitleReceiver extends MessageBusReceiver {
+    constructor(messageBus: MessageBus, protected elem: ElementRef) {
+        super(messageBus, elem);
+    }
+
+    protected acceptMessage(t: IEvent): void {
+        if (t.type === "title") {
+            this.elem.nativeElement.innerText = t.message;
+        }
+    };
+}
+
 @Component({
-    directives: [MessageBusReceiver],
+    directives: [TitleReceiver],
     providers: [MessageBus],
     selector: "messagebus",
     template: `
@@ -18,7 +32,7 @@ class EventsComponent {
     }
 
     protected emitTitle(s: string): void {
-        this.messageBus.emit(s);
+        this.messageBus.emit({type: "title", message: s});
     }
 }
 

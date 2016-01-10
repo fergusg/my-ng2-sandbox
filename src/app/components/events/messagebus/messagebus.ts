@@ -1,22 +1,40 @@
 import {EventEmitter} from "angular2/core";
+import AppConfig from "../../../config";
 
-export default class MessageBus {
-    private eventEmitter: EventEmitter<any>;
-    constructor() {
-        this.eventEmitter = new EventEmitter<any>();
+interface IEvent {
+    type?: string;
+    message: any;
+}
+
+interface IEventEmitter {
+    (message: IEvent): void;
+}
+
+interface IEventSubscriber {
+    (generatorOrNext?: any, error?: any, complete?: any): any;
+}
+
+class MessageBus {
+    private _emitter = new EventEmitter<any>();
+
+    public get emit(): IEventEmitter {
+        return this._emitter.emit.bind(this._emitter);
     }
 
-    // shorthand for .emitter.emit(...)
-    public emit(message: any): void {
-        this.eventEmitter.emit(message);
+    public get subscribe(): IEventSubscriber {
+        return this._emitter
+            .debounceTime(AppConfig.debounceTime || 100)
+            .subscribe
+            .bind(this._emitter);
     }
-
-    // shorthand for .emitter.subscribe(...)
-    public subscribe(generatorOrNext?: any, error?: any, complete?: any): any {
-        return this.eventEmitter.subscribe(generatorOrNext, error, complete);
-    }
+    // public subscribe(generatorOrNext?: any, error?: any, complete?: any): any {
+    //     return this.eventEmitter.subscribe(generatorOrNext, error, complete);
+    // }
 
     public get emitter(): EventEmitter<any> {
-        return this.eventEmitter;
+        return this._emitter;
     }
 }
+
+export default MessageBus;
+export {IEvent};

@@ -1,20 +1,24 @@
-import {Directive, ElementRef} from "angular2/core";
-import MessageBus from "./messagebus";
-import AppConfig from "../../../config";
+import {ElementRef} from "angular2/core";
+import MessageBus, {IEvent} from "./messagebus";
 
-@Directive({
-    selector: "[message-bus-receiver]",
-    providers: [AppConfig],
-})
 export default class MessageBusReceiver {
-    constructor(messageBus: MessageBus, elem: ElementRef, config: AppConfig) {
-        messageBus
-            .emitter
-            .debounceTime(config.debounceTime)
-            .subscribe(
-                (t: any) => elem.nativeElement.innerText = t,
-                (err: any) => console.error("error", err),
-                () => console.log("complete")
-            );
+    constructor(private messageBus: MessageBus, protected elem: ElementRef) {
+        this.messageBus.subscribe(
+            this.acceptMessage.bind(this),
+            this.onError.bind(this),
+            this.onComplete.bind(this)
+        );
     }
+
+    protected onError(err: any): void {
+        console.error(err);
+    };
+
+    protected onComplete(): void {
+        console.log("complete");
+    };
+
+    protected acceptMessage(t: IEvent): void {
+        console.error("needs override");
+    };
 }
