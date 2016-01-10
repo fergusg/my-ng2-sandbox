@@ -1,7 +1,5 @@
 import {ElementRef} from "angular2/core";
-import MessageBus from "./messagebus";
-
-import {IEvent} from "./events";
+import MessageBus, {IEvent} from "./messagebus";
 
 export default class MessageBusReceiver {
     constructor(private messageBus: MessageBus, protected elem: ElementRef) {
@@ -14,13 +12,13 @@ export default class MessageBusReceiver {
 
     protected onError(err: any): void {
         console.error(err);
-    };
+    }
 
     protected onComplete(): void {
         console.log("complete");
-    };
+    }
 
     protected acceptMessage(t: IEvent): void {
-        console.error("needs override");
-    };
+        throw "needs override";
+    }
 }

@@ -1,6 +1,18 @@
 import {EventEmitter} from "angular2/core";
 import AppConfig from "../../../config";
-import {IEventEmitter, IEventSubscriber} from "./events";
+
+interface IEvent {
+    type?: string;
+    message: any;
+}
+
+interface IEventEmitter {
+    (message: IEvent): void;
+}
+
+interface IEventSubscriber {
+    (generatorOrNext?: any, error?: any, complete?: any): any;
+}
 
 class MessageBus {
     private _emitter = new EventEmitter<any>();
@@ -24,4 +36,5 @@ class MessageBus {
     }
 }
 
+export {IEvent, IEventEmitter, IEventSubscriber};
 export default MessageBus;
