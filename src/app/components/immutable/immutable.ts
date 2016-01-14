@@ -1,5 +1,4 @@
-import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ElementRef} from "angular2/core";
-import {Http} from "angular2/http";
+import {Component, ChangeDetectionStrategy, OnDestroy, ElementRef} from "angular2/core";
 import JsonLoader from "../../utils/json-loader";
 
 declare var _: any;
@@ -31,8 +30,6 @@ class ImmutableComponent implements OnDestroy {
     private chart: any;
 
     constructor(
-        private http: Http,
-        private ref: ChangeDetectorRef,
         private elem: ElementRef,
         private json: JsonLoader) {
         this.initChart();
@@ -46,12 +43,12 @@ class ImmutableComponent implements OnDestroy {
 
         const fmt = {
             x: d3.time.format("%H:%M"),
-            y: d3.format(".i")
+            y: d3.format(".i"),
         };
 
         const label = {
             x: "Time",
-            y: "Value/1000"
+            y: "Value/1000",
         };
 
         this.chart.xAxis

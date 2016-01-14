@@ -5,7 +5,7 @@ import {Component} from "angular2/core";
     template: `
     <h1>{{title}}</h1>
     <span *ngFor="#d of data">{{d}} </span>
-    `
+    `,
 })
 export default class HomeComponent {
     public title: string = "Home Page";
