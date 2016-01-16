@@ -12,7 +12,7 @@ interface IChartData {
 }
 
 @Component({
-    selector: "immutable",
+    selector: "simple-graph",
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: "<svg></svg>",
     styles: [`
@@ -23,7 +23,7 @@ interface IChartData {
     ],
     providers: [JsonLoader],
 })
-class ImmutableComponent implements OnDestroy {
+class SimpleGraphComponent implements OnDestroy {
     private shift: number = 0;
     private src = "chart-data.json";
     private interval: any;
@@ -87,4 +87,4 @@ class ImmutableComponent implements OnDestroy {
     }
 }
 
-export default ImmutableComponent;
+export default SimpleGraphComponent;
