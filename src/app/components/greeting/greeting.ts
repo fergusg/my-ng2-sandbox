@@ -1,8 +1,8 @@
-import {Component, Input} from "angular2/core";
+import {Component} from "angular2/core";
 
 @Component({
     selector: "greeting",
-    // ALT inputs: ['name'],
+    inputs: ["name"],
     styles: [`
         .greeting {
             color:red;
@@ -18,13 +18,14 @@ import {Component, Input} from "angular2/core";
 export default class Greeting {
     protected greeting: string;
     protected canGreet: boolean;
-    @Input("name") private _name: string;
+    private _name: string;
 
     protected greet(): void {
         this.canGreet = true;
     }
 
     set name(name: string) {
+        console.log("set name:", name);
         this._name = name;
     }
 
