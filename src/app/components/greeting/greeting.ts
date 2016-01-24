@@ -13,7 +13,7 @@ import {Component} from "angular2/core";
     template: `
         <div *ngIf="canGreet" class="greeting">{{name}}</div>
         <button *ngIf="!canGreet" (click)="greet()">Create Greeting</button>
-    `
+    `,
 })
 export default class Greeting {
     protected greeting: string;
