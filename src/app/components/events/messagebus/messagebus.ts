@@ -23,7 +23,7 @@ class MessageBus {
 
     public get subscribe(): IEventSubscriber {
         return this._emitter
-            .debounceTime(AppConfig.debounceTime || 100)
+            .debounceTime(AppConfig.debounceTime)
             .subscribe
             .bind(this._emitter);
     }
