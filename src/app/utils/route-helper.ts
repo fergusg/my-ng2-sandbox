@@ -21,7 +21,7 @@ interface IRouteDef {
 
 function makeRoute(def: IRouteDef, routes?: IRoute[]): RouteDefinition {
     "use strict";
-    let name = def.name;
+    let name: string = def.name;
     if (def.component != null && name == null) {
         name = def.component.name.replace(/Component$/, "");
     }
@@ -29,18 +29,18 @@ function makeRoute(def: IRouteDef, routes?: IRoute[]): RouteDefinition {
         throw "Can't determine a name for the route";
     }
 
-    const path = def.path || "/" + name.toLowerCase();
+    const path: string = def.path || "/" + name.toLowerCase();
     if (routes) {
-        const text = def.text || name;
+        const text: string = def.text || name;
         routes.push({ name, text });
     }
 
     if (def.provider) {
-        const p = def.provider;
-        const loader = () => System.import(p.path).then((c: any) => c[p.name || "default"]);
+        const p: IComponentProvider = def.provider;
+        const loader: any = () => System.import(p.path).then((c: any) => c[p.name || "default"]);
         return new AsyncRoute({ loader, name, path });
     } else {
-        const component = def.component;
+        const component: any = def.component;
         // Don't actually need the 'new Route()' wrapper
         return new Route({ path, component, name });
     }
@@ -49,10 +49,10 @@ function makeRoute(def: IRouteDef, routes?: IRoute[]): RouteDefinition {
 function makeLazyRoute(def: IRouteDef, routes?: IRoute[]): Route {
     "use strict";
 
-    const name = def.name;
-    const text = def.text || name;
-    const path = def.path || `/${name.toLowerCase()}`;
-    const component = componentProxyFactory(def.provider, "cheezy");
+    const name: string = def.name;
+    const text: string = def.text || name;
+    const path: string = def.path || `/${name.toLowerCase()}`;
+    const component: any = componentProxyFactory(def.provider, "cheezy");
 
     if (routes) {
         routes.push({ name, text });

@@ -21,7 +21,7 @@ import {
     EventsComponent,
     TabsComponent,
     SimpleGraphComponent,
-    VetoComponent
+    VetoComponent,
 } from "./components";
 
 @Component({
@@ -62,8 +62,8 @@ class Index {
     constructor(router: Router) {
         this.routes = [];
 
-        const route = (def: IRouteDef): RouteDefinition => makeRoute(def, this.routes);
-        const lroute = (def: IRouteDef): RouteDefinition => makeLazyRoute(def, this.routes);
+        const route: any = (def: IRouteDef): RouteDefinition => makeRoute(def, this.routes);
+        const lroute: any = (def: IRouteDef): RouteDefinition => makeLazyRoute(def, this.routes);
 
         router.config([
             route({ component: HomeComponent, path: "/", text: "HOME" }),

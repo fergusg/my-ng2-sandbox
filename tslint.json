@@ -10,8 +10,7 @@
         "class-name": true,
         "comment-format": [
             true,
-            "check-space",
-            "no-check-lowercase"
+            "check-space"
         ],
         "curly": true,
         "eofline": true,
@@ -100,8 +99,8 @@
             "call-signature",
             "parameter",
             "property-declaration",
-            "xxxx-variable-declaration",
-            "xxxx-member-variable-declaration"
+            "variable-declaration",
+            "member-variable-declaration"
         ],
         "typedef-whitespace": [
             true,
