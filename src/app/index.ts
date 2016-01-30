@@ -11,16 +11,18 @@ import {Router, RouteDefinition, LocationStrategy, HashLocationStrategy} from "a
 import {makeRoute, makeLazyRoute, IRoute, IRouteDef} from "./utils/route-helper";
 import NavLink from "./utils/nav-link-directive";
 
-import HeroesComponent from "./components/heroes/heroes-component";
-import HomeComponent from "./components/home/home";
-import GreetingComponent from "./components/greeting/greeting-component";
-import TreeViewComponent from "./components/tree-view/tree-view";
-import AddressBookComponent from "./components/address-book/address-book";
-import VetoComponent from "./components/veto/veto";
-import SandBoxComponent from "./components/sandbox/sandbox";
-import EventsComponent from "./components/events/events";
-import TabsComponent from "./components/tabs/tabs";
-import SimpleGraphComponent from "./components/simplegraph/simplegraph";
+import {
+    HomeComponent,
+    HeroesComponent,
+    GreetingComponent,
+    TreeViewComponent,
+    AddressBookComponent,
+    SandBoxComponent,
+    EventsComponent,
+    TabsComponent,
+    SimpleGraphComponent,
+    VetoComponent
+} from "./components";
 
 @Component({
     selector: "index"
