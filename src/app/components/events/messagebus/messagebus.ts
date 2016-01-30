@@ -27,9 +27,6 @@ class MessageBus {
             .subscribe
             .bind(this._emitter);
     }
-    // public subscribe(generatorOrNext?: any, error?: any, complete?: any): any {
-    //     return this.eventEmitter.subscribe(generatorOrNext, error, complete);
-    // }
 
     public get emitter(): EventEmitter<any> {
         return this._emitter;
