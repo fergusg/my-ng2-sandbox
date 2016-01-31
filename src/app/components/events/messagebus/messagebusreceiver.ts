@@ -1,6 +1,6 @@
 import MessageBus, {IEvent} from "./messagebus";
 
-export default class MessageBusReceiver {
+abstract class MessageBusReceiver {
     constructor(private messageBus: MessageBus) {
         this.messageBus.subscribe(
             this.acceptMessage.bind(this),
@@ -17,7 +17,8 @@ export default class MessageBusReceiver {
         console.log("complete");
     }
 
-    protected acceptMessage(t: IEvent): void {
-        throw "needs override";
-    }
+    protected abstract acceptMessage(t: IEvent): void;
 }
+
+
+export default MessageBusReceiver;
