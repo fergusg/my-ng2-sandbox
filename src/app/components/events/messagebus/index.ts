@@ -3,6 +3,9 @@ import {Component, Directive, ElementRef} from "angular2/core";
 import MessageBus, {IEvent} from "./messagebus";
 import MessageBusReceiver from "./messagebusreceiver";
 
+/**
+ *
+ */
 @Directive({
     selector: "[receiver]",
     providers: [MessageBus],
@@ -11,7 +14,7 @@ import MessageBusReceiver from "./messagebusreceiver";
 class Receiver extends MessageBusReceiver {
     public type: string;
     constructor(messageBus: MessageBus, protected elem: ElementRef) {
-        super(messageBus, elem);
+        super(messageBus);
     }
 
     protected acceptMessage(t: IEvent): void {
@@ -21,6 +24,9 @@ class Receiver extends MessageBusReceiver {
     };
 }
 
+/**
+ *
+ */
 @Component({
     directives: [Receiver],
     selector: "messagebus-target",
@@ -31,7 +37,33 @@ class Receiver extends MessageBusReceiver {
 class MessageBusTarget {
 }
 
+/**
+ *
+ */
+@Component({
+    providers: [MessageBus],
+    selector: "messagebus-target2",
+    template: `
+        <h2>{{title}}</h2>
+    `,
+})
+class MessageBusTarget2 extends MessageBusReceiver {
+    public title: string;
+    constructor(messageBus: MessageBus) {
+        super(messageBus);
+    }
 
+    protected acceptMessage(t: IEvent): void {
+        if (t.type === "title") {
+            this.title = t.message;
+        }
+    };
+
+}
+
+/**
+ *
+ */
 @Component({
     providers: [MessageBus],
     selector: "messagebus-source",
@@ -48,12 +80,18 @@ class MessageBusSource {
     }
 }
 
+/**
+ *
+ */
 @Component({
     selector: "messagebus",
-    directives: [MessageBusTarget, MessageBusSource],
+    directives: [MessageBusTarget, MessageBusSource, MessageBusTarget2],
     template: `
         <messagebus-target></messagebus-target>
         <messagebus-source></messagebus-source>
+        <hr />
+        <h1>3. Alt target for Message Bus</h1>
+        <messagebus-target2></messagebus-target2>
     `,
 })
 class MessageBusExample {

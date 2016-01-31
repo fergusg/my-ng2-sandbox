@@ -1,8 +1,7 @@
-import {ElementRef} from "angular2/core";
 import MessageBus, {IEvent} from "./messagebus";
 
 export default class MessageBusReceiver {
-    constructor(private messageBus: MessageBus, protected elem: ElementRef) {
+    constructor(private messageBus: MessageBus) {
         this.messageBus.subscribe(
             this.acceptMessage.bind(this),
             this.onError.bind(this),
