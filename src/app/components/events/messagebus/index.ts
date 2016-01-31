@@ -31,7 +31,7 @@ class Receiver extends MessageBusReceiver {
     directives: [Receiver],
     selector: "messagebus-target",
     template: `
-        <h2 receiver="title"><em>Enter title</em></h2>
+        <h3 receiver="title"><em>Enter title</em></h3>
     `,
 })
 class MessageBusTarget {
@@ -44,11 +44,11 @@ class MessageBusTarget {
     providers: [MessageBus],
     selector: "messagebus-target2",
     template: `
-        <h2>{{title}}</h2>
+        <h3><em>{{title}}</em></h3>
     `,
 })
 class MessageBusTarget2 extends MessageBusReceiver {
-    public title: string;
+    public title: string = "Enter title";
     constructor(messageBus: MessageBus) {
         super(messageBus);
     }
@@ -58,7 +58,6 @@ class MessageBusTarget2 extends MessageBusReceiver {
             this.title = t.message;
         }
     };
-
 }
 
 /**
@@ -87,10 +86,12 @@ class MessageBusSource {
     selector: "messagebus",
     directives: [MessageBusTarget, MessageBusSource, MessageBusTarget2],
     template: `
-        <messagebus-target></messagebus-target>
         <messagebus-source></messagebus-source>
         <hr />
-        <h1>3. Alt target for Message Bus</h1>
+        <h2>Using custom receiver attribute</h2>
+        <messagebus-target></messagebus-target>
+        <hr />
+        <h2>Using direct subscription</h2>
         <messagebus-target2></messagebus-target2>
     `,
 })
