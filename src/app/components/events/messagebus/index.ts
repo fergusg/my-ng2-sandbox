@@ -1,7 +1,6 @@
 import {Component, Directive, ElementRef} from "angular2/core";
 
-import MessageBus, {IEvent} from "./messagebus";
-import MessageBusReceiver from "./messagebusreceiver";
+import MessageBus, {IEvent, MessageBusReceiver} from "./messagebus";
 
 /**
  *
