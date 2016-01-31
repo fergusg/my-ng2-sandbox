@@ -1,13 +1,13 @@
 import {Component, Directive, ElementRef} from "angular2/core";
 
 import MessageBus, {IEvent} from "./messagebus";
-import MessageBusReceiverService from "./messagebusreceiver";
+import MessageBusReceiver from "./messagebusreceiver";
 
 @Directive({
     selector: "[title-receiver]",
     providers: [MessageBus],
 })
-class TitleReceiver extends MessageBusReceiverService {
+class TitleReceiver extends MessageBusReceiver {
     constructor(messageBus: MessageBus, protected elem: ElementRef) {
         super(messageBus, elem);
     }
@@ -53,7 +53,7 @@ class MessageBusSource {
     template: `
         <messagebus-target></messagebus-target>
         <messagebus-source></messagebus-source>
-    `
+    `,
 })
 class MessageBusExample {
 }
