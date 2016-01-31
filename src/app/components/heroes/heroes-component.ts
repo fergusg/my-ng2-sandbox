@@ -6,12 +6,12 @@ import ArsePipe from "./arse-pipe";
 
 @Component({
     providers: [HeroesService],
-    selector: "heroes"
+    selector: "heroes",
 })
 @View({
     pipes: [ArsePipe],
     styleUrls: ["app/components/heroes/heroes.css"],
-    templateUrl: "app/components/heroes/heroes.html"
+    templateUrl: "app/components/heroes/heroes.html",
 })
 class HeroesComponent {
     private static LOADCOUNT: number = 0;
@@ -32,7 +32,7 @@ class HeroesComponent {
         this.title = `Tour of Heroes ${HeroesComponent.LOADCOUNT}`;
     }
 
-    public onSelect(hero: IHero) {
+    public onSelect(hero: IHero): void {
         this.selectedHero = this.selectedHero === hero ? null : hero;
     }
 

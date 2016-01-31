@@ -7,7 +7,7 @@ import {Component, View} from "angular2/core";
     template: `
     <h1>Sandbox</h1>
     <em>Nothing to see here</em>
-    `
+    `,
 })
 class SandBoxComponent {
 }

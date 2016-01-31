@@ -25,7 +25,7 @@ interface IChartData {
 })
 class SimpleGraphComponent implements OnDestroy {
     private shift: number = 0;
-    private src = "chart-data.json";
+    private src: string = "chart-data.json";
     private interval: any;
     private chart: any;
 
