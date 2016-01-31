@@ -3,8 +3,6 @@ import {Http} from "angular2/http";
 
 import {CachingService} from "../../utils/caching-service";
 
-declare var _: any;
-declare var Immutable: any;
 declare var nv: any;
 declare var d3: any;
 
