@@ -6,7 +6,7 @@
     "scripts": {
         "tsc": "tsc -p . --sourceRoot app",
         "tsc:w": "tsc -p . -w --sourceRoot app",
-        "serve": "live-server -q --ignore=node_modules,jspm_packages",
+        "serve": "live-server -q --ignore=node_modules",
         "start": "concurrent 'npm run tsc:w' 'npm run serve' ",
         "v": "tsc -v"
     },
