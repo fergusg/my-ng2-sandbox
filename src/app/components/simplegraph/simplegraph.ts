@@ -13,6 +13,11 @@ interface IChartData {
     y: number;
 }
 
+interface ISrcData {
+    timestamps: number[];
+    data: number[];
+}
+
 class DataService extends CachingService {
     constructor(http: Http) {
         super(http);
@@ -60,7 +65,7 @@ class SimpleGraphComponent implements OnDestroy {
 
         this.chart.xAxis
             .axisLabel(label.x)
-            .tickFormat((d: any) => fmt.x(new Date(d)));
+            .tickFormat((d: number) => fmt.x(new Date(d)));
 
         this.chart.yAxis
             .axisLabel(label.y)
@@ -71,7 +76,7 @@ class SimpleGraphComponent implements OnDestroy {
         this.shift++;
 
         this.dataSvc.get().subscribe(
-            (res: any): any => {
+            (res: ISrcData): void => {
                 const data: IChartData[] = [];
                 const len = res.timestamps.length;
                 for (let i = 0; i < len; i++) {
