@@ -1,5 +1,7 @@
-import {Component, ChangeDetectionStrategy, OnDestroy, ElementRef} from "angular2/core";
-import JsonLoader from "../../utils/json-loader";
+import {Component, OnDestroy, ElementRef} from "angular2/core";
+import {Http} from "angular2/http";
+
+import {CachingService} from "../../utils/caching-service";
 
 declare var _: any;
 declare var Immutable: any;
@@ -11,6 +13,14 @@ interface IChartData {
     y: number;
 }
 
+class DataService extends CachingService {
+    constructor(http: Http) {
+        super(http);
+        this.src = "chart-data.json";
+    }
+}
+
+
 @Component({
     selector: "simple-graph",
     template: "<svg></svg>",
@@ -20,17 +30,16 @@ interface IChartData {
             width: 80%;
         }`,
     ],
-    providers: [JsonLoader],
+    providers: [DataService],
 })
 class SimpleGraphComponent implements OnDestroy {
     private shift: number = 0;
-    private src: string = "chart-data.json";
     private interval: any;
     private chart: any;
 
     constructor(
         private elem: ElementRef,
-        private json: JsonLoader) {
+        private json: DataService) {
         this.initChart();
         this.interval = setInterval(this.loader, 1000);
     }
@@ -62,7 +71,7 @@ class SimpleGraphComponent implements OnDestroy {
     private loader = (): void => {
         this.shift++;
 
-        this.json.load(this.src).subscribe(
+        this.json.get().subscribe(
             (res: any): any => {
                 const data: IChartData[] = [];
                 const len = res.timestamps.length;
