@@ -65,4 +65,4 @@ class VetoComponent {
     protected heroesLink: string[] = ["/Heroes"];
 }
 
-export default VetoComponent;
+export {VetoComponent};

@@ -7,7 +7,7 @@ import {Component} from "angular2/core";
     <span *ngFor="#d of data">{{d}} </span>
     `,
 })
-export default class HomeComponent {
+export class HomeComponent {
     public title: string = "Home Page";
     public data: any[] = [];
 

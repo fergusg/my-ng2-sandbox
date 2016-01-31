@@ -87,4 +87,4 @@ class SimpleGraphComponent implements OnDestroy {
     }
 }
 
-export default SimpleGraphComponent;
+export {SimpleGraphComponent};

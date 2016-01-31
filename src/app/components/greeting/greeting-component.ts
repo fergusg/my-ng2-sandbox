@@ -8,6 +8,6 @@ import Greeting from "./greeting";
         <greeting [name]="name"></greeting>
     `,
 })
-export default class GreetingComponent {
+export class GreetingComponent {
     public name: string = "Joe Smith";
 }

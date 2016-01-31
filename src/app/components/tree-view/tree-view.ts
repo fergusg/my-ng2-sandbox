@@ -9,7 +9,7 @@ import Directory from "./directory";
         <tree-view [directories]="directories"></tree-view>
     `,
 })
-export default class TreeViewComponent {
+export class TreeViewComponent {
     @Input() public directories: Array<Directory>;
 
     constructor() {

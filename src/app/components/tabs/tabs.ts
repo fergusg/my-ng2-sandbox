@@ -45,4 +45,4 @@ class TabsComponent {
     }
 }
 
-export default TabsComponent;
+export {TabsComponent};

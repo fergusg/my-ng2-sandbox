@@ -47,4 +47,4 @@ class AddressBook {
     }
 }
 
-export default AddressBook;
+export {AddressBook};

@@ -12,4 +12,4 @@ import {Component, View} from "angular2/core";
 class SandBoxComponent {
 }
 
-export default SandBoxComponent;
+export {SandBoxComponent};

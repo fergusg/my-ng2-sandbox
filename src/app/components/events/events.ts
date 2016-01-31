@@ -21,4 +21,4 @@ import SimpleEventsComponent from "./simple/index";
 class EventsComponent {
 }
 
-export default EventsComponent;
+export {EventsComponent};

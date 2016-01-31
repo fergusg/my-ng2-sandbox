@@ -41,4 +41,4 @@ class HeroesComponent {
     }
 }
 
-export default HeroesComponent;
+export {HeroesComponent};
