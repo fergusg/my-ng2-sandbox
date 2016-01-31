@@ -24,7 +24,7 @@ class TitleReceiver extends MessageBusReceiver {
     selector: "messagebus",
     template: `
         <h2 message-bus-receiver></h2>
-        New Title <input #formTitle2 (keyup)="emitTitle(formTitle2.value)">
+        New Title <input #title (keyup)="emitTitle(title.value)">
     `,
 })
 class EventsComponent {
