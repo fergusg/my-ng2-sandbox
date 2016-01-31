@@ -20,7 +20,6 @@ class DataService extends CachingService {
     }
 }
 
-
 @Component({
     selector: "simple-graph",
     template: "<svg></svg>",
@@ -39,7 +38,7 @@ class SimpleGraphComponent implements OnDestroy {
 
     constructor(
         private elem: ElementRef,
-        private json: DataService) {
+        private dataSvc: DataService) {
         this.initChart();
         this.interval = setInterval(this.loader, 1000);
     }
@@ -71,7 +70,7 @@ class SimpleGraphComponent implements OnDestroy {
     private loader = (): void => {
         this.shift++;
 
-        this.json.get().subscribe(
+        this.dataSvc.get().subscribe(
             (res: any): any => {
                 const data: IChartData[] = [];
                 const len = res.timestamps.length;

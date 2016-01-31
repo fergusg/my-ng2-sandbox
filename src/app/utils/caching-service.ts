@@ -16,7 +16,10 @@ abstract class CachingService implements ICache {
         this.http = http;
     }
 
-    public get(): Observable<string> {
+    public get(fromCache: boolean = true): Observable<string> {
+        if (!fromCache) {
+            return this.load();
+        }
         return this.cached() || this.load();
     }
 
