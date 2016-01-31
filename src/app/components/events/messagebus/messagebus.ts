@@ -1,4 +1,4 @@
-import {EventEmitter} from "angular2/core";
+import {EventEmitter, Injectable} from "angular2/core";
 import AppConfig from "../../../config";
 
 interface IEvent {
@@ -14,8 +14,9 @@ interface IEventSubscriber {
     (generatorOrNext?: any, error?: any, complete?: any): any;
 }
 
+@Injectable()
 class MessageBus {
-    private _emitter = new EventEmitter<any>();
+    private _emitter: EventEmitter<any> = new EventEmitter<any>();
 
     public get emit(): IEventEmitter {
         return this._emitter.emit.bind(this._emitter);
