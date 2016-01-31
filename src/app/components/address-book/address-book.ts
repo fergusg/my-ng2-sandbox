@@ -41,7 +41,7 @@ class AddressBook {
 
     constructor(bookService: BookService) {
         bookService.get().subscribe(
-            (res: any): IPerson[] => this.people = res,
+            (res: IPerson[]): void => { this.people = res; },
             (): any => null
         );
     }
