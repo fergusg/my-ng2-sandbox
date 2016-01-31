@@ -10,7 +10,7 @@ class JsonLoader {
 
     public load(src: string): Observable<any> {
         return this.http.get(src).map(
-            (res: Response) => res.json()
+            (res: Response): any => res.json()
         );
     }
 }
