@@ -13,7 +13,6 @@ interface IChartData {
 
 @Component({
     selector: "simple-graph",
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: "<svg></svg>",
     styles: [`
         svg {
