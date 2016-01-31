@@ -1,6 +1,0 @@
-#.cpd.yaml
-path:
-  - app/
-languages:
-  - typescript
-  - htmlmixed   # html mixed source like knockout.js templates

@@ -38,11 +38,9 @@
         "no-arg": true,
         "no-bitwise": true,
         "no-conditional-assignment": true,
-        "no-consecutive-blank-lines": false,
+        "no-consecutive-blank-lines": true,
         "no-console": [
             true,
-            "debug",
-            "info",
             "time",
             "timeEnd",
             "trace"
