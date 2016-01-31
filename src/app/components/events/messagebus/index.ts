@@ -1,12 +1,13 @@
 import {Component, Directive, ElementRef} from "angular2/core";
 
 import MessageBus, {IEvent} from "./messagebus";
-import MessageBusReceiver from "./messagebusreceiver";
+import MessageBusReceiverService from "./messagebusreceiver";
 
 @Directive({
-    selector: "[message-bus-receiver]"
+    selector: "[title-receiver]",
+    providers: [MessageBus],
 })
-class TitleReceiver extends MessageBusReceiver {
+class TitleReceiver extends MessageBusReceiverService {
     constructor(messageBus: MessageBus, protected elem: ElementRef) {
         super(messageBus, elem);
     }
@@ -20,20 +21,41 @@ class TitleReceiver extends MessageBusReceiver {
 
 @Component({
     directives: [TitleReceiver],
-    providers: [MessageBus],
-    selector: "messagebus",
+    selector: "messagebus-target",
     template: `
-        <h2 message-bus-receiver></h2>
+        <h2 title-receiver><em>Enter title</em></h2>
+    `,
+})
+class MessageBusTarget {
+}
+
+
+@Component({
+    providers: [MessageBus],
+    selector: "messagebus-source",
+    template: `
         New Title <input #title (keyup)="emitTitle(title.value)">
     `,
 })
-class EventsComponent {
+class MessageBusSource {
     constructor(private messageBus: MessageBus) {
     }
 
     protected emitTitle(s: string): void {
+        console.log("emit", s);
         this.messageBus.emit({type: "title", message: s});
     }
 }
 
-export default EventsComponent;
+@Component({
+    selector: "messagebus",
+    directives: [MessageBusTarget, MessageBusSource],
+    template: `
+        <messagebus-target></messagebus-target>
+        <messagebus-source></messagebus-source>
+    `
+})
+class MessageBusExample {
+}
+
+export default MessageBusExample;

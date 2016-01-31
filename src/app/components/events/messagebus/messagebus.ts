@@ -16,21 +16,21 @@ interface IEventSubscriber {
 
 @Injectable()
 class MessageBus {
-    private _emitter: EventEmitter<any> = new EventEmitter<any>();
+    private static _emitter: EventEmitter<any> = new EventEmitter<any>();
 
     public get emit(): IEventEmitter {
-        return this._emitter.emit.bind(this._emitter);
+        return MessageBus._emitter.emit.bind(MessageBus._emitter);
     }
 
     public get subscribe(): IEventSubscriber {
-        return this._emitter
+        return MessageBus._emitter
             .debounceTime(AppConfig.debounceTime)
             .subscribe
-            .bind(this._emitter);
+            .bind(MessageBus._emitter);
     }
 
     public get emitter(): EventEmitter<any> {
-        return this._emitter;
+        return MessageBus._emitter;
     }
 }
 
