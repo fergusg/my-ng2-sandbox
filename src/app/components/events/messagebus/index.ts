@@ -4,26 +4,28 @@ import MessageBus, {IEvent} from "./messagebus";
 import MessageBusReceiver from "./messagebusreceiver";
 
 @Directive({
-    selector: "[title-receiver]",
+    selector: "[receiver]",
     providers: [MessageBus],
+    inputs: ["type:receiver"],
 })
-class TitleReceiver extends MessageBusReceiver {
+class Receiver extends MessageBusReceiver {
+    public type: string;
     constructor(messageBus: MessageBus, protected elem: ElementRef) {
         super(messageBus, elem);
     }
 
     protected acceptMessage(t: IEvent): void {
-        if (t.type === "title") {
+        if (!this.type || t.type === this.type) {
             this.elem.nativeElement.innerText = t.message;
         }
     };
 }
 
 @Component({
-    directives: [TitleReceiver],
+    directives: [Receiver],
     selector: "messagebus-target",
     template: `
-        <h2 title-receiver><em>Enter title</em></h2>
+        <h2 receiver="title"><em>Enter title</em></h2>
     `,
 })
 class MessageBusTarget {
@@ -42,7 +44,6 @@ class MessageBusSource {
     }
 
     protected emitTitle(s: string): void {
-        console.log("emit", s);
         this.messageBus.emit({type: "title", message: s});
     }
 }
