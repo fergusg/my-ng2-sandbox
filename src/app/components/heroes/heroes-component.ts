@@ -1,4 +1,4 @@
-import {Component, View} from "angular2/core";
+import {Component} from "angular2/core";
 import {Http} from "angular2/http";
 import IHero from "./hero";
 import HeroesService from "./heroes-service";
@@ -7,8 +7,6 @@ import ArsePipe from "./arse-pipe";
 @Component({
     providers: [HeroesService],
     selector: "heroes",
-})
-@View({
     pipes: [ArsePipe],
     styleUrls: ["app/components/heroes/heroes.css"],
     templateUrl: "app/components/heroes/heroes.html",

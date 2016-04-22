@@ -1,8 +1,10 @@
+///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
+
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/observable/fromArray"; // gives us .of()
 
-import {Component, View, provide} from "angular2/core";
+import {Component, provide} from "angular2/core";
 import {bootstrap} from "angular2/platform/browser";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
@@ -25,9 +27,7 @@ import {
 } from "./components";
 
 @Component({
-    selector: "index"
-})
-@View({
+    selector: "index",
     directives: [ROUTER_DIRECTIVES, NavLink],
     styles: [`
         a { text-decoration: none; }

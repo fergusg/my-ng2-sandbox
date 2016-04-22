@@ -1,4 +1,4 @@
-import {Component, View, Directive} from "angular2/core";
+import {Component, Directive} from "angular2/core";
 import {Router} from "angular2/router";
 
 @Directive({
@@ -51,9 +51,7 @@ class Veto {
 }
 
 @Component({
-    selector: "home"
-})
-@View({
+    selector: "home",
     directives: [Veto],
     template: `
     <h1>Veto clicks</h1>

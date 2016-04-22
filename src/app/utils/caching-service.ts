@@ -8,7 +8,7 @@ interface ICache {
 
 @Injectable()
 abstract class CachingService implements ICache {
-    protected static CACHE: Map<string, string> = new Map<string, any>();
+    protected static CACHE: Map<string, any> = new Map<string, any>();
     protected src: string;
     protected http: Http;
 
@@ -16,19 +16,19 @@ abstract class CachingService implements ICache {
         this.http = http;
     }
 
-    public get(fromCache: boolean = true): Observable<string> {
+    public get(fromCache: boolean = true): Observable<any> {
         if (!fromCache) {
             return this.load();
         }
         return this.cached() || this.load();
     }
 
-    private cached(): Observable<string> {
+    private cached(): Observable<any> {
         let r: any = CachingService.CACHE.get(this.src);
         return r ? Observable.of(r) : null;
     }
 
-    private load(): Observable<string> {
+    private load(): Observable<any> {
         return this.http.get(this.src).map(
             (res: Response) => {
                 let r: string = res.json();

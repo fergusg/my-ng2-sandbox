@@ -17,7 +17,6 @@ class EventsComponent {
     protected changeTitle(t: string): void {
         this.title = t;
     }
-
 }
 
 export default EventsComponent;
