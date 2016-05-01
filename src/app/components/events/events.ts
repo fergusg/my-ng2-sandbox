@@ -15,7 +15,7 @@ import SimpleEventsComponent from "./simple/index";
 
         <hr>
         <h1>2. With message bus</h1>
-        <xmessagebus></xmessagebus>
+        <messagebus></messagebus>
     `,
 })
 class EventsComponent {

@@ -9,7 +9,7 @@
 */
 
 declare var System: any; // SystemJS imported globally
-import {Component, ElementRef, DynamicComponentLoader, Type} from "angular2/core";
+import {Component, ElementRef, DynamicComponentLoader, Type, Injector} from "angular2/core";
 
 /**
  * name: (optional) module export to use
@@ -25,13 +25,13 @@ function componentProxyFactory(
     "use strict";
     @Component({
         selector,
-        template: `<div #content></div>`,
+        template: `<div id="content"></div>`,
     })
     class VirtualComponent {
-        constructor(loader: DynamicComponentLoader, elem: ElementRef) {
+        constructor(loader: DynamicComponentLoader, elem: ElementRef, injector: Injector) {
             System.import(provider.path)
                 .then((m: any): void => {
-                    loader.loadIntoLocation(m[provider.name || "default"], elem, "content");
+                    loader.loadAsRoot(m[provider.name || "default"], "#content", injector);
                 });
         }
     }

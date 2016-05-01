@@ -2,13 +2,14 @@
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/debounceTime";
-import "rxjs/add/observable/fromArray"; // gives us .of()
+import "rxjs/add/observable/of"; // gives us .of()
 
 import {Component, provide} from "angular2/core";
 import {bootstrap} from "angular2/platform/browser";
+import {LocationStrategy, HashLocationStrategy} from "angular2/platform/common";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
-import {Router, RouteDefinition, LocationStrategy, HashLocationStrategy} from "angular2/router";
+import {Router, RouteDefinition} from "angular2/router";
 
 import {makeRoute, makeLazyRoute, IRoute, IRouteDef} from "./utils/route-helper";
 import NavLink from "./utils/nav-link-directive";
@@ -38,7 +39,7 @@ import {
         .nav-style-2 { color: blue; text-decoration: underline; }
     `, ],
     template: `
-        <span *ngFor="#route of routes; #idx=index">
+        <span *ngFor="let route of routes; let idx=index">
             <a [nav-link-enabled]="isEnabled(route.name)"
                 [nav-link-active]="getLinkStyle(idx)"
                 [nav-link]="[route.name]"
