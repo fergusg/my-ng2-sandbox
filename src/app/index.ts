@@ -2,7 +2,7 @@
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/debounceTime";
-import "rxjs/add/observable/of"; // gives us .of()
+import "rxjs/add/observable/of";
 
 import {Component, provide} from "angular2/core";
 import {bootstrap} from "angular2/platform/browser";
@@ -37,7 +37,8 @@ import {
         .nav-style-0 { color: green; text-decoration: underline;}
         .nav-style-1 { color: red; text-decoration: underline; }
         .nav-style-2 { color: blue; text-decoration: underline; }
-    `, ],
+    `,
+    ],
     template: `
         <span *ngFor="let route of routes; let idx=index">
             <a [nav-link-enabled]="isEnabled(route.name)"
@@ -57,7 +58,7 @@ class Index {
 
     public routes: IRoute[];
 
-    private vetoRegex: any = /Unclickable/;
+    private vetoRegex: RegExp = /Unclickable/;
 
     // We don't use @RouteConfig so we can avoid a global ROUTES variable
     constructor(router: Router) {
@@ -89,7 +90,7 @@ class Index {
             lroute(
                 {
                     name: "About",
-                    text: "Abooot",
+                    text: "Lazy2",
                     provider: {
                         path: "./app/components/lazy-loaded/lazy-loaded"
                     },
