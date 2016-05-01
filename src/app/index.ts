@@ -47,7 +47,7 @@ import {
             >{{route.text}}</a></span>
         <a nav-link-active="nav-style-1" [nav-link]="['SandBox']">SandBox2</a>
         <a nav-link-active="nav-style-1" [nav-link]="['SandBox']"
-            [nav-link-enabled]="false">Sandbox(Unclickable)</a>
+            [nav-link-enabled]="false">Unclickable</a>
         <router-outlet></router-outlet>
     `,
 })

@@ -13,7 +13,7 @@ const __TEMPLATE: string = `
 
     <div *ngIf="!people">loading...</div>
     <table class="table" *ngIf="people">
-        <tr *ngFor="#person of people">
+        <tr *ngFor="let person of people">
             <td class="name">{{person.name}}</td>
             <td class="address">{{person.address}}</td>
         </tr>

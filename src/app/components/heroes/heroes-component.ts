@@ -4,12 +4,15 @@ import IHero from "./hero";
 import HeroesService from "./heroes-service";
 import ArsePipe from "./arse-pipe";
 
+declare var module: any;
+
 @Component({
     providers: [HeroesService],
     selector: "heroes",
+    moduleId: module.id,
     pipes: [ArsePipe],
-    styleUrls: ["app/components/heroes/heroes.css"],
-    templateUrl: "app/components/heroes/heroes.html",
+    styleUrls: ["./heroes.css"],
+    templateUrl: "./heroes.html",
 })
 class HeroesComponent {
     private static LOADCOUNT: number = 0;

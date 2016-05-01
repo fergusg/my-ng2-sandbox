@@ -1,0 +1,11 @@
+<h1>Veto clicks</h1>
+<p>
+    <a [veto-router-link]='["/Heroes"]' [veto-if]="vetoClick">
+        <span *ngIf="vetoClick">Can't click me</span>
+        <span *ngIf="!vetoClick">Go to Heroes</span>
+    </a>
+</p>
+
+<div>
+    <button (click)="toggle()">Toggle veto</button>
+</div>

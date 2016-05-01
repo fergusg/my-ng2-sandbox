@@ -4,7 +4,7 @@ import {Component} from "angular2/core";
     selector: "home",
     template: `
     <h1>{{title}}</h1>
-    <span *ngFor="#d of data">{{d}} </span>
+    <span *ngFor="let d of data">{{d}} </span>
     `,
 })
 export class HomeComponent {
@@ -16,15 +16,8 @@ export class HomeComponent {
     }
 
     private load(N: number = 100): void {
-        let i: any, delta: any;
-        for (i = 0, delta = 2000.0 / N; i < N; i++) {
-            ((j: number) => {
-                window.setTimeout(() => this.data.push(`${j}, `), j * delta);
-            })(i);
+        for (let i = 0, delta = 2000.0 / N; i < N; i++) {
+            window.setTimeout(() => this.data.push(`${i}, `), i * delta);
         }
-        // tsc doesn"t support let in loops properly yet.
-        // for (let q = 0, delta = 2000.0 / N; q < N; q++) {
-        //     window.setTimeout(() => this.data.push(`${q}, `), q * delta);
-        // }
     }
 }

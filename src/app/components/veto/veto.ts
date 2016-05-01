@@ -1,42 +1,38 @@
-import {Component, Directive} from "angular2/core";
+import {Component, Directive, Input, OnInit} from "angular2/core";
 import {Router} from "angular2/router";
+import {LocationStrategy} from "angular2/platform/common";
+
+declare var module: any;
 
 @Directive({
     // This is a CSS selector.  It"s confusing that the template syntax ALSO uses []
     selector: "[veto-router-link]",
     host: {
         "(click)": "onClick($event)",
-        "[attr.href]": "getLink()",
+        "[attr.href]": "link",
     },
-    // aaa:bbb means "make this.aaa = attr.bbb"
-    // Note 1: if both use the same name, then can use just "aaa"
-    // Note 2: can use either "veto-if" or camelCase "vetoIf"
-    inputs: [
-        "veto:veto-if",
-        "route:veto-router-link",
-    ],
 })
-class Veto {
-    private route: any[];
-    private veto: boolean;
-    private router: Router;
+class Veto implements OnInit {
+    protected link: string;
+    @Input("veto-router-link") private route: any[];
+    @Input("veto-if") private veto: boolean;
 
-    constructor(router: Router) {
-        this.router = router;
+    constructor(private router: Router, private locationStrategy: LocationStrategy) {
     }
 
-    protected getLink(): string {
+    public ngOnInit(): void {
         // <a>"s only normally render as expected with an explicit href,
         // so try to generate somthing better than href="#".
+
         // The actual href is ignored via event.preventDefault()
+
         if (typeof this.veto === "undefined") {
             throw "veto-router-link needs a veto-if condition";
         }
         let instruction = this.router.generate(this.route);
-        // I don"t know how to generate a proper URL reliably. There"s a
-        // stringifyInstruction() but that"s hidden.
-        return `#/${instruction.component.urlPath}`;
+        this.link = this.locationStrategy.prepareExternalUrl(instruction.toUrlPath());
     }
+
 
     // "onClick" is NOT a magic name - the click event is mapped to a function
     // via the "host" defintion above
@@ -53,14 +49,14 @@ class Veto {
 @Component({
     selector: "home",
     directives: [Veto],
-    template: `
-    <h1>Veto clicks</h1>
-    <a [veto-router-link]="heroesLink" [veto-if]="true">Can't click me</a>
-    <a [veto-router-link]="heroesLink" [veto-if]="false">Heroes</a>
-    `,
+    moduleId: module.id,
+    templateUrl: "./veto.html",
 })
 class VetoComponent {
-    protected heroesLink: string[] = ["/Heroes"];
+    protected vetoClick = true;
+    protected toggle(): void {
+        this.vetoClick = !this.vetoClick;
+    }
 }
 
 export {VetoComponent};

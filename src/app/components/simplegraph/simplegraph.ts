@@ -1,4 +1,4 @@
-import {Component, OnDestroy, ElementRef} from "angular2/core";
+import {Component, OnDestroy, OnInit, ElementRef} from "angular2/core";
 import {Http} from "angular2/http";
 
 import {CachingService} from "../../utils/caching-service";
@@ -34,7 +34,7 @@ class DataService extends CachingService {
     ],
     providers: [DataService],
 })
-class SimpleGraphComponent implements OnDestroy {
+class SimpleGraphComponent implements OnDestroy, OnInit {
     private shift: number = 0;
     private interval: any;
     private chart: any;
@@ -42,11 +42,20 @@ class SimpleGraphComponent implements OnDestroy {
     constructor(
         private elem: ElementRef,
         private dataSvc: DataService) {
-        this.initChart();
-        this.interval = setInterval(this.loader, 1000);
     }
 
-    private initChart = (): void => {
+    public ngOnDestroy(): void {
+        console.log("Destroyed");
+        clearInterval(this.interval);
+    }
+
+    public ngOnInit(): void {
+        this.initChart();
+        this.loader();
+        this.interval = setInterval(this.loader.bind(this), 1000);
+    }
+
+    private initChart(): void {
         this.chart = nv.models.lineChart()
             .margin({ left: "100" })
             .showLegend(false);
@@ -68,9 +77,10 @@ class SimpleGraphComponent implements OnDestroy {
         this.chart.yAxis
             .axisLabel(label.y)
             .tickFormat((v: number) => fmt.y(Math.floor(v / 1000)));
+
     };
 
-    private loader = (): void => {
+    private loader(): void {
         this.shift++;
 
         this.dataSvc.get().subscribe(
@@ -91,10 +101,6 @@ class SimpleGraphComponent implements OnDestroy {
         );
     };
 
-    public ngOnDestroy(): void {
-        console.log("Destroyed");
-        clearInterval(this.interval);
-    }
 }
 
 export {SimpleGraphComponent};

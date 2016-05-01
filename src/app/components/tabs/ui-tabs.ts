@@ -6,10 +6,10 @@ import UiPane from "./ui-pane";
     selector: "ui-tabs",
     template: `
     <ul class="nav nav-tabs">
-      <li *ngFor="var pane of panes"
+      <li *ngFor="let pane of panes"
           (click)="select(pane)"
           role="presentation" [class.active]="pane.active">
-        <a xhref="javascript: false">{{pane.title}}</a>
+        <a>{{pane.title}}</a>
       </li>
     </ul>
     <ng-content></ng-content>
