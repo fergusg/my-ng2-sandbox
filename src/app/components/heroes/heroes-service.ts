@@ -1,4 +1,4 @@
-import {Http} from "angular2/http";
+import {Http} from "@angular/http";
 import {CachingService} from "../../utils/caching-service";
 
 export default class HeroesService extends CachingService {

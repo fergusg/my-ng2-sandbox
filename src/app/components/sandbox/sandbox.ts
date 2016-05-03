@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from "angular2/core";
+import {Component, Inject, OnInit} from "@angular/core";
 import {CachingService} from "../../utils/caching-service";
 
 

@@ -1,4 +1,4 @@
-import {Component} from "angular2/core";
+import {Component} from "@angular/core";
 import UiTabs from "./ui-tabs";
 import UiPane from "./ui-pane";
 

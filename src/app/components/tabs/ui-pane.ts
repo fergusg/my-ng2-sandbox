@@ -1,5 +1,5 @@
 import {Directive, Input, ViewContainerRef, TemplateRef}
-from "angular2/core";
+from "@angular/core";
 
 @Directive({
     selector: "[ui-pane]"
@@ -7,11 +7,11 @@ from "angular2/core";
 class UiPane {
     @Input() public title: string;
     public viewContainer: ViewContainerRef;
-    public templateRef: TemplateRef;
+    public templateRef: TemplateRef<any>;
 
     private _active: boolean = false;
 
-    constructor(viewContainer: ViewContainerRef, templateRef: TemplateRef) {
+    constructor(viewContainer: ViewContainerRef, templateRef: TemplateRef<any>) {
         this.viewContainer = viewContainer;
         this.templateRef = templateRef;
     }

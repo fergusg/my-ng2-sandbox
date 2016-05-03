@@ -1,15 +1,14 @@
-///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/observable/of";
 
-import {Component, provide} from "angular2/core";
-import {bootstrap} from "angular2/platform/browser";
-import {LocationStrategy, HashLocationStrategy} from "angular2/platform/common";
-import {HTTP_PROVIDERS} from "angular2/http";
-import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "angular2/router";
-import {Router, RouteDefinition} from "angular2/router";
+import {Component, provide} from "@angular/core";
+import {bootstrap} from "@angular/platform-browser-dynamic";
+import {LocationStrategy, HashLocationStrategy} from "@angular/common";
+import {HTTP_PROVIDERS} from "@angular/http";
+import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {Router, RouteDefinition} from "@angular/router-deprecated";
 
 import {makeRoute, makeLazyRoute, IRoute, IRouteDef} from "./utils/route-helper";
 import NavLink from "./utils/nav-link-directive";

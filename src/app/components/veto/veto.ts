@@ -1,6 +1,6 @@
-import {Component, Directive, Input, OnInit} from "angular2/core";
-import {Router} from "angular2/router";
-import {LocationStrategy} from "angular2/platform/common";
+import {Component, Directive, Input, OnInit} from "@angular/core";
+import {Router} from "@angular/router-deprecated";
+import {LocationStrategy} from "@angular/common";
 
 declare var module: any;
 

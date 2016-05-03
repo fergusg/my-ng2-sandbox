@@ -1,6 +1,6 @@
 declare var System: any; // SystemJS imported globally
 
-import {Route, AsyncRoute, RouteDefinition} from "angular2/router";
+import {Route, AsyncRoute, RouteDefinition} from "@angular/router-deprecated";
 
 import {IComponentProvider, componentProxyFactory} from "./component-proxy-factory";
 

@@ -9,7 +9,7 @@
 */
 
 declare var System: any; // SystemJS imported globally
-import {Component, ElementRef, DynamicComponentLoader, Type, Injector} from "angular2/core";
+import {Component, ElementRef, DynamicComponentLoader, Type, Injector} from "@angular/core";
 
 /**
  * name: (optional) module export to use

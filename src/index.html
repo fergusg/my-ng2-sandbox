@@ -10,32 +10,19 @@
 
     <base href="/">
 
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="node_modules/es6-shim/es6-shim.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <!--Alas, nvd3 is not module loader friendly.-->
     <script src="node_modules/d3/d3.min.js"></script>
     <script src="node_modules/nvd3/build/nv.d3.min.js"></script>
 
+    <script src="node_modules/es6-shim/es6-shim.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+
+    <!--Alas, nvd3 is not module loader friendly.-->
+
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
+
     <script>
-        System.config({
-            packages: {
-                app: {}
-            },
-            defaultJSExtensions: "js",
-            paths: {
-                '*': 'node_modules/*',
-                'app/*': 'app/*'
-            },
-            map: {
-                text: "system-text/text.js"
-            },
-            meta: {
-                'app/**/*.html': {
-                    loader: 'text'
-                }
-            }
-        });
         System.import('app/index')
            .then(null, console.error.bind(console));
     </script>

@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from "angular2/core";
+import {EventEmitter, Injectable} from "@angular/core";
 import AppConfig from "../../../config";
 
 interface IEvent {

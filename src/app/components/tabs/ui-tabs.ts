@@ -1,4 +1,4 @@
-import {Component, QueryList, ContentChildren} from "angular2/core";
+import {Component, QueryList, ContentChildren} from "@angular/core";
 
 import UiPane from "./ui-pane";
 

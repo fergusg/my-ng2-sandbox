@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit, ElementRef} from "angular2/core";
-import {Http} from "angular2/http";
+import {Component, OnDestroy, OnInit, ElementRef} from "@angular/core";
+import {Http} from "@angular/http";
 
 import {CachingService} from "../../utils/caching-service";
 

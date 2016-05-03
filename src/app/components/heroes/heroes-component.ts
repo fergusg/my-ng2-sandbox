@@ -1,5 +1,5 @@
-import {Component} from "angular2/core";
-import {Http} from "angular2/http";
+import {Component} from "@angular/core";
+import {Http} from "@angular/http";
 import IHero from "./hero";
 import HeroesService from "./heroes-service";
 import ArsePipe from "./arse-pipe";
